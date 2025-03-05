@@ -7,7 +7,7 @@ const LoginPage = () => {
     <div className="login-container">
       <div className="login-box">
         <h1>Welcome!</h1>
-        <h2>Sign in to speakease</h2>
+        <h2>Sign in to SpeakEase</h2>
         <p>Improve your performance</p>
         <form>
           <div className="input-group">

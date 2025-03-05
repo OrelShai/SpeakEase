@@ -8,20 +8,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100%;
 }
 
 /* Main Container */
 .register-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    max-width: 1200px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 /* Register Box */
