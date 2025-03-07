@@ -120,11 +120,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* -- ROBOT & USER ILLUSTRATION SECTION (MID-PAGE) -- */}
-      <section className="robot-section">
-        <img src="/images/woman_and_robot.png" alt="Robot and user" />
-      </section>
-
       {/* -- FAQ SECTION -- */}
       <section className="faq">
         <h2>FAQ</h2>
