@@ -61,12 +61,8 @@
   /* ========== HERO SECTION ========== */
   .hero {
     position: relative;
-    /* Instead of fixed height, use min-height for better scrolling */
     min-height: 60vh; 
     background: url("/public/images/woman_and_robot.png") center center / cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   
   .hero-overlay {
@@ -79,10 +75,12 @@
   }
   
   .hero-content {
-    position: relative;
+    position: absolute;
+    bottom: 0px; /* distance from bottom */
+    left: 20px;   /* distance from left */
     color: #fff;
-    z-index: 1; /* Above the overlay */
-    text-align: center;
+    text-align: left; /* make sure text is aligned left */
+    z-index: 1;
   }
   
   .hero-content h1 {
@@ -90,8 +88,8 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #f9f9f9;
-    font-family: 'Segoe UI', Tahoma;
-  }
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
   
   /* ========== SCENARIOS SECTION ========== */
   .scenarios {
@@ -115,18 +113,25 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
   
-  .scenario img {
+  .scenario-button img {
     width: 100%;
     height: auto;
     border-radius: 15px;
   }
   
-  .scenario p {
+  .scenario-button p {
     margin-top: 10px;
     font-weight: bold;
     color: #333;
+    font-size: large;
   }
-  
+
+  /* Hover effect */
+  .scenario-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
   /* ========== DARK BAR ========== */
   .dark-bar {
     background-color: #333;

@@ -25,42 +25,51 @@ const HomePage = () => {
       </section>
 
       {/* -- SCENARIOS SECTION -- */}
-      <section className="scenarios">
-        <div className="scenario-grid">
-          <div className="scenario">
-            <img src="/images/scenarios/dating.jpg" alt="First Date" />
-            <p>First Date</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
-            <p>Job Interview</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
-            <p>Casual Conversation</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
-            <p>Presentation</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
-            <p>Negotiation</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
-            <p>Debate or Argument</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
-            <p>Storytelling</p>
-          </div>
-          <div className="scenario">
-            <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
-            <p>Custom Built</p>
-          </div>
-        </div>
-      </section>
+{/* -- SCENARIOS SECTION -- */}
+<section className="scenarios">
+  <div className="scenario-grid">
+    <button className="scenario-button">
+      <img src="/images/scenarios/dating.jpg" alt="First Date" />
+      <p>First Date</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
+      <p>Job Interview</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
+      <p>Casual Conversation</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
+      <p>Presentation</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
+      <p>Negotiation</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
+      <p>Debate or Argument</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
+      <p>Storytelling</p>
+    </button>
+
+    <button className="scenario-button">
+      <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
+      <p>Custom Built</p>
+    </button>
+  </div>
+</section>
+
 
       {/* -- DARK BAR FOR COOKIE CONSENT / NOTICE -- */}
       <section className="dark-bar">
