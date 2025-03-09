@@ -1,4 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -11,8 +15,9 @@ const HomePage = () => {
           <span className="brand-name">SpeakEase</span>
         </div>
         <div className="navbar-right">
-          <button className="login-btn">Log In</button>
-          <button className="signup-btn">Sign Up</button>
+          <Link to="/login" className="login-icon">
+            <FontAwesomeIcon icon={faUser} />
+          </Link>
         </div>
       </nav>
 
@@ -25,51 +30,49 @@ const HomePage = () => {
       </section>
 
       {/* -- SCENARIOS SECTION -- */}
-{/* -- SCENARIOS SECTION -- */}
-<section className="scenarios">
-  <div className="scenario-grid">
-    <button className="scenario-button">
-      <img src="/images/scenarios/dating.jpg" alt="First Date" />
-      <p>First Date</p>
-    </button>
+      <section className="scenarios">
+        <div className="scenario-grid">
+          <button className="scenario-button">
+            <img src="/images/scenarios/dating.jpg" alt="First Date" />
+            <p>First Date</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
-      <p>Job Interview</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
+            <p>Job Interview</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
-      <p>Casual Conversation</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
+            <p>Casual Conversation</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
-      <p>Presentation</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
+            <p>Presentation</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
-      <p>Negotiation</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
+            <p>Negotiation</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
-      <p>Debate or Argument</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
+            <p>Debate or Argument</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
-      <p>Storytelling</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
+            <p>Storytelling</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
-      <p>Custom Built</p>
-    </button>
-  </div>
-</section>
-
+          <button className="scenario-button">
+            <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
+            <p>Custom Built</p>
+          </button>
+        </div>
+      </section>
 
       {/* -- DARK BAR FOR COOKIE CONSENT / NOTICE -- */}
       <section className="dark-bar">
