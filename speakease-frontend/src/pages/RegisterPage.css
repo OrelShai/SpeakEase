@@ -1,4 +1,4 @@
-/* LoginPage.css */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,148 +9,120 @@ body {
     align-items: center;
     height: 100vh;
     width: 100%;
-  }
-  
-  .login-container {
+}
+
+/* Main Container */
+.register-container {
     display: flex;
     width: 100%;
     height: 100vh;
     background-color: transparent;
     box-shadow: none;
     border-radius: 0;
-  }
-  
-  .login-box {
+}
+
+/* Register Box */
+.register-box {
     flex: 1;
     padding: 40px;
-  }
-  
-  h1 {
+}
+
+/* Titles */
+h1 {
     font-size: 2rem;
     margin: 0;
     color: #333;
-  }
-  
-  h2 {
+}
+
+h2 {
     font-size: 1.5rem;
     margin-top: 10px;
     color: #555;
-  }
-  
-  p {
+}
+
+p {
     margin: 10px 0;
     color: #777;
-  }
-  
-  .input-group {
+}
+
+/* Input Groups */
+.input-group {
     margin-bottom: 20px;
-  }
-  
-  label {
+}
+
+label {
     display: block;
     font-size: 0.9rem;
     margin-bottom: 5px;
     color: #555;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 1rem;
-  }
-  
-  .toggle-password {
+}
+
+/* Password Toggle */
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-  }
-  
-  .options {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .forgot-password {
-    color: #007BFF;
-    text-decoration: none;
-    font-size: 0.9rem;
-  }
-  
-  .forgot-password:hover {
-    text-decoration: underline;
-  }
-  
-  .login-button {
+}
+
+/* Register Button */
+.register-button {
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    background-color: black;
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
     cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .social-login {
+}
+
+.register-button:hover {
+    background-color: #333;
+}
+
+/* Login Link */
+.login-link {
     text-align: center;
     margin-top: 20px;
-  }
-  
-  .social-login .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .social-login .social-icons button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    border-radius: 50%;
-  }
-  
-  .social-login .social-icons img {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .register {
-    text-align: center;
-    margin-top: 20px;
+    font-size: 0.9rem;
     color: #555;
-  }
-  
-  .register a {
-    color: #007BFF;
+}
+
+.login-link a {
+    color: black;
     text-decoration: none;
-  }
-  
-  .register a:hover {
+}
+
+.login-link a:hover {
     text-decoration: underline;
-  }
-  
-  .illustration {
+}
+
+/* Illustration */
+.illustration {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-  }
-  
-  .illustration img {
+}
+
+.illustration img {
     max-width: 100%;
     height: auto;
-  }
-  
+}
