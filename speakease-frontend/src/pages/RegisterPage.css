@@ -14,7 +14,7 @@ body {
 /* Main Container */
 .register-container {
     display: flex;
-    width: 100%;
+    width: 200%;
     height: 100vh;
     background-color: transparent;
     box-shadow: none;
