@@ -9,84 +9,11 @@
     background-color: #f9f9f9;
     height: auto;
   }
-  
-  .dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-  }
-  
+
   .homepage {
     width: 200%;
   }
-  
-  /* ========== NAVBAR ========== */
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  .navbar.dark-mode {
-    background-color: #1e1e1e;
-  }
 
-  .login-icon, .dark-mode-icon {
-    margin-left: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #000; /* Default color for light mode */
-  }
-  
-  .dark-mode-icon {
-    margin-left: 0;
-  }
-  
-  body.dark-mode .login-icon, 
-  body.dark-mode .dark-mode-icon {
-    color: #fff; /* Color for dark mode */
-  }
-  
-  .dark-mode-icon {
-    color: #000; /* Sun icon color for light mode */
-    background-color: #fff;
-  }
-  
-  body.dark-mode .dark-mode-icon {
-    color: #fff; /* Sun icon color for dark mode */
-  }
-  
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 200px;
-    height: 40px;
-    margin-right: 10px;
-  }
-  
-  .navbar-right button {
-    margin-left: 10px;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    border-radius: 4px;
-  }
-  
-  .login-btn {
-    background-color: transparent;
-  }
-  
-  
   /* ========== HERO SECTION ========== */
   .hero {
     position: relative;

@@ -8,35 +8,51 @@ nav {
     z-index: 10; /* Ensures the navbar is always on top */
   }
 
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .logo {
+    cursor: pointer; /* Changes the cursor to a pointer */
+    width: 200px;
+    height: 40px;
+    margin-right: 10px;
+  }
+
+
+.navbar-left {
+    display: flex; /* Flexbox layout for the left section */
+    align-items: center; /* Center items vertically */
+  }
+
+.navbar-right {
+    display: flex; /* Flexbox layout for the right section */
+    align-items: center; /* Center items vertically */
+  }
+
+.navbar-right button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    border: none;
     cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 4px;
   }
-  
-  .nav-left i {
-    font-size: 30px;
-    margin-right: 25px;
-    color: var(--primary-text-color);
+
+.login-icon {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #000; /* Default color for light mode */
   }
-  
-  .nav-right i {
-    width: 25px;
-    margin-right: 25px;
-    font-size: 24px;
-    color: var(--primary-text-color);
+
+  /* ========== DARK MODE ========== */
+  .dark-mode-icon {
+    color: #000; /* Sun icon color for light mode */
+    background-color: #fff;
   }
-  
-  .nav-right .profile {
-    width: 35px;
-    height: 35px; /* Ensures the height is equal to the width for a perfect circle */
-    margin-right: 25px;
-    border-radius: 50%; /* Makes the image circular */
-    object-fit: cover; /* Ensures the image covers the area without stretching */
-  }
-  
-  .nav-right .logged-in-quote {
-    margin-right: 25px;
-    color: var(--primary-text-color);
-    font-size: 16px;
-    font-weight: 500;
-  }
-  
