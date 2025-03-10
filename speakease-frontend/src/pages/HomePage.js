@@ -18,8 +18,7 @@ const HomePage = () => {
       {/* -- NAVIGATION BAR -- */}
       <nav className="navbar">
         <div className="navbar-left">
-          <img src="/images/logo.png" alt="Logo" className="logo" />
-          <span className="brand-name">SpeakEase</span>
+        <img src={darkMode ? "/images/navbar/SpeakEaseLogo-DarkMode.png" : "/images/navbar/SpeakEaseLogo-LightMode.png"} alt="Logo" className="logo" />
         </div>
         <div className="navbar-right">
           <button onClick={toggleDarkMode} className="dark-mode-icon">

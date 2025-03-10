@@ -68,14 +68,9 @@
   }
   
   .logo {
-    width: 40px;
+    width: 200px;
     height: 40px;
     margin-right: 10px;
-  }
-  
-  .brand-name {
-    font-size: 1.2rem;
-    font-weight: bold;
   }
   
   .navbar-right button {
