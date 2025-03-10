@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faSun } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.css";
 
 const HomePage = () => {
+  // Dark mode state
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle("dark-mode", !darkMode);
+  };
+
   return (
-    <div className="homepage">
+    <div className={`homepage ${darkMode ? "dark-mode" : ""}`}>
       {/* -- NAVIGATION BAR -- */}
       <nav className="navbar">
         <div className="navbar-left">
@@ -15,6 +22,9 @@ const HomePage = () => {
           <span className="brand-name">SpeakEase</span>
         </div>
         <div className="navbar-right">
+          <button onClick={toggleDarkMode} className="dark-mode-icon">
+            <FontAwesomeIcon icon={faSun} />
+          </button>
           <Link to="/login" className="login-icon">
             <FontAwesomeIcon icon={faUser} />
           </Link>

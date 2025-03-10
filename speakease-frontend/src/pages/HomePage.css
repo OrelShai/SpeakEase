@@ -10,6 +10,11 @@
     height: auto;
   }
   
+  body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
   .homepage {
     width: 200%;
   }
@@ -24,7 +29,39 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
   
+  .navbar.dark-mode {
+    background-color: #1e1e1e;
+  }
+
+  .login-icon, .dark-mode-icon {
+    margin-left: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #000; /* Default color for light mode */
+  }
+  
+  .dark-mode-icon {
+    margin-left: 0;
+  }
+  
+  body.dark-mode .login-icon, 
+  body.dark-mode .dark-mode-icon {
+    color: #fff; /* Color for dark mode */
+  }
+  
+  .dark-mode-icon {
+    color: #000; /* Sun icon color for light mode */
+  }
+  
+  body.dark-mode .dark-mode-icon {
+    color: #fff; /* Sun icon color for dark mode */
+  }
+  
   .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  .navbar-right {
     display: flex;
     align-items: center;
   }
@@ -61,6 +98,10 @@
     background: url("/public/images/woman_and_robot.png") center center / cover no-repeat;
   }
   
+  .hero.dark-mode {
+    background-color: #1e1e1e;
+  }
+  
   .hero-overlay {
     position: absolute;
     top: 0;
@@ -91,6 +132,10 @@
   .scenarios {
     background-color: #fff;
     padding: 40px 20px;
+  }
+  
+  .scenarios.dark-mode {
+    background-color: #1e1e1e;
   }
   
   .scenario-grid {
@@ -139,6 +184,10 @@
     justify-content: space-between;
   }
   
+  .dark-bar.dark-mode {
+    background-color: #1e1e1e;
+  }
+  
   .dark-bar p {
     margin: 0;
     margin-bottom: 5px;
@@ -177,6 +226,10 @@
     margin: 0 auto;
   }
   
+  .guidance.dark-mode {
+    background-color: #1e1e1e;
+  }
+  
   .guidance h2 {
     font-size: 2rem;
     margin-bottom: 30px;
@@ -213,6 +266,10 @@
   .testimonials {
     padding: 40px 20px;
     background-color: #f2f2f2;
+  }
+  
+  .testimonials.dark-mode {
+    background-color: #1e1e1e;
   }
   
   .testimonials h2 {
@@ -260,6 +317,10 @@
     padding: 40px 20px;
   }
   
+  .faq.dark-mode {
+    background-color: #1e1e1e;
+  }
+  
   .faq h2 {
     text-align: center;
     margin-bottom: 30px;
@@ -278,6 +339,10 @@
     background-color: #0056b3;
     color: #fff;
     padding: 40px 20px;
+  }
+  
+  .contact.dark-mode {
+    background-color: #1e1e1e;
   }
   
   .contact-content {
@@ -358,6 +423,10 @@
     text-align: center;
   }
   
+  .footer.dark-mode {
+    background-color: #1e1e1e;
+  }
+  
   .footer-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -384,4 +453,3 @@
   .footer-policy a:hover {
     text-decoration: underline;
   }
-  
