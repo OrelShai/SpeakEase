@@ -14,21 +14,8 @@ const HomePage = () => {
   };
 
   return (
-    <div className={`homepage ${darkMode ? "dark-mode" : ""}`}>
-      {/* -- NAVIGATION BAR -- */}
-      <nav className="navbar">
-        <div className="navbar-left">
-        <img src={darkMode ? "/images/navbar/SpeakEaseLogo-DarkMode.png" : "/images/navbar/SpeakEaseLogo-LightMode.png"} alt="Logo" className="logo" />
-        </div>
-        <div className="navbar-right">
-          <button onClick={toggleDarkMode} className="dark-mode-icon">
-            <FontAwesomeIcon icon={faSun} />
-          </button>
-          <Link to="/login" className="login-icon">
-            <FontAwesomeIcon icon={faUser} />
-          </Link>
-        </div>
-      </nav>
+    <div className={`homepage`}>
+
 
       {/* -- HERO SECTION -- */}
       <section className="hero">

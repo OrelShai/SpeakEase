@@ -1,0 +1,42 @@
+/* Navbar styles */
+nav {
+    justify-content: space-between; /* Aligns the items to the left and right */
+    background: var(--background-color);
+    position: fixed;
+    width: 100%;
+    top: 0; /* Ensures the navbar is always at the top of the page */
+    z-index: 10; /* Ensures the navbar is always on top */
+  }
+
+.logo {
+    cursor: pointer;
+  }
+  
+  .nav-left i {
+    font-size: 30px;
+    margin-right: 25px;
+    color: var(--primary-text-color);
+  }
+  
+  .nav-right i {
+    width: 25px;
+    margin-right: 25px;
+    font-size: 24px;
+    color: var(--primary-text-color);
+  }
+  
+  .nav-right .profile {
+    width: 35px;
+    height: 35px; /* Ensures the height is equal to the width for a perfect circle */
+    margin-right: 25px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+  }
+  
+  .nav-right .logged-in-quote {
+    margin-right: 25px;
+    color: var(--primary-text-color);
+    font-size: 16px;
+    font-weight: 500;
+  }
+  
