@@ -10,7 +10,7 @@
     height: auto;
   }
   
-  body.dark-mode {
+  .dark-mode {
     background-color: #121212;
     color: #ffffff;
   }
@@ -51,6 +51,7 @@
   
   .dark-mode-icon {
     color: #000; /* Sun icon color for light mode */
+    background-color: #fff;
   }
   
   body.dark-mode .dark-mode-icon {
