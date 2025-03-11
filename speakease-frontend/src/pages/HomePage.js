@@ -1,17 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faSun } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.css";
 
 const HomePage = () => {
-  // Dark mode state
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark-mode", !darkMode);
-  };
 
   return (
     <div className={`homepage`}>

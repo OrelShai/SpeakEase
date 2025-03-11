@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage';
@@ -9,23 +9,27 @@ import CustomizeScenario from './pages/CustomizeScenario';
 import Navbar from './Components/Navbar/Navbar';
 
 function App() {
-  const [Darkmode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle("dark-mode");
+  };
+
   return (
-    //<ThemeProvider theme={Darkmode ? darkTheme : lightTheme}>
-      <Router>
-        <div className="App">
-        <Navbar setDarkMode={setDarkMode} darkMode={Darkmode} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
-            <Route path="/homepage" element={<HomePage />} />
-            <Route path="/customizesenario" element={< CustomizeScenario />} />
-          </Routes>
-        </div>
-      </Router>
-    //</ThemeProvider>
+    <Router>
+      <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+        <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/customizescenario" element={<CustomizeScenario />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
