@@ -64,6 +64,18 @@ nav {
   color: #000000;
   /* Sun icon color for light mode */
   background-color: #ffffff;
+  
+}
+/* Hover state for dark-mode-icon */
+.dark-mode-icon:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.login-icon{
+  color: #000000;
+  /*log in icon color for light mode */
+  background-color: #ffffff;
 }
 
 /* ========== DARK MODE ========== */
@@ -80,3 +92,8 @@ nav {
   background-color: #000000;
 }
 
+.dark-mode .login-icon {
+  color: #ffffff;
+  /* Log in icon color for dark mode */
+  background-color: #000000;
+}

@@ -19,15 +19,19 @@ function App() {
   return (
     <Router>
       <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
-        <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/customizescenario" element={<CustomizeScenario />} />
-        </Routes>
+        <header className="App-header">
+          <Navbar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        </header>
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/customizescenario" element={<CustomizeScenario />} />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
