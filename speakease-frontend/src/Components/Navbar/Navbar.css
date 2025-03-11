@@ -1,58 +1,82 @@
 /* Navbar styles */
 nav {
-    justify-content: space-between; /* Aligns the items to the left and right */
-    background: var(--background-color);
-    position: fixed;
-    width: 100%;
-    top: 0; /* Ensures the navbar is always at the top of the page */
-    z-index: 10; /* Ensures the navbar is always on top */
-  }
+  justify-content: space-between;
+  /* Aligns the items to the left and right */
+  background: var(--background-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  /* Ensures the navbar is always at the top of the page */
+  z-index: 10;
+  /* Ensures the navbar is always on top */
+}
 
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-    cursor: pointer; /* Changes the cursor to a pointer */
-    width: 200px;
-    height: 40px;
-    margin-right: 10px;
-  }
+  cursor: pointer;
+  /* Changes the cursor to a pointer */
+  width: 200px;
+  height: 40px;
+  margin-right: 10px;
+}
 
 
 .navbar-left {
-    display: flex; /* Flexbox layout for the left section */
-    align-items: center; /* Center items vertically */
-  }
+  display: flex;
+  /* Flexbox layout for the left section */
+  align-items: center;
+  /* Center items vertically */
+}
 
 .navbar-right {
-    display: flex; /* Flexbox layout for the right section */
-    align-items: center; /* Center items vertically */
-  }
+  display: flex;
+  /* Flexbox layout for the right section */
+  align-items: center;
+  /* Center items vertically */
+}
 
 .navbar-right button {
-    margin-left: 10px;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    border-radius: 4px;
-  }
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
 
 .login-icon {
-    margin-left: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #000; /* Default color for light mode */
-  }
+  margin-left: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  /* Use your primary text color variable */
+}
 
-  /* ========== DARK MODE ========== */
-  .dark-mode-icon {
-    color: #000; /* Sun icon color for light mode */
-    background-color: #fff;
-  }
+.dark-mode-icon {
+  color: #000000;
+  /* Sun icon color for light mode */
+  background-color: #ffffff;
+}
+
+/* ========== DARK MODE ========== */
+
+.dark-mode .navbar {
+  background-color: black;
+  color: white;
+  /* other dark mode styles */
+}
+
+.dark-mode .dark-mode-icon {
+  color: #ffffff;
+  /* Moon icon color for dark mode */
+  background-color: #000000;
+}
+
