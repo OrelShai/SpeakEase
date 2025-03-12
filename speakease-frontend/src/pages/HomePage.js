@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -93,10 +94,10 @@ const HomePage = () => {
             <p>Storytelling</p>
           </button>
 
-          <button className="scenario-button">
+          <Link to="/customizescenario" className="scenario-button">
             <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
             <p>Custom Built</p>
-          </button>
+          </Link>
         </div>
       </section>
 
