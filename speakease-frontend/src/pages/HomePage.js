@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import "./HomePage.css";
 
 const HomePage = () => {
+  // Adtate to track whether the dark bar should be visible
+  const [showDarkBar, setShowDarkBar] = useState(true);
+
+  // Handler function for both Accept and Deny buttons
+  const handleConsentResponse = () => {
+    setShowDarkBar(false);
+  };
 
   return (
     <div className={`homepage`}>
-
 
       {/* -- HERO SECTION -- */}
       <section className="hero">
@@ -61,16 +67,18 @@ const HomePage = () => {
       </section>
 
       {/* -- DARK BAR FOR COOKIE CONSENT / NOTICE -- */}
-      <section className="dark-bar">
-        <p>
-          This website uses AI-based training to provide a more realistic speaking experience.  
-          By clicking “Accept,” you agree to our <a href="#privacy">Privacy Policy</a> and <a href="#cookies">Cookies Policy</a>.
-        </p>
-        <div className="dark-bar-buttons">
-          <button className="deny-btn">Deny</button>
-          <button className="accept-btn">Accept</button>
-        </div>
-      </section>
+      {showDarkBar && (
+        <section className="dark-bar">
+          <p>
+            This website uses AI-based training to provide a more realistic speaking experience.  
+            By clicking “Accept,” you ag“ee to o”r <a href="#privacy">Privacy Policy</a> and <a href="#cookies">Cookies Policy</a>.
+          </p>
+          <div className="dark-bar-buttons">
+            <button className="deny-btn" onClick={handleConsentResponse}>Deny</button>
+            <button className="accept-btn" onClick={handleConsentResponse}>Accept</button>
+          </div>
+        </section>
+      )}
 
       {/* -- GUIDANCE SECTION -- */}
       <section className="guidance">
