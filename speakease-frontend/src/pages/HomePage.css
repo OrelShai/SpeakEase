@@ -64,7 +64,7 @@ body {
 
 /* Dark mode style for scenarios */
 .dark-mode .scenarios {
-  background-color: #1e1e1e;
+  background-color: #333; /* Changed from #1e1e1e to #333 to match contact section */
 }
 
 .scenario-grid {
@@ -231,7 +231,7 @@ body {
 }
 
 .dark-mode .testimonials {
-  background-color: #1e1e1e;
+  background-color: #333; /* Changed from #1e1e1e to #333 to match contact section */
 }
 
 .testimonials h2 {
@@ -308,29 +308,72 @@ body {
   color: #fff;
 }
 
+/* FAQ section styling */
 .faq-item {
   max-width: 800px;
   margin: 0 auto 10px auto;
   background-color: #fff;
   padding: 20px;  /* Increased padding for more space */
   border-radius: 6px;
-  display: flex;  /* Add flex display */
-  align-items: center;  /* Center vertically */
-  justify-content: center;  /* Center horizontally */
-  min-height: 60px;  /* Minimum height to ensure vertical centering is visible */
-}
-
-.faq-item p {
-  margin: 0;  /* Remove default paragraph margins */
-  text-align: center;  /* Center text horizontally */
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .dark-mode .faq-item {
   background-color: #333;
 }
 
-.dark-mode .faq-item p {
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.dark-mode .faq-icon {
   color: #fff;
+}
+
+.faq-answer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  text-align: left;
+}
+
+.dark-mode .faq-answer {
+  border-top: 1px solid #444;
+}
+
+.faq-item.expanded {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .faq-item.expanded {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.faq-item p {
+  margin: 0;
+}
+
+/* Make the question text white in dark mode */
+.dark-mode .faq-question p {
+  color: #fff;
+}
+
+.faq-answer p {
+  line-height: 1.6;
+  color: #666;
+}
+
+.dark-mode .faq-answer p {
+  color: #ccc;
 }
 
 /* ========== CONTACT SECTION ========== */
@@ -544,6 +587,7 @@ footer {
 .footer-email {
   font-weight: bold;
   margin-bottom: 10px;
+  color: #fff;
 }
 
 .footer-links,

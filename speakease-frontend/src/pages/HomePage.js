@@ -2,13 +2,47 @@ import React, { useState } from "react";
 import "./HomePage.css";
 
 const HomePage = () => {
-  // Adtate to track whether the dark bar should be visible
+  // State to track whether the dark bar should be visible
   const [showDarkBar, setShowDarkBar] = useState(true);
+  
+  // Add state to track which FAQ item is expanded (null means none are expanded)
+  const [expandedFaq, setExpandedFaq] = useState(null);
 
   // Handler function for both Accept and Deny buttons
   const handleConsentResponse = () => {
     setShowDarkBar(false);
   };
+  
+  // Toggle FAQ item expansion
+  const toggleFaq = (index) => {
+    if (expandedFaq === index) {
+      // If currently expanded, close it
+      setExpandedFaq(null);
+    } else {
+      // Otherwise, expand it
+      setExpandedFaq(index);
+    }
+  };
+
+  // FAQ data with questions and answers
+  const faqData = [
+    {
+      question: "What is the \"Improve Your Performance\" Speaking Practice App?",
+      answer: "SpeakEase is an innovative app designed to help you improve your verbal communication skills through realistic practice scenarios. It uses AI technology to simulate real conversations in various situations, allowing you to practice and receive feedback in a safe, judgment-free environment."
+    },
+    {
+      question: "How does the app work?",
+      answer: "The app provides various speaking scenarios like job interviews, first dates, presentations, and more. You interact with AI conversation partners that respond naturally to your speech. After each practice session, you receive detailed feedback on your pacing, clarity, confidence, and vocabulary usage, along with tips for improvement."
+    },
+    {
+      question: "Can I upload my own images for a more realistic practice experience?",
+      answer: "Yes! You can personalize your experience by uploading images of real people you'll be speaking with (with their consent) or locations where you'll be presenting. This helps create a more immersive and relevant practice environment tailored to your specific needs."
+    },
+    {
+      question: "What kind of feedback will I receive?",
+      answer: "You'll receive comprehensive feedback across multiple dimensions: speech clarity, pace, vocabulary usage, confidence indicators, filler word usage (like 'um' and 'uh'), and scenario-specific tips. The app also tracks your progress over time, showing improvement in your speaking patterns and confidence levels."
+    }
+  ];
 
   return (
     <div className={`homepage`}>
@@ -129,18 +163,24 @@ const HomePage = () => {
       {/* -- FAQ SECTION -- */}
       <section className="faq">
         <h2>FAQ</h2>
-        <div className="faq-item">
-          <p><strong>What is the "Improve Your Performance" Speaking Practice App?</strong></p>
-        </div>
-        <div className="faq-item">
-          <p><strong>How does the app work?</strong></p>
-        </div>
-        <div className="faq-item">
-          <p><strong>Can I upload my own images for a more realistic practice experience?</strong></p>
-        </div>
-        <div className="faq-item">
-          <p><strong>What kind of feedback will I receive?</strong></p>
-        </div>
+        {faqData.map((item, index) => (
+          <div 
+            className={`faq-item ${expandedFaq === index ? 'expanded' : ''}`} 
+            key={index}
+            onClick={() => toggleFaq(index)}
+          >
+            <div className="faq-question">
+              <p><strong>{item.question}</strong></p>
+              <span className="faq-icon">{expandedFaq === index ? '−' : '+'}</span>
+            </div>
+            
+            {expandedFaq === index && (
+              <div className="faq-answer">
+                <p>{item.answer}</p>
+              </div>
+            )}
+          </div>
+        ))}
       </section>
 
       {/* -- CONTACT US SECTION -- */}
