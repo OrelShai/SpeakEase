@@ -70,7 +70,7 @@ const CustomizeScenario = () => {
             <input type="checkbox" /> Save the settings for future practice sessions.
           </div>
           <button className="start-scenario">Start scenario</button>
-          <p className="back-home">Want a built-in scenario? <a href="/home">Back to home screen</a></p>
+          <p className="back-home">Want a built-in scenario? <a href="/">Back to home screen</a></p>
         </div>
       </div>
     </div>

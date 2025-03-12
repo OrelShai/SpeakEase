@@ -1,20 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import "./HomePage.css";
 
 const HomePage = () => {
+  // State to track whether the dark bar should be visible
+  const [showDarkBar, setShowDarkBar] = useState(true);
+  
+  // Add state to track which FAQ item is expanded (null means none are expanded)
+  const [expandedFaq, setExpandedFaq] = useState(null);
+
+  // Handler function for both Accept and Deny buttons
+  const handleConsentResponse = () => {
+    setShowDarkBar(false);
+  };
+  
+  // Toggle FAQ item expansion
+  const toggleFaq = (index) => {
+    if (expandedFaq === index) {
+      // If currently expanded, close it
+      setExpandedFaq(null);
+    } else {
+      // Otherwise, expand it
+      setExpandedFaq(index);
+    }
+  };
+
+  // FAQ data with questions and answers
+  const faqData = [
+    {
+      question: "What is the \"Improve Your Performance\" Speaking Practice App?",
+      answer: "SpeakEase is an innovative app designed to help you improve your verbal communication skills through realistic practice scenarios. It uses AI technology to simulate real conversations in various situations, allowing you to practice and receive feedback in a safe, judgment-free environment."
+    },
+    {
+      question: "How does the app work?",
+      answer: "The app provides various speaking scenarios like job interviews, first dates, presentations, and more. You interact with AI conversation partners that respond naturally to your speech. After each practice session, you receive detailed feedback on your pacing, clarity, confidence, and vocabulary usage, along with tips for improvement."
+    },
+    {
+      question: "Can I upload my own images for a more realistic practice experience?",
+      answer: "Yes! You can personalize your experience by uploading images of real people you'll be speaking with (with their consent) or locations where you'll be presenting. This helps create a more immersive and relevant practice environment tailored to your specific needs."
+    },
+    {
+      question: "What kind of feedback will I receive?",
+      answer: "You'll receive comprehensive feedback across multiple dimensions: speech clarity, pace, vocabulary usage, confidence indicators, filler word usage (like 'um' and 'uh'), and scenario-specific tips. The app also tracks your progress over time, showing improvement in your speaking patterns and confidence levels."
+    }
+  ];
+
   return (
-    <div className="homepage">
-      {/* -- NAVIGATION BAR -- */}
-      <nav className="navbar">
-        <div className="navbar-left">
-          <img src="/images/logo.png" alt="Logo" className="logo" />
-          <span className="brand-name">SpeakEase</span>
-        </div>
-        <div className="navbar-right">
-          <button className="login-btn">Log In</button>
-          <button className="signup-btn">Sign Up</button>
-        </div>
-      </nav>
+    <div className={`homepage`}>
 
       {/* -- HERO SECTION -- */}
       <section className="hero">
@@ -25,63 +57,63 @@ const HomePage = () => {
       </section>
 
       {/* -- SCENARIOS SECTION -- */}
-{/* -- SCENARIOS SECTION -- */}
-<section className="scenarios">
-  <div className="scenario-grid">
-    <button className="scenario-button">
-      <img src="/images/scenarios/dating.jpg" alt="First Date" />
-      <p>First Date</p>
-    </button>
+      <section className="scenarios">
+        <div className="scenario-grid">
+          <button className="scenario-button">
+            <img src="/images/scenarios/dating.jpg" alt="First Date" />
+            <p>First Date</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
-      <p>Job Interview</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
+            <p>Job Interview</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
-      <p>Casual Conversation</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
+            <p>Casual Conversation</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
-      <p>Presentation</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
+            <p>Presentation</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
-      <p>Negotiation</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
+            <p>Negotiation</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
-      <p>Debate or Argument</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
+            <p>Debate or Argument</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
-      <p>Storytelling</p>
-    </button>
+          <button className="scenario-button">
+            <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
+            <p>Storytelling</p>
+          </button>
 
-    <button className="scenario-button">
-      <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
-      <p>Custom Built</p>
-    </button>
-  </div>
-</section>
-
-
-      {/* -- DARK BAR FOR COOKIE CONSENT / NOTICE -- */}
-      <section className="dark-bar">
-        <p>
-          This website uses AI-based training to provide a more realistic speaking experience.  
-          By clicking “Accept,” you agree to our <a href="#privacy">Privacy Policy</a> and <a href="#cookies">Cookies Policy</a>.
-        </p>
-        <div className="dark-bar-buttons">
-          <button className="deny-btn">Deny</button>
-          <button className="accept-btn">Accept</button>
+          <Link to="/customizescenario" className="scenario-button">
+            <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
+            <p>Custom Built</p>
+          </Link>
         </div>
       </section>
+
+      {/* -- DARK BAR FOR COOKIE CONSENT / NOTICE -- */}
+      {showDarkBar && (
+        <section className="dark-bar">
+          <p>
+            This website uses AI-based training to provide a more realistic speaking experience.  
+            By clicking “Accept,” you ag“ee to o”r <a href="#privacy">Privacy Policy</a> and <a href="#cookies">Cookies Policy</a>.
+          </p>
+          <div className="dark-bar-buttons">
+            <button className="deny-btn" onClick={handleConsentResponse}>Deny</button>
+            <button className="accept-btn" onClick={handleConsentResponse}>Accept</button>
+          </div>
+        </section>
+      )}
 
       {/* -- GUIDANCE SECTION -- */}
       <section className="guidance">
@@ -132,18 +164,24 @@ const HomePage = () => {
       {/* -- FAQ SECTION -- */}
       <section className="faq">
         <h2>FAQ</h2>
-        <div className="faq-item">
-          <p><strong>What is the "Improve Your Performance" Speaking Practice App?</strong></p>
-        </div>
-        <div className="faq-item">
-          <p><strong>How does the app work?</strong></p>
-        </div>
-        <div className="faq-item">
-          <p><strong>Can I upload my own images for a more realistic practice experience?</strong></p>
-        </div>
-        <div className="faq-item">
-          <p><strong>What kind of feedback will I receive?</strong></p>
-        </div>
+        {faqData.map((item, index) => (
+          <div 
+            className={`faq-item ${expandedFaq === index ? 'expanded' : ''}`} 
+            key={index}
+            onClick={() => toggleFaq(index)}
+          >
+            <div className="faq-question">
+              <p><strong>{item.question}</strong></p>
+              <span className="faq-icon">{expandedFaq === index ? '−' : '+'}</span>
+            </div>
+            
+            {expandedFaq === index && (
+              <div className="faq-answer">
+                <p>{item.answer}</p>
+              </div>
+            )}
+          </div>
+        ))}
       </section>
 
       {/* -- CONTACT US SECTION -- */}
@@ -156,17 +194,18 @@ const HomePage = () => {
               <input type="text" placeholder="Full Name" />
               <input type="email" placeholder="Email Address" />
               <textarea placeholder="Add a message"></textarea>
-              <label>
-                <input type="checkbox" /> I agree to the processing of personal data.
-              </label>
               <button type="submit">SEND</button>
             </form>
           </div>
 
           <div className="contact-images">
-            <img src="/images/contact_img1.jpg" alt="Contact1" />
-            <img src="/images/contact_img2.jpg" alt="Contact2" />
-            <img src="/images/contact_img3.jpg" alt="Contact3" />
+
+            <img src="../../images/contactus/contactus2.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus3.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus4.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus5.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus6.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus7.png" alt="Contact1" />
           </div>
         </div>
       </section>

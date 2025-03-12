@@ -2,6 +2,7 @@ import React from 'react';
 import './LoginPage.css';
 import { Link } from 'react-router-dom';
 
+
 const LoginPage = () => {
   return (
     <div className="login-container">
@@ -39,7 +40,7 @@ const LoginPage = () => {
         <p className="register">Don’t have an Account? <Link to="/register">Register</Link></p>
       </div>
       <div className="illustration">
-        <img src="/images/small-team-discussing-ideas-2194220-0.png" alt="Illustration of people talking" />
+        <img src="/images/small-team-discussing-ideas-2194220-0.svg" alt="Illustration of people talking" />
       </div>
     </div>
   );

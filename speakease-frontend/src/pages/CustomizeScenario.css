@@ -10,7 +10,6 @@ body {
     align-items: flex-start;
     height: 100vh;
     width: 50%;
-
     overflow: auto;
 }
 
@@ -133,6 +132,52 @@ button:hover {
     text-decoration: underline;
 }
 
+/* Dark mode styles */
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-mode .customize-container {
+    background-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode h1,
+.dark-mode label {
+    color: #fff;
+}
+
+.dark-mode p {
+    color: #ccc;
+}
+
+.dark-mode .left-section,
+.dark-mode .right-section {
+    background-color: #444;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode input,
+.dark-mode select {
+    background-color: #555;
+    color: #fff;
+    border-color: #666;
+}
+
+.dark-mode button {
+    background-color: #0056b3;
+}
+
+.dark-mode button:hover {
+    background-color: #0069d9;
+}
+
+.dark-mode .back-home a {
+    color: #fff;
+}
+
+/* Responsive styles */
 @media screen and (max-width: 1366px) {
     .customize-container {
         width: 95%;
