@@ -145,17 +145,18 @@ const HomePage = () => {
               <input type="text" placeholder="Full Name" />
               <input type="email" placeholder="Email Address" />
               <textarea placeholder="Add a message"></textarea>
-              <label>
-                <input type="checkbox" /> I agree to the processing of personal data.
-              </label>
               <button type="submit">SEND</button>
             </form>
           </div>
 
           <div className="contact-images">
-            <img src="/images/contact_img1.jpg" alt="Contact1" />
-            <img src="/images/contact_img2.jpg" alt="Contact2" />
-            <img src="/images/contact_img3.jpg" alt="Contact3" />
+
+            <img src="../../images/contactus/contactus2.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus3.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus4.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus5.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus6.png" alt="Contact1" />
+            <img src="../../images/contactus/contactus7.png" alt="Contact1" />
           </div>
         </div>
       </section>

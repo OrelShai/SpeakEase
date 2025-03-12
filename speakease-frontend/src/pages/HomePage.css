@@ -23,6 +23,11 @@ body {
   width: 200%;
 }
 
+.dark-mode .homepage {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
 /* ========== HERO SECTION (the top picture and text ========== */
 .hero {
   position: relative;
@@ -76,6 +81,7 @@ body {
   border-radius: 6px;
   padding: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
 }
 
 .scenario-button img {
@@ -91,10 +97,24 @@ body {
   font-size: large;
 }
 
-/* Hover effect */
+/* Add hover styles for scenario buttons */
 .scenario-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: #e0e0e0; /* Light gray background on hover for light mode */
+  transition: background-color 0.3s ease;
+}
+
+/* Ensure text remains visible on hover */
+.scenario-button:hover p {
+  color: #333; /* Keep text dark on hover in light mode */
+}
+
+/* Dark mode hover styles */
+.dark-mode .scenario-button:hover {
+  background-color: #444; /* Darker gray for dark mode hover */
+}
+
+.dark-mode .scenario-button:hover p {
+  color: #fff; /* Keep text white on hover in dark mode */
 }
 
 /* ========== DARK BAR ========== */
@@ -109,18 +129,24 @@ body {
 }
 
 .dark-mode .dark-bar {
-  background-color: #1e1e1e;
+  background-color: #171a38;
 }
 
 .dark-bar p {
   margin: 0;
   margin-bottom: 5px;
   flex: 1 1 auto;
+  color: #fff; /* Set text color to white */
 }
 
 .dark-bar p a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: underline;
+}
+
+/* Anhover effect for better UX */
+.dark-bar p a:hover {
+  color: #cccccc;
 }
 
 .dark-bar-buttons {
@@ -162,6 +188,10 @@ body {
   margin-bottom: 30px;
 }
 
+.dark-mode .guidance h2 {
+  color: #fff;
+}
+
 .trainers {
   display: flex;
   justify-content: center;
@@ -189,10 +219,15 @@ body {
   margin: 10px 0 5px 0;
 }
 
+.dark-mode .trainer-name {
+  color: #fff;
+}
+
 /* ========== TESTIMONIALS SECTION ========== */
 .testimonials {
   padding: 40px 20px;
   background-color: #f2f2f2;
+  text-align: center; /* Center all text in the testimonials section */
 }
 
 .dark-mode .testimonials {
@@ -203,6 +238,18 @@ body {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 30px;
+}
+
+.testimonial p {
+  margin-bottom: 15px;
+}
+
+.dark-mode .testimonials h2 {
+  color: #fff;
+}
+
+.dark-mode .testimonial p {
+  color: #fff;
 }
 
 .testimonial-container {
@@ -217,6 +264,9 @@ body {
   background-color: #fff;
   padding: 20px;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .testimonial-author {
@@ -242,6 +292,7 @@ body {
 .faq {
   background-color: #f9f9f9;
   padding: 40px 20px;
+  text-align: center;
 }
 
 .dark-mode .faq {
@@ -253,12 +304,33 @@ body {
   margin-bottom: 30px;
 }
 
+.dark-mode .faq h2 {
+  color: #fff;
+}
+
 .faq-item {
   max-width: 800px;
   margin: 0 auto 10px auto;
   background-color: #fff;
-  padding: 15px;
+  padding: 20px;  /* Increased padding for more space */
   border-radius: 6px;
+  display: flex;  /* Add flex display */
+  align-items: center;  /* Center vertically */
+  justify-content: center;  /* Center horizontally */
+  min-height: 60px;  /* Minimum height to ensure vertical centering is visible */
+}
+
+.faq-item p {
+  margin: 0;  /* Remove default paragraph margins */
+  text-align: center;  /* Center text horizontally */
+}
+
+.dark-mode .faq-item {
+  background-color: #333;
+}
+
+.dark-mode .faq-item p {
+  color: #fff;
 }
 
 /* ========== CONTACT SECTION ========== */
@@ -269,7 +341,7 @@ body {
 }
 
 .dark-mode .contact {
-  background-color: #1e1e1e;
+  background-color: #333; /* Changed from #1e1e1e to #333 for a gray color */
 }
 
 .contact-content {
@@ -289,16 +361,19 @@ body {
   color: #fff;
   font-size: 2rem;
   margin-bottom: 10px;
+  text-align: left; /* Align text to the left */
 }
 
 .contact-text p {
   color: #fff;
   margin-bottom: 20px;
+  text-align: left; /* Align text to the left */
 }
 
 .contact-text form {
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* Align all form items to the left */
 }
 
 .contact-text input,
@@ -312,6 +387,19 @@ body {
   max-width: 400px;
 }
 
+/* Dark mode form fields */
+.dark-mode .contact-text input,
+.dark-mode .contact-text textarea {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.dark-mode .contact-text input::placeholder,
+.dark-mode .contact-text textarea::placeholder {
+  color: #aaa;
+}
+
 .contact-text button {
   background-color: #fff;
   color: #0056b3;
@@ -322,6 +410,17 @@ body {
   border-radius: 4px;
   font-weight: bold;
   margin-top: 10px;
+  width: 90%;           /* Match the width of textarea */
+  max-width: 400px;     /* Match the max-width of textarea */
+}
+
+/* Update dark mode button styles to maintain the width */
+.dark-mode .contact-text button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  width: 90%;           /* Ensure it's also applied in dark mode */
+  max-width: 400px;     /* Ensure it's also applied in dark mode */
 }
 
 .contact-images {
@@ -340,6 +439,89 @@ body {
   object-fit: cover;
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Make the form label text white in dark mode */
+.dark-mode .contact-text label {
+  color: #fff;
+}
+
+/* Style checkbox in dark mode */
+.dark-mode .contact-text input[type="checkbox"] {
+  accent-color: #444;
+  margin-right: 5px;
+}
+
+/* Ensure input placeholder text is visible in dark mode */
+.dark-mode .contact-text input::placeholder,
+.dark-mode .contact-text textarea::placeholder {
+  color: #aaa;
+}
+
+/* Style inputs and textarea in dark mode */
+.dark-mode .contact-text input,
+.dark-mode .contact-text textarea {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* Style submit button in dark mode */
+.dark-mode .contact-text button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.dark-mode .contact-text button:hover {
+  background-color: #444;
+}
+
+/* Make form label text white at all times */
+.contact-text label {
+  color: #fff;
+}
+
+/* Style the checkbox */
+.contact-text input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Style placeholder text to be visible on blue background */
+.contact-text input::placeholder,
+.contact-text textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Ensure text in inputs and textarea is white on blue background */
+.contact-text input,
+.contact-text textarea {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Style for the checkbox text specifically */
+.contact-text label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: left;
+  width: 90%; /* Match the width of other inputs */
+  max-width: 400px;
+  white-space: nowrap; /* Prevents text from wrapping to a new line */
+  overflow: hidden; /* Prevents content from overflowing */
+  text-overflow: ellipsis; /* Shows ellipsis (...) for overflowing text */
+  padding-left: 0; /* Remove any left padding */
+  margin-left: 0; /* Remove any left margin */
+  justify-content: flex-start; /* Align content to the start (left) */
+}
+
+.contact-text input[type="checkbox"] {
+  margin-right: 10px;
+  flex-shrink: 0;
+  margin-left: 0; /* Ensure no left margin */
 }
 
 /* ========== FOOTER ========== */
