@@ -1,5 +1,6 @@
 import React from 'react';
 import './CustomizeScenario.css';
+import { Link } from 'react-router-dom';
 
 const CustomizeScenario = () => {
   return (
@@ -69,8 +70,10 @@ const CustomizeScenario = () => {
           <div className="save-settings">
             <input type="checkbox" /> Save the settings for future practice sessions.
           </div>
-          <button className="start-scenario">Start scenario</button>
-          <p className="back-home">Want a built-in scenario? <a href="/">Back to home screen</a></p>
+          <Link to="/VideoTraining" className="scenario-button">
+            <button className="start-scenario">Start scenario</button>
+            <p className="back-home">Want a built-in scenario? <a href="/">Back to home screen</a></p>
+          </Link>
         </div>
       </div>
     </div>
