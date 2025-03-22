@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./HomePage.css";
 
 const HomePage = () => {
-  // State to track whether the dark bar should be visible
+  // States for tracking  whether the dark bar should be visible
   const [showDarkBar, setShowDarkBar] = useState(true);
   
   // Add state to track which FAQ item is expanded (null means none are expanded)
   const [expandedFaq, setExpandedFaq] = useState(null);
+
+  // Add navigate function
+  const navigate = useNavigate();
 
   // Handler function for both Accept and Deny buttons
   const handleConsentResponse = () => {
@@ -23,6 +26,21 @@ const HomePage = () => {
       // Otherwise, expand it
       setExpandedFaq(index);
     }
+  };
+
+  // Add function to handle scenario selection
+  const handleScenarioSelect = (scenarioName) => {
+    // For now, just navigate to VideoTraining with the scenario name as state
+    // Later you can expand this to send more data to the server
+    navigate('/VideoTraining', { 
+      state: { 
+        scenarioName: scenarioName,
+        // You can add more properties here in the future
+        // scenarioId: id,
+        // difficulty: level,
+        // etc.
+      } 
+    });
   };
 
   // FAQ data with questions and answers
@@ -59,37 +77,58 @@ const HomePage = () => {
       {/* -- SCENARIOS SECTION -- */}
       <section className="scenarios">
         <div className="scenario-grid">
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("First Date")}
+          >
             <img src="/images/scenarios/dating.jpg" alt="First Date" />
             <p>First Date</p>
           </button>
 
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("Job Interview")}
+          >
             <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
             <p>Job Interview</p>
           </button>
 
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("Casual Conversation")}
+          >
             <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
             <p>Casual Conversation</p>
           </button>
 
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("Presentation")}
+          >
             <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
             <p>Presentation</p>
           </button>
 
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("Negotiation")}
+          >
             <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
             <p>Negotiation</p>
           </button>
 
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("Debate or Argument")}
+          >
             <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
             <p>Debate or Argument</p>
           </button>
 
-          <button className="scenario-button">
+          <button 
+            className="scenario-button"
+            onClick={() => handleScenarioSelect("Storytelling")}
+          >
             <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
             <p>Storytelling</p>
           </button>

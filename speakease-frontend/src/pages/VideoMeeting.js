@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import './VideoTraining.css';
 
+// scenarioName is a prop that will be passed to the VideoTraining component
 const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
@@ -37,6 +38,7 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
         
         // For demo purposes, we'll use the same stream for the remote video
         // In a real app, this would come from WebRTC or other source
+        // we should change it when the stream of the ai is ready
         setTimeout(() => {
           remoteVideoRef.current.srcObject = stream;
         }, 1000);
@@ -47,7 +49,7 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
     
     getMedia();
     
-    // Cleanup function
+    // Cleanup function to ensure that we stop the webcam when the component is unmounted
     return () => {
       if (localStreamRef.current) {
         localStreamRef.current.getTracks().forEach(track => track.stop());
@@ -68,6 +70,7 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
+    // padStart() method pads the current string with another string (multiple times, if needed) until the resulting string reaches the given length.
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
   
@@ -130,12 +133,12 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
               playsInline
               className="video-element"
             />
-            <div className="participant-label">Remote User</div>
+            <div className="participant-label">Coach</div>
           </div>
         </div>
       </main>
       
-      {/* Footer Controls */}
+      {/* buttons */}
       <footer className="meeting-controls">
         <div className="controls-container">
           <button 
@@ -173,6 +176,7 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
             <MdFiberManualRecord size={24} />
           </button>
           
+          {/* End Call button should be linked to feedback page */}
           <button 
             onClick={onEndCall}
             className="control-button button-end-call"
