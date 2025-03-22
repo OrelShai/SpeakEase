@@ -5,7 +5,6 @@ import {
   MdClosedCaption, MdClosedCaptionOff,
   MdOutlinePanTool, 
   MdFiberManualRecord,
-  MdMenu,
   MdCallEnd
 } from 'react-icons/md';
 import './VideoTraining.css';
@@ -18,9 +17,11 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
   
-  const localVideoRef = useRef(null);
-  const remoteVideoRef = useRef(null);
-  const localStreamRef = useRef(null);
+  // useref is a React Hook that provides a way to create a mutable reference that persists across renders. 
+  // Think of it like a container that holds a value, but when that value changes, it doesn't cause your component to re-render.
+  const localVideoRef = useRef(null);  // Reference to the use video element
+  const remoteVideoRef = useRef(null); // Reference to the ai video element
+  const localStreamRef = useRef(null); // Storage user webcam's MediaStream
   
   // Initialize webcam
   useEffect(() => {
