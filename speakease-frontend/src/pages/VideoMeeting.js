@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { 
   MdMic, MdMicOff, 
   MdVideocam, MdVideocamOff, 
@@ -9,8 +10,17 @@ import {
 } from 'react-icons/md';
 import './VideoTraining.css';
 
-// scenarioName is a prop that will be passed to the VideoTraining component
-const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
+const VideoTraining = ({ onEndCall }) => {
+  // 1. Use React Router's useLocation hook to access navigation state
+  const location = useLocation();
+  const navigate = useNavigate();
+  
+  // 2. Extract scenarioName from location state (with fallback)
+  const scenarioName = location.state?.scenarioName + " Training Session!" || "Training Session";
+  
+  // 3. Should change to feedback page when the page is done
+  const handleEndCall = onEndCall || (() => navigate('/'));
+
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isCaptionOn, setIsCaptionOn] = useState(false);
@@ -176,9 +186,8 @@ const VideoTraining = ({ scenarioName = "Scenario Name", onEndCall }) => {
             <MdFiberManualRecord size={24} />
           </button>
           
-          {/* End Call button should be linked to feedback page */}
           <button 
-            onClick={onEndCall}
+            onClick={handleEndCall}
             className="control-button button-end-call"
           >
             <MdCallEnd size={24} />
