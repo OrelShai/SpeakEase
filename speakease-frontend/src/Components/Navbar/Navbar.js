@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faSun } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Moon, Sun } from "lucide-react";
 import "./Navbar.css";
 
 const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
@@ -21,7 +22,7 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
 
         <div className="navbar-right">
           <button onClick={toggleDarkMode} className="dark-mode-icon">
-            <FontAwesomeIcon icon={faSun} />
+          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           <Link to="/login" className="login-icon">
             <FontAwesomeIcon icon={faUser} />

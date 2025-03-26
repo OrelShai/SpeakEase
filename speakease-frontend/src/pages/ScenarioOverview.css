@@ -1,0 +1,595 @@
+/* ========== GENERAL STYLES ========== */
+.scenario-container {
+  display: flex;
+  flex-direction: column;
+  height: 91vh; /* Match VideoTraining height */
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  position: fixed;
+  top: 9vh; /* Assuming your navbar is 9vh tall */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Inner container for content */
+.scenario-content {
+  max-width: 100%; /* Change from 1280px to 100% */
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 2rem; /* Add more horizontal padding */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Header styling similar to VideoTraining */
+.page-header {
+  background-color: #fff;
+  padding: 0.6rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-layout {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Updated layout for 2 columns */
+.grid-layout-two-column {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem; /* Increase gap between columns */
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .grid-layout-two-column {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Left column with metrics and charts */
+.metrics-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Right column with chat */
+.chat-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* ========== THEME STYLES ========== */
+/* Light mode */
+.light-theme {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+/* Dark mode */
+.dark-mode .video-meeting-container {
+  background-color: #111827; /* bg-gray-900 */
+  color: white;
+}
+
+.dark-mode .meeting-header {
+  background-color: #1f2937; /* bg-gray-800 */
+  border-bottom: 1px solid #374151; /* border-gray-700 */
+  box-shadow: none;
+}
+
+.dark-mode .scenario-title {
+  color: white;
+}
+
+/* Update other card and component styles */
+.dark-mode .card {
+  background-color: #1f2937; /* bg-gray-800 */
+  border: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .tab-container {
+  border-bottom-color: #374151;
+}
+
+.dark-mode .tab-button {
+  color: #9ca3af;
+}
+
+.dark-mode .tab-button-active {
+  color: #60a5fa;
+  border-bottom-color: #60a5fa;
+}
+
+.dark-mode .metric-item {
+  background-color: #374151; /* bg-gray-700 */
+}
+
+.dark-mode .metric-item:hover {
+  background-color: #4b5563; /* bg-gray-600 */
+}
+
+.dark-mode .progress-bar-container {
+  background-color: #4b5563;
+}
+
+.dark-mode .chat-header {
+  background-color: #2563eb;
+}
+
+.dark-mode .chat-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: white;
+}
+
+.dark-mode .message-bubble-ai {
+  background-color: #374151;
+}
+
+.dark-mode .message-bubble-user {
+  background-color: #2563eb;
+}
+
+.dark-mode .coach-name {
+  color: #60a5fa;
+}
+
+.dark-mode .tip-container {
+  background-color: #2563eb;
+}
+
+.dark-mode .next-tip-button {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+.dark-mode .next-tip-button:hover {
+  background-color: white;
+}
+
+.theme-toggle {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+  border: none;
+  cursor: pointer;
+}
+
+.dark-theme .theme-toggle {
+  background-color: #374151;
+  color: #fcd34d;
+}
+
+/* ========== TABS STYLES ========== */
+.tab-container {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.tab-button-active {
+  color: #3b82f6;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.dark-theme .tab-container {
+  border-bottom-color: #4b5563;
+}
+
+.dark-theme .tab-button {
+  color: #9ca3af;
+}
+
+.dark-theme .tab-button-active {
+  color: #60a5fa;
+  border-bottom-color: #60a5fa;
+}
+
+/* ========== METRICS STYLES ========== */
+.metrics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.metric-item {
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.metric-item:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .metric-item {
+  background-color: #374151;
+}
+
+.dark-theme .metric-item:hover {
+  background-color: #4b5563;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.metric-name {
+  font-weight: 500;
+}
+
+.metric-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-score {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.change-positive {
+  color: #10b981;
+}
+
+.change-negative {
+  color: #ef4444;
+}
+
+.change-neutral {
+  color: #6b7280;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  margin-top: 0.5rem;
+}
+
+.dark-theme .progress-bar-container {
+  background-color: #4b5563;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-excellent {
+  background-color: #10b981;
+}
+
+.progress-good {
+  background-color: #3b82f6;
+}
+
+.progress-fair {
+  background-color: #f59e0b;
+}
+
+.progress-poor {
+  background-color: #ef4444;
+}
+
+/* ========== CHARTS STYLES ========== */
+.chart-container {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.chart-content {
+  height: 300px; /* Increase chart height */
+}
+
+/* ========== CHAT STYLES ========== */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+}
+
+.chat-header {
+  padding: 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.dark-theme .chat-header {
+  background-color: #2563eb;
+}
+
+.chat-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  min-height: 400px;
+  max-height: none; /* Remove the max height to use full space */
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.message-row {
+  display: flex;
+}
+
+.message-row-user {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: 90%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  word-break: break-word;
+}
+
+.message-bubble-ai {
+  background-color: #f3f4f6;
+}
+
+.message-bubble-user {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.dark-theme .message-bubble-ai {
+  background-color: #374151;
+}
+
+.dark-theme .message-bubble-user {
+  background-color: #2563eb;
+}
+
+.coach-name {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.dark-theme .coach-name {
+  color: #60a5fa;
+}
+
+.chat-input-container {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark-theme .chat-input-container {
+  border-top-color: #4b5563;
+}
+
+.chat-input-form {
+  display: flex;
+  align-items: stretch;   /* This ensures the button height matches the input */
+  height: 38px;           /* Explicitly set height */
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  outline: none;
+  height: 38px;           /* Match the total height */
+  font-size: 0.9375rem;   /* Slightly smaller text */
+}
+
+.chat-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.dark-theme .chat-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+/* Updated send button styles */
+.send-button {
+  padding: 0.375rem 0.75rem;  /* Reduced padding */
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;           /* For centering the icon */
+  align-items: center;
+  justify-content: center;
+  width: 40px;           /* Minimum width to keep it reasonably sized */
+  height: 100%;            /* Match height with input */
+}
+
+.send-button svg {
+  width: 18px;            /* Smaller icon */
+  height: 18px;
+}
+
+.send-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px); /* Subtle lift effect on hover */
+  
+}
+
+.dark-mode .send-button {
+  background-color: #2563eb;
+}
+
+.dark-mode .send-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* ========== TIP SECTION STYLES ========== */
+.tip-container {
+  background-color: #3b82f6;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.tip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tip-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.next-tip-button {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: #3b82f6;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.next-tip-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* Full-width optimizations */
+@media (min-width: 1440px) {
+  .scenario-content {
+    padding: 1rem 3rem; /* More padding on very wide screens */
+  }
+  
+  .grid-layout-two-column {
+    grid-template-columns: 55% 45%; /* Give more space to metrics on wide screens */
+  }
+  
+  .metrics-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns for metrics on very wide screens */
+    grid-template-rows: auto 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .metrics-column > .card:first-child {
+    grid-column: 1 / -1; /* Practice scores take full width */
+  }
+}
+
+/* Enhance chart visibility on wider screens */
+.chart-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .scenario-content {
+    padding: 0.5rem;
+  }
+  
+  .grid-layout-two-column {
+    gap: 1rem;
+  }
+  
+  .chart-content {
+    height: 200px; /* Smaller charts on mobile */
+  }
+  
+  .chat-messages {
+    min-height: 300px;
+  }
+  
+  .tip-container {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-height: 800px) {
+  .chat-messages {
+    min-height: 250px; /* Smaller chat window on short screens */
+  }
+  
+  .chart-content {
+    height: 180px; /* Smaller charts on short screens */
+  }
+}

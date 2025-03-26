@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import CustomizeScenario from './pages/CustomizeScenario';
 import Navbar from './Components/Navbar/Navbar';
 import VideoTraining from './pages/VideoMeeting';
+import ScenarioOverview from './pages/ScenarioOverview';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -32,6 +33,7 @@ function App() {
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/customizescenario" element={<CustomizeScenario />} />
             <Route path="/VideoTraining" element={<VideoTraining />} />
+            <Route path="/ScenarioOverview" element={<ScenarioOverview />} />
           </Routes>
         </div>
       </div>
