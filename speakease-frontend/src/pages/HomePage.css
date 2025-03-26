@@ -27,6 +27,25 @@ body {
   background-color: #1e1e1e;
   color: #ffffff;
 }
+/* ✅ עיצוב באנר קבלת פנים */
+.welcome-banner {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 12px 0;
+  margin: 10px auto;
+  width: 80%;
+  border-radius: 8px;
+  animation: fadeIn 4s ease-in-out;
+}
+
+/* ✅ אנימציה עדינה */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* ========== HERO SECTION (the top picture and text ========== */
 .hero {

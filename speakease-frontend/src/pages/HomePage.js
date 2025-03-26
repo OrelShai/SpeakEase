@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+
 import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { jwtDecode } from "jwt-decode"; 
 import "./HomePage.css";
 
 const HomePage = () => {
-  // States for tracking  whether the dark bar should be visible
   const [showDarkBar, setShowDarkBar] = useState(true);
-  
-  // Add state to track which FAQ item is expanded (null means none are expanded)
   const [expandedFaq, setExpandedFaq] = useState(null);
+  const [username, setUsername] = useState(null);
 
-  // Add navigate function
   const navigate = useNavigate();
 
-  // Handler function for both Accept and Deny buttons
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUsername(decodedToken.sub || decodedToken.username);
+      } catch (error) {
+        console.error("Invalid token:", error);
+        localStorage.removeItem("token"); // אם הטוקן אינו תקף, מוחקים אותו
+      }
+    }
+  }, []);
+
+  
+  // ✅ טיפול בהסכמה/דחיית קוקיז
   const handleConsentResponse = () => {
     setShowDarkBar(false);
   };
-  
-  // Toggle FAQ item expansion
+
+  // ✅ פתיחה/סגירה של שאלות FAQ
   const toggleFaq = (index) => {
-    if (expandedFaq === index) {
-      // If currently expanded, close it
-      setExpandedFaq(null);
-    } else {
-      // Otherwise, expand it
-      setExpandedFaq(index);
-    }
+    setExpandedFaq(expandedFaq === index ? null : index);
   };
 
   // Add function to handle scenario selection
@@ -47,24 +54,30 @@ const HomePage = () => {
   const faqData = [
     {
       question: "What is the \"Improve Your Performance\" Speaking Practice App?",
-      answer: "SpeakEase is an innovative app designed to help you improve your verbal communication skills through realistic practice scenarios. It uses AI technology to simulate real conversations in various situations, allowing you to practice and receive feedback in a safe, judgment-free environment."
+      answer: "SpeakEase is an innovative app designed to help you improve your verbal communication skills through realistic practice scenarios."
     },
     {
       question: "How does the app work?",
-      answer: "The app provides various speaking scenarios like job interviews, first dates, presentations, and more. You interact with AI conversation partners that respond naturally to your speech. After each practice session, you receive detailed feedback on your pacing, clarity, confidence, and vocabulary usage, along with tips for improvement."
+      answer: "The app provides various speaking scenarios like job interviews, first dates, presentations, and more. You interact with AI conversation partners."
     },
     {
       question: "Can I upload my own images for a more realistic practice experience?",
-      answer: "Yes! You can personalize your experience by uploading images of real people you'll be speaking with (with their consent) or locations where you'll be presenting. This helps create a more immersive and relevant practice environment tailored to your specific needs."
+      answer: "Yes! You can personalize your experience by uploading images of real people or locations."
     },
     {
       question: "What kind of feedback will I receive?",
-      answer: "You'll receive comprehensive feedback across multiple dimensions: speech clarity, pace, vocabulary usage, confidence indicators, filler word usage (like 'um' and 'uh'), and scenario-specific tips. The app also tracks your progress over time, showing improvement in your speaking patterns and confidence levels."
+      answer: "You'll receive comprehensive feedback on clarity, pace, confidence, and vocabulary usage."
     }
   ];
 
   return (
     <div className={`homepage`}>
+      
+  {username && (
+        <div className="welcome-banner">
+          <p>Welcome back, {username}!</p>
+        </div>
+      )}
 
       {/* -- HERO SECTION -- */}
       <section className="hero">
