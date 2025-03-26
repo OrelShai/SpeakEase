@@ -1,0 +1,245 @@
+/* Base styles (light mode) and location */
+.video-meeting-container {
+  display: flex;
+  flex-direction: column;
+  height: 91vh;
+  width: 100%;
+  background-color: #f9f9f9; 
+  color: #333; 
+  position: fixed;
+  top: 9vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.meeting-header {
+  background-color: #fff; 
+  padding: 0.6rem 1rem; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0; /* Light border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.scenario-title {
+  margin-left: 1rem;
+  font-size: 1.3rem;
+  font-weight: 1000;
+  color: #333; /* Dark text for light mode */
+}
+
+.timer-display {
+  background-color: #f2f2f2; /* Light gray for timer in light mode */
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: #333; /* Dark text for light mode */
+  border: 1px solid #e0e0e0; /* Light border */
+}
+
+.video-grid-container {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9; /* Light gray background */
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem; /* Larger gap between videos */
+  width: 100%;
+  max-width: 90rem; /* Increased from 72rem for larger overall grid */
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16/9;
+  background-color: #e0e0e0; /* Light gray for video frames */
+  border-radius: 0.75rem; /* Slightly larger border radius */
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  border: 1px solid #e0e0e0; /* Light border */
+  min-height: 280px; /* Minimum height to ensure it's not too small */
+}
+
+.video-element {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-off-indicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0e0e0; /* Light gray for camera off indicator */
+}
+
+.camera-off-text {
+  font-size: 1.125rem;
+  color: #666; /* Medium gray text */
+}
+
+.meeting-controls {
+  background-color: #fff; /* White footer for light mode */
+  padding: 0.75rem 1rem; /* Slightly smaller padding */
+  border-top: 1px solid #e0e0e0; /* Light border */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.controls-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.control-button {
+  padding: 0.75rem;
+  border-radius: 9999px;
+  background-color: #f2f2f2; /* Light gray buttons */
+  color: #333; /* Dark icon color */
+  transition: background-color 0.2s;
+  border: 1px solid #e0e0e0; /* Light border */
+}
+
+.control-button:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+}
+
+.button-muted {
+  background-color: #ef4444; /* Red for muted */
+  color: white;
+  border: none;
+}
+
+.button-camera-off {
+  background-color: #ef4444; /* Red for camera off */
+  color: white;
+  border: none;
+}
+
+.button-caption-on {
+  background-color: #3b82f6; /* Blue for captions on */
+  color: white;
+  border: none;
+}
+
+.button-hand-raised {
+  background-color: #eab308; /* Yellow for hand raised */
+  color: white;
+  border: none;
+}
+
+.button-recording {
+  background-color: #ef4444; /* Red for recording */
+  color: white;
+  border: none;
+  animation: pulse 2s infinite;
+}
+
+.button-end-call {
+  background-color: #dc2626; /* Red for end call */
+  color: white;
+  border: none;
+}
+
+.button-end-call:hover {
+  background-color: #b91c1c; /* Darker red on hover */
+}
+
+.participant-label {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.7); /* White with opacity for light mode */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: #333; /* Dark text */
+}
+
+/* Dark mode styles */
+.dark-mode .video-meeting-container {
+  background-color: #111827; /* bg-gray-900 */
+  color: white;
+}
+
+.dark-mode .meeting-header {
+  background-color: #1f2937; /* bg-gray-800 */
+  border-bottom: 1px solid #374151; /* border-gray-700 */
+  box-shadow: none;
+}
+
+.dark-mode .scenario-title {
+  color: white;
+}
+
+.dark-mode .timer-display {
+  background-color: #374151; /* bg-gray-700 */
+  color: white;
+  border: none;
+}
+
+.dark-mode .video-grid-container {
+  background-color: #111827; /* bg-gray-900 */
+}
+
+.dark-mode .video-frame {
+  background-color: #1f2937; /* bg-gray-800 */
+  border: none;
+  box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.4); /* Enhanced shadow for dark mode */
+}
+
+.dark-mode .camera-off-indicator {
+  background-color: #1f2937; /* bg-gray-800 */
+}
+
+.dark-mode .camera-off-text {
+  color: white;
+}
+
+.dark-mode .meeting-controls {
+  background-color: #1f2937; /* bg-gray-800 */
+  border-top: 1px solid #374151; /* border-gray-700 */
+  box-shadow: none;
+}
+
+.dark-mode .control-button {
+  background-color: #374151; /* bg-gray-700 */
+  color: white;
+  border: none;
+}
+
+.dark-mode .control-button:hover {
+  background-color: #4b5563; /* bg-gray-600 */
+}
+
+.dark-mode .participant-label {
+  background-color: rgba(17, 24, 39, 0.7); /* bg-gray-900/70 */
+  color: white;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}

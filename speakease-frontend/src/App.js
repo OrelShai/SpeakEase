@@ -7,6 +7,7 @@ import EditProfile from './pages/EditProfile';
 import HomePage from './pages/HomePage';
 import CustomizeScenario from './pages/CustomizeScenario';
 import Navbar from './Components/Navbar/Navbar';
+import VideoTraining from './pages/VideoMeeting';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -30,6 +31,7 @@ function App() {
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/customizescenario" element={<CustomizeScenario />} />
+            <Route path="/VideoTraining" element={<VideoTraining />} />
           </Routes>
         </div>
       </div>

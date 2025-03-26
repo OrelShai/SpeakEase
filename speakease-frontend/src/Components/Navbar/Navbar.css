@@ -6,6 +6,7 @@ nav {
   position: fixed;
   width: 100%;
   top: 0;
+  left: 0;
   /* Ensures the navbar is always at the top of the page */
   z-index: 10;
   /* Ensures the navbar is always on top */
