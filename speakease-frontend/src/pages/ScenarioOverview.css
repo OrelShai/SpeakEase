@@ -28,6 +28,16 @@
   }
 }
 
+.timer-display {
+    background-color: #f2f2f2; /* Light gray for timer in light mode */
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    color: #333; /* Dark text for light mode */
+    border: 1px solid #e0e0e0; /* Light border */
+    margin-left: auto
+  }
+
 /* Updated layout for 2 columns */
 .grid-layout-two-column {
   display: grid;

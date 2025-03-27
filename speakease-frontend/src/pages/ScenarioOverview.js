@@ -3,6 +3,9 @@ import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer, CartesianGri
 import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
 import "./ScenarioOverview.css";
 
+const scenarioName = "Scenario Name from api"; // This should come from the backend
+const practiceTimer = "00:00:00"; // This should come from the backend
+
 // Coach info - this will make it easy to update later from API
 const coach = {
     name: "Alex Carter",
@@ -130,8 +133,9 @@ const ScenarioOverview = ({ isDarkMode }) => {
                 {/* Header */}
                 <header className="meeting-header">
                     <div className="header-left">
-                        <h1 className="scenario-title">Scenario Overview</h1>
+                        <h1 className="scenario-title">Scenario Overview - {scenarioName}</h1>
                     </div>
+                    <div className="timer-display">{practiceTimer}</div>
                     {/* You can add a timer or other elements here if needed */}
                 </header>
 
