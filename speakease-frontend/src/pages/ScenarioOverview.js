@@ -3,14 +3,16 @@ import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer, CartesianGri
 import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
 import "./ScenarioOverview.css";
 
+// Coach info - this will make it easy to update later from API
+const coach = {
+    name: "Alex Carter",
+    imageUrl: "/images/trainers/Alex_Carter.png",
+};
+
 const ScenarioOverview = ({ isDarkMode }) => {
     // Ai chat messages static for now
     const [messages, setMessages] = useState([
-        { id: 1, sender: 'ai', text: "I've analyzed your recent practice session. Your verbal clarity has improved, but you could work on maintaining eye contact." },
-        { id: 2, sender: 'user', text: "How can I improve my eye contact during presentations?" },
-        { id: 3, sender: 'ai', text: "Try focusing on one person at a time for about 3-5 seconds before moving to another. Also, divide the room into sections and make sure you give attention to each section." },
-        { id: 4, sender: 'user', text: "What about my pacing? Was I speaking too quickly?" },
-        { id: 5, sender: 'ai', text: "Your pacing was generally good, but you did speed up during the middle section. Remember to take deliberate pauses after key points to let the information sink in." },
+        { id: 1, sender: 'ai', text: "I've analyzed your recent practice session. You performed well in [mention strengths], but there’s room for improvement in [mention weaknesses]. Let me know if you want insights on any specific part!" }
     ]);
     const [newMessage, setNewMessage] = useState('');
     const [activeTab, setActiveTab] = useState('verbal');
@@ -322,8 +324,17 @@ const ScenarioOverview = ({ isDarkMode }) => {
                         <div className="chat-column">
                             <div className="card chat-container">
                                 <div className="chat-header">
-                                    
-                                    <h2 className="chat-header-title">Ask Your Coach</h2>
+                                    <div className="chat-header-content">
+                                        <img 
+                                            src={coach.imageUrl} 
+                                            alt={coach.name} 
+                                            className="coach-avatar" 
+                                        />
+                                        <div className="chat-header-text">
+                                            <h2 className="chat-header-title">Ask Your Coach</h2>
+                                            <p className="chat-header-subtitle">{coach.name}</p>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="chat-messages">

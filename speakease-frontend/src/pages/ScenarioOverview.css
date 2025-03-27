@@ -403,15 +403,56 @@
   height: 100%; 
 }
 
+/* Chat header with coach avatar styling */
+
 .chat-header {
   padding: 1rem;
-  background-color: #1d4ed8; /* Darker blue for header */
+  background-color: #1d4ed8;
   color: white;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
 
-/* Message bubbles - improved colors */
+.chat-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.coach-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.chat-header-subtitle {
+  font-size: 0.875rem;
+  margin: 0;
+  opacity: 0.9;
+  color: #ffffff;
+}
+
+/* Dark mode adjustments */
+.dark-mode .coach-avatar {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .message-bubble-ai {
   background-color: #f0f4ff; /* Light blue background */
   border: 1px solid #dbeafe; /* Light blue border */
