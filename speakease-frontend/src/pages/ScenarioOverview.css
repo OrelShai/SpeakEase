@@ -1,16 +1,8 @@
 /* ========== GENERAL STYLES ========== */
 
-/* Inner container for content */
 .scenario-content {
-  max-width: 100%; /* Change from 1280px to 100% */
-  width: 100%;
-  margin: 0 auto;
-  padding: 1rem 2rem; /* Add more horizontal padding */
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow-y: auto;
-}
+    overflow-y: auto; /* scroling bar */
+  }
 
 /* Header styling similar to VideoTraining */
 .page-header {
@@ -369,6 +361,28 @@
   fill: #333333;
 }
 
+.pie-chart-grade {
+    font-size: 28px;
+    font-weight: bold;
+    fill: #333333;
+    transition: fill 0.3s ease;
+  }
+  
+  .pie-chart-label {
+    font-size: 14px;
+    fill: #666666;
+    transition: fill 0.3s ease;
+  }
+  
+  .dark-mode .pie-chart-grade {
+    fill: #e0e0e0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dark-mode .pie-chart-label {
+    fill: #a0a0a0;
+  }
+
 .dark-mode .recharts-pie-label-text {
   fill: #f8fafc;
   font-weight: 500;
@@ -378,7 +392,6 @@
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
 }
 
-/* Add some extra margin for the pie chart */
 .pie-chart-card .chart-container {
   padding: 1rem 1.5rem;
 }
@@ -390,12 +403,9 @@
   height: 100%; 
 }
 
-/* Updated chat colors for better light mode appearance */
-
-/* Chat header - slightly darker blue for better contrast */
 .chat-header {
   padding: 1rem;
-  background-color: #82bdf3; /* Darker blue for header */
+  background-color: #1d4ed8; /* Darker blue for header */
   color: white;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -453,6 +463,17 @@
   height: 100%;
 }
 
+.send-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(90deg); /* Rotate to point right instead of up */
+    transition: transform 0.2s ease;
+  }
+  
+  .send-button:hover .send-icon {
+    transform: rotate(90deg) translateX(1px); /* Slight movement on hover */
+  }
+
 .send-button:hover {
   background-color: #1d4ed8; /* Even darker on hover */
   transform: translateY(-1px);
@@ -470,6 +491,7 @@
 .chat-header-title {
   font-size: 1.125rem;
   font-weight: 600;
+  color: white;
 }
 
 .chat-messages {
@@ -690,7 +712,7 @@
   }
   
   .chart-content {
-    height: 200px; /* Smaller charts on mobile */
+    height: 200px; 
   }
   
   .chat-messages {

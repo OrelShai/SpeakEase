@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
 import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
 import "./ScenarioOverview.css";
 
@@ -71,11 +71,11 @@ const ScenarioOverview = ({ isDarkMode }) => {
             ...performanceData.nonverbal,
             ...performanceData.engagement
         ];
-        
+
         // Calculate average score
         const totalScore = allMetrics.reduce((sum, metric) => sum + metric.score, 0);
         const avgScore = Math.round(totalScore / allMetrics.length);
-        
+
         return avgScore;
     };
 
@@ -109,6 +109,18 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const handleNextTip = () => {
         setCurrentTip((prev) => (prev + 1) % tips.length);
     };
+
+    // Enhanced Progress Chart component
+
+    // Update your data array with more meaningful practice scores
+    const practiceScoreHistory = [
+        { practice: 1, score: 60 },
+        { practice: 2, score: 80 },
+        { practice: 3, score: 78 },
+        { practice: 4, score: 69 },
+        { practice: 5, score: 100 },
+        { practice: 6, score: 89 }
+    ];
 
     return (
         <div className={isDarkMode ? "dark-mode" : ""}>
@@ -173,9 +185,9 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                                 <div className="progress-bar-container">
                                                     <div
                                                         className={`progress-bar ${metric.score > 85 ? 'progress-excellent' :
-                                                                metric.score > 70 ? 'progress-good' :
-                                                                    metric.score > 50 ? 'progress-fair' :
-                                                                        'progress-poor'
+                                                            metric.score > 70 ? 'progress-good' :
+                                                                metric.score > 50 ? 'progress-fair' :
+                                                                    'progress-poor'
                                                             }`}
                                                         style={{ width: `${metric.score}%` }}
                                                     ></div>
@@ -189,11 +201,51 @@ const ScenarioOverview = ({ isDarkMode }) => {
                             {/* Progress chart - Now below practice scores */}
                             <div className="card progress-chart-card">
                                 <div className="chart-container">
-                                    <h2 className="chart-title">Progress Over Time</h2>
+                                    <h2 className="chart-title">Practice History</h2>
                                     <div className="chart-content">
                                         <ResponsiveContainer width="100%" height="100%">
-                                            <LineChart data={data}>
-                                                <Line type="monotone" dataKey="score" stroke="#8884d8" strokeWidth={2} />
+                                            <LineChart data={practiceScoreHistory}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke={isDarkMode ? "#475569" : "#e5e7eb"} />
+                                                <XAxis 
+                                                    dataKey="practice" 
+                                                    label={{ 
+                                                        value: 'Practice Session', 
+                                                        position: 'insideBottom', 
+                                                        offset: -5 
+                                                    }}
+                                                    stroke={isDarkMode ? "#94a3b8" : "#6b7280"}
+                                                />
+                                                <YAxis 
+                                                    domain={[0, 100]} 
+                                                    label={{ 
+                                                        value: 'Score', 
+                                                        angle: -90, 
+                                                        position: 'insideLeft' 
+                                                    }}
+                                                    stroke={isDarkMode ? "#94a3b8" : "#6b7280"}
+                                                />
+                                                <Tooltip 
+                                                    formatter={(value) => [`${value}%`, 'Score']}
+                                                    labelFormatter={(practice) => `Practice ${practice}`}
+                                                    contentStyle={{ 
+                                                        backgroundColor: isDarkMode ? '#1e293b' : '#ffffff',
+                                                        borderColor: isDarkMode ? '#334155' : '#e5e7eb',
+                                                        color: isDarkMode ? '#e2e8f0' : '#374151'
+                                                    }}
+                                                />
+                                                <Line 
+                                                    type="monotone" 
+                                                    dataKey="score" 
+                                                    stroke="#3b82f6" 
+                                                    strokeWidth={3}
+                                                    activeDot={{ r: 8 }}
+                                                    dot={{ 
+                                                        stroke: '#3b82f6', 
+                                                        strokeWidth: 2, 
+                                                        r: 6, 
+                                                        fill: isDarkMode ? '#1e293b' : '#ffffff' 
+                                                    }}
+                                                />
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>
@@ -216,36 +268,29 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                                     labelLine={false} /* Remove label lines for cleaner look */
                                                 >
                                                     {pieData.map((entry, index) => (
-                                                        <Cell 
-                                                            key={`cell-${index}`} 
-                                                            fill={["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"][index]} 
+                                                        <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"][index]}
                                                             strokeWidth={2}
                                                         />
                                                     ))}
                                                 </Pie>
-                                                {/* Add text in the center for total grade */}
-                                                <text 
-                                                    x="50%" 
-                                                    y="50%" 
-                                                    textAnchor="middle" 
+                                                {/* total grade */}
+                                                <text
+                                                    x="50%"
+                                                    y="50%"
+                                                    textAnchor="middle"
                                                     dominantBaseline="middle"
-                                                    style={{
-                                                        fontSize: '28px',
-                                                        fontWeight: 'bold',
-                                                        fill: isDarkMode ? '#e0e0e0' : '#333333'
-                                                    }}
+                                                    className="pie-chart-grade"
                                                 >
                                                     {overallGrade}%
                                                 </text>
-                                                <text 
-                                                    x="50%" 
-                                                    y="62%" 
-                                                    textAnchor="middle" 
+                                                <text
+                                                    x="50%"
+                                                    y="62%"
+                                                    textAnchor="middle"
                                                     dominantBaseline="middle"
-                                                    style={{
-                                                        fontSize: '14px',
-                                                        fill: isDarkMode ? '#a0a0a0' : '#666666'
-                                                    }}
+                                                    className="pie-chart-label"
                                                 >
                                                     Overall
                                                 </text>
@@ -277,6 +322,7 @@ const ScenarioOverview = ({ isDarkMode }) => {
                         <div className="chat-column">
                             <div className="card chat-container">
                                 <div className="chat-header">
+                                    
                                     <h2 className="chat-header-title">Ask Your Coach</h2>
                                 </div>
 
@@ -285,8 +331,8 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                         {messages.map((message) => (
                                             <div key={message.id} className={`message-row ${message.sender === 'user' ? 'message-row-user' : ''}`}>
                                                 <div className={`message-bubble ${message.sender === 'user'
-                                                        ? 'message-bubble-user'
-                                                        : 'message-bubble-ai'
+                                                    ? 'message-bubble-user'
+                                                    : 'message-bubble-ai'
                                                     }`}>
                                                     {message.sender === 'ai' && <strong className="coach-name">Coach: </strong>}
                                                     <p>{message.text}</p>
@@ -311,7 +357,7 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                             onClick={handleSendMessage}
                                             className="send-button"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="send-icon" viewBox="0 0 20 20" fill="currentColor">
                                                 <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                                             </svg>
                                         </button>
