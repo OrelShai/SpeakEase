@@ -1,21 +1,4 @@
 /* ========== GENERAL STYLES ========== */
-.scenario-container {
-  display: flex;
-  flex-direction: column;
-  height: 91vh; /* Match VideoTraining height */
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  background-color: #f9f9f9;
-  color: #333;
-  position: fixed;
-  top: 9vh; /* Assuming your navbar is 9vh tall */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  box-sizing: border-box;
-  overflow: hidden;
-}
 
 /* Inner container for content */
 .scenario-content {
@@ -39,12 +22,6 @@
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   margin-bottom: 1rem;
-}
-
-.page-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #333;
 }
 
 .grid-layout {
@@ -78,6 +55,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  position: relative;
 }
 
 /* Right column with chat */
@@ -103,14 +81,14 @@
 
 /* Dark mode */
 .dark-mode .video-meeting-container {
-  background-color: #111827; /* bg-gray-900 */
-  color: white;
+  background-color: #0f172a; /* Darker blue-gray background */
+  color: #e2e8f0;
 }
 
 .dark-mode .meeting-header {
-  background-color: #1f2937; /* bg-gray-800 */
-  border-bottom: 1px solid #374151; /* border-gray-700 */
-  box-shadow: none;
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .scenario-title {
@@ -119,9 +97,9 @@
 
 /* Update other card and component styles */
 .dark-mode .card {
-  background-color: #1f2937; /* bg-gray-800 */
-  border: none;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background-color: #1e293b; /* Slightly lighter than background */
+  border: 1px solid #334155; /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .tab-container {
@@ -138,33 +116,43 @@
 }
 
 .dark-mode .metric-item {
-  background-color: #374151; /* bg-gray-700 */
+  background-color: #334155; /* Slightly lighter than card */
+  border: 1px solid #475569; /* Subtle border */
 }
 
 .dark-mode .metric-item:hover {
-  background-color: #4b5563; /* bg-gray-600 */
+  background-color: #475569;
+  transform: translateY(-1px);
 }
 
 .dark-mode .progress-bar-container {
-  background-color: #4b5563;
+  background-color: #475569; /* Darker background for progress */
 }
 
 .dark-mode .chat-header {
-  background-color: #2563eb;
+  background-color: #3b82f6; /* More vibrant blue */
 }
 
 .dark-mode .chat-input {
-  background-color: #374151;
-  border-color: #4b5563;
-  color: white;
+  background-color: #1e293b; /* Darker background */
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.dark-mode .chat-input::placeholder {
+  color: #94a3b8; /* Lighter placeholder text */
 }
 
 .dark-mode .message-bubble-ai {
-  background-color: #374151;
+  background-color: #334155; /* Match other elements */
+  border: 1px solid #475569;
+  color: #e2e8f0;
 }
 
 .dark-mode .message-bubble-user {
-  background-color: #2563eb;
+  background-color: #3b82f6; /* Match header */
+  color: white;
+  border: none;
 }
 
 .dark-mode .coach-name {
@@ -172,16 +160,32 @@
 }
 
 .dark-mode .tip-container {
-  background-color: #2563eb;
+  background-color: #3b82f6; /* Match other blues */
+  border: 1px solid #60a5fa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: #f8fafc; /* Very light gray/blue text for dark mode */
+}
+
+.dark-mode .tip-header p {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
+}
+
+.dark-mode .tip-title {
+  color: white;
+  font-weight: 700;
 }
 
 .dark-mode .next-tip-button {
-  background-color: #f3f4f6;
-  color: #2563eb;
+  background-color: white;
+  color: #3b82f6;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .dark-mode .next-tip-button:hover {
-  background-color: white;
+  background-color: #f8fafc;
+  transform: translateY(-1px);
 }
 
 .theme-toggle {
@@ -204,12 +208,14 @@
   margin-bottom: 1rem;
 }
 
+
 .tab-button {
   padding: 0.5rem 1rem;
   background: none;
   border: none;
   color: #6b7280;
   cursor: pointer;
+  
 }
 
 .tab-button-active {
@@ -227,7 +233,6 @@
 
 .dark-theme .tab-button-active {
   color: #60a5fa;
-  border-bottom-color: #60a5fa;
 }
 
 /* ========== METRICS STYLES ========== */
@@ -235,6 +240,9 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding-bottom: 1rem;  /* Add padding at bottom */
+  overflow-y: auto;      /* Allow scrolling if needed */
+  max-height: 60vh;      /* Limit height to allow scrolling */
 }
 
 .metric-item {
@@ -242,6 +250,8 @@
   background-color: #f9fafb;
   border-radius: 0.375rem;
   transition: all 0.2s ease;
+  margin-bottom: 1rem;   /* Add more space between items */
+  min-height: 80px;      /* Set minimum height to ensure space for progress bar */
 }
 
 .metric-item:hover {
@@ -260,6 +270,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;   /* Add more space before progress bar */
 }
 
 .metric-name {
@@ -295,16 +306,24 @@
   background-color: #e5e7eb;
   border-radius: 9999px;
   margin-top: 0.5rem;
+  position: relative;    /* Add positioning context */
+  display: block;        /* Force block display */
+  min-height: 0.5rem;    /* Ensure minimum height */
+  margin-bottom: 0.5rem; /* Add bottom margin for spacing */
 }
 
 .dark-theme .progress-bar-container {
   background-color: #4b5563;
 }
 
+/* Fix the progress bar to display correctly */
 .progress-bar {
+  display: block;
   height: 100%;
+  min-height: 0.5rem;    /* Ensure minimum height */
   border-radius: 9999px;
   transition: width 0.5s ease-in-out;
+  position: relative;    /* Use relative instead of absolute */
 }
 
 .progress-excellent {
@@ -336,7 +355,32 @@
 }
 
 .chart-content {
-  height: 300px; /* Increase chart height */
+  height: 300px; /* Set explicit height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Make the pie chart labels more readable */
+.recharts-pie-label-text {
+  font-size: 12px;
+  font-weight: 500;
+  fill: #333333;
+}
+
+.dark-mode .recharts-pie-label-text {
+  fill: #f8fafc;
+  font-weight: 500;
+}
+
+.dark-mode .recharts-wrapper {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Add some extra margin for the pie chart */
+.pie-chart-card .chart-container {
+  padding: 1rem 1.5rem;
 }
 
 /* ========== CHAT STYLES ========== */
@@ -346,12 +390,77 @@
   height: 100%; 
 }
 
+/* Updated chat colors for better light mode appearance */
+
+/* Chat header - slightly darker blue for better contrast */
 .chat-header {
   padding: 1rem;
-  background-color: #3b82f6;
+  background-color: #82bdf3; /* Darker blue for header */
   color: white;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+}
+
+/* Message bubbles - improved colors */
+.message-bubble-ai {
+  background-color: #f0f4ff; /* Light blue background */
+  border: 1px solid #dbeafe; /* Light blue border */
+}
+
+.message-bubble-user {
+  background-color: #f0f4ff;
+  color: #ffffff;
+}
+
+/* Coach name - better contrast */
+.coach-name {
+  color: #1d4ed8; /* Darker blue for better visibility */
+  font-weight: 600;
+}
+
+/* Input style improvements */
+.chat-input {
+  flex: 1;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  outline: none;
+  height: 38px;
+  font-size: 0.9375rem;
+  background-color: #f9fafb; /* Light gray background */
+}
+
+.chat-input:focus {
+  border-color: #2563eb; /* Darker blue for focus */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3); /* Match the darker blue */
+}
+
+/* Send button - match the darker blue */
+.send-button {
+  padding: 0.375rem 0.75rem;
+  background-color: #2563eb; /* Darker blue to match header */
+  color: white;
+  border: none;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 100%;
+}
+
+.send-button:hover {
+  background-color: #1d4ed8; /* Even darker on hover */
+  transform: translateY(-1px);
+}
+
+/* Keep dark mode styles */
+.dark-mode .chat-header {
+  background-color: #2563eb; /* Keep the same blue in dark mode */
 }
 
 .dark-theme .chat-header {
@@ -392,30 +501,12 @@
   word-break: break-word;
 }
 
-.message-bubble-ai {
-  background-color: #f3f4f6;
-}
-
-.message-bubble-user {
-  background-color: #3b82f6;
-  color: white;
-}
-
 .dark-theme .message-bubble-ai {
   background-color: #374151;
 }
 
 .dark-theme .message-bubble-user {
   background-color: #2563eb;
-}
-
-.coach-name {
-  color: #3b82f6;
-  font-weight: 600;
-}
-
-.dark-theme .coach-name {
-  color: #60a5fa;
 }
 
 .chat-input-container {
@@ -433,22 +524,6 @@
   height: 38px;           /* Explicitly set height */
 }
 
-.chat-input {
-  flex: 1;
-  padding: 0.375rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-top-left-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
-  outline: none;
-  height: 38px;           /* Match the total height */
-  font-size: 0.9375rem;   /* Slightly smaller text */
-}
-
-.chat-input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
-}
-
 .dark-theme .chat-input {
   background-color: #374151;
   border-color: #4b5563;
@@ -456,33 +531,6 @@
 }
 
 /* Updated send button styles */
-.send-button {
-  padding: 0.375rem 0.75rem;  /* Reduced padding */
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  border-top-right-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;           /* For centering the icon */
-  align-items: center;
-  justify-content: center;
-  width: 40px;           /* Minimum width to keep it reasonably sized */
-  height: 100%;            /* Match height with input */
-}
-
-.send-button svg {
-  width: 18px;            /* Smaller icon */
-  height: 18px;
-}
-
-.send-button:hover {
-  background-color: #2563eb;
-  transform: translateY(-1px); /* Subtle lift effect on hover */
-  
-}
-
 .dark-mode .send-button {
   background-color: #2563eb;
 }
@@ -497,35 +545,94 @@
   color: white;
   padding: 1rem;
   border-radius: 0.5rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0; /* Remove top margin */
+  margin-bottom: 1rem; /* Add bottom margin */
   width: 100%;
+  order: 4; /* Ensure it comes after the pie chart */
 }
 
 .tip-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
+
+/* Style the tip text specifically */
+.tip-header p {
+    color: #ffffff; /* Dark slate gray for better readability */
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 400;
+    max-width: 90%;
+  }
 
 .tip-title {
   font-size: 1.125rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
+  font-size: 1.4rem;
+
 }
+
+/* Updated Next Tip button styles for better width control */
 
 .next-tip-button {
   padding: 0.5rem 1rem;
   background-color: white;
-  color: #3b82f6;
+  color: #1e40af;
   border: none;
   border-radius: 0.375rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  white-space: nowrap;      /* Prevent text wrapping */
+  width: auto;              /* Use auto width */
+  min-width: fit-content;   /* Ensure it fits content */
+  max-width: 120px;         /* Set maximum width */
+  font-size: 0.875rem;      /* Slightly smaller font */
+  font-weight: 500;         /* Medium weight */
+  display: inline-flex;     /* Use flexbox for better content alignment */
+  align-items: center;
+  justify-content: center;
 }
 
 .next-tip-button:hover {
   background-color: #f3f4f6;
+  transform: translateY(-1px); /* Add subtle lift effect on hover */
+}
+
+.next-tip-button:active {
+  transform: translateY(0);  /* Press effect */
+}
+
+/* Keep dark mode styles */
+.dark-mode .next-tip-button {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+.dark-mode .next-tip-button:hover {
+  background-color: white;
+}
+
+/* Add a subtle icon to make it more compact if desired */
+.next-tip-button::after {
+  content: "→";              /* Add arrow icon */
+  margin-left: 0.25rem;      /* Small spacing */
+  font-size: 1rem;           /* Slightly larger arrow */
+}
+
+/* Responsive styles for even smaller button on mobile */
+@media (max-width: 480px) {
+  .next-tip-button {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    max-width: 100px;
+  }
+  
+  .tip-title {
+    font-size: 1rem;       /* Smaller title on mobile */
+  }
 }
 
 /* Full-width optimizations */
@@ -539,15 +646,26 @@
   }
   
   .metrics-column {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns for metrics on very wide screens */
-    grid-template-rows: auto 1fr 1fr;
+    display: flex; /* Change from grid to flex */
+    flex-direction: column; /* Ensure vertical stacking */
     gap: 1rem;
   }
-  
-  .metrics-column > .card:first-child {
-    grid-column: 1 / -1; /* Practice scores take full width */
-  }
+}
+
+/* Add specific class names to ensure ordering */
+.practice-scores-card {
+  order: 1;
+  min-height: 400px;     /* Ensure minimum height */
+  overflow-y: auto;      /* Allow internal scrolling */
+}
+
+.progress-chart-card {
+  order: 2;
+}
+
+.pie-chart-card {
+  order: 3;
+  margin-bottom: 0; /* Remove bottom margin to place tip closer */
 }
 
 /* Enhance chart visibility on wider screens */
@@ -592,4 +710,170 @@
   .chart-content {
     height: 180px; /* Smaller charts on short screens */
   }
+}
+
+/* Improved dark mode styles */
+
+/* Better background colors */
+.dark-mode .video-meeting-container {
+  background-color: #0f172a; /* Darker blue-gray background */
+  color: #e2e8f0;
+}
+
+/* Enhanced card styling */
+.dark-mode .card {
+  background-color: #1e293b; /* Slightly lighter than background */
+  border: 1px solid #334155; /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Better header styling */
+.dark-mode .meeting-header {
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved text colors */
+.dark-mode .chart-title,
+.dark-mode .tab-button-active,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3 {
+  color: #f8fafc; /* Brighter white for headings */
+}
+
+/* Improve progress bar colors */
+.dark-mode .progress-excellent {
+  background-color: #10b981; /* Keep green */
+}
+
+.dark-mode .progress-good {
+  background-color: #3b82f6; /* Keep blue */
+}
+
+.dark-mode .progress-fair {
+  background-color: #f59e0b; /* Keep orange/amber */
+}
+
+.dark-mode .progress-poor {
+  background-color: #ef4444; /* Keep red */
+}
+
+/* Better metrics styling */
+.dark-mode .metric-item {
+  background-color: #334155; /* Slightly lighter than card */
+  border: 1px solid #475569; /* Subtle border */
+}
+
+.dark-mode .metric-item:hover {
+  background-color: #475569;
+  transform: translateY(-1px);
+}
+
+.dark-mode .progress-bar-container {
+  background-color: #475569; /* Darker background for progress */
+}
+
+/* Better chat styles */
+.dark-mode .chat-header {
+  background-color: #3b82f6; /* More vibrant blue */
+}
+
+.dark-mode .message-bubble-ai {
+  background-color: #334155; /* Match other elements */
+  border: 1px solid #475569;
+  color: #e2e8f0;
+}
+
+.dark-mode .message-bubble-user {
+  background-color: #3b82f6; /* Match header */
+  color: white;
+  border: none;
+}
+
+.dark-mode .chat-input {
+  background-color: #1e293b; /* Darker background */
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.dark-mode .chat-input::placeholder {
+  color: #94a3b8; /* Lighter placeholder text */
+}
+
+.dark-mode .chat-input-container {
+  border-top-color: #334155;
+}
+
+/* Improved tip container */
+.dark-mode .tip-container {
+  background-color: #3b82f6; /* Match other blues */
+  border: 1px solid #60a5fa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .tip-header p {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
+}
+
+.dark-mode .tip-title {
+  color: white;
+  font-weight: 700;
+}
+
+.dark-mode .next-tip-button {
+  background-color: white;
+  color: #3b82f6;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .next-tip-button:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+/* Better recharts styling */
+.dark-mode .recharts-cartesian-grid-horizontal line,
+.dark-mode .recharts-cartesian-grid-vertical line {
+  stroke: #475569;
+}
+
+.dark-mode .recharts-pie-label-text {
+  fill: #f8fafc;
+  font-weight: 500;
+}
+
+.dark-mode .recharts-wrapper {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Add subtle transition for theme switching */
+.video-meeting-container,
+.card,
+.metric-item,
+.chat-input,
+.message-bubble {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Better scrollbar styling */
+.dark-mode *::-webkit-scrollbar {
+  width: 12px;
+}
+
+.dark-mode *::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark-mode *::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 6px;
+  border: 3px solid #1e293b;
+}
+
+.dark-mode *::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
 }
