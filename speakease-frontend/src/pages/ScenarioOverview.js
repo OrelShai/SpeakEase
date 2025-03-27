@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Add this import
 import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
 import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
 import "./ScenarioOverview.css";
@@ -13,6 +14,14 @@ const coach = {
 };
 
 const ScenarioOverview = ({ isDarkMode }) => {
+    // Get passed data from navigation
+    const location = useLocation();
+    const scenarioId = location.state?.scenarioId || "default-scenario-id";
+    const scenarioName = location.state?.scenarioName || "Default Scenario";
+    
+    // Add loading state for API calls
+    const [isLoading, setIsLoading] = useState(true);
+    
     // Ai chat messages static for now
     const [messages, setMessages] = useState([
         { id: 1, sender: 'ai', text: "I've analyzed your recent practice session. You performed well in [mention strengths], but there’s room for improvement in [mention weaknesses]. Let me know if you want insights on any specific part!" }
@@ -126,6 +135,40 @@ const ScenarioOverview = ({ isDarkMode }) => {
         { practice: 5, score: 100 },
         { practice: 6, score: 89 }
     ];
+
+    // Add effect to fetch data when component mounts or scenarioId changes
+    useEffect(() => {
+        const fetchScenarioData = async () => {
+            setIsLoading(true);
+            try {
+                // In the future, replace with actual API calls
+                // const response = await fetch(`/api/scenarios/${scenarioId}`);
+                // const data = await response.json();
+                
+                // For now, just simulate a delay
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Then set loading to false
+                setIsLoading(false);
+            } catch (error) {
+                console.error("Error fetching scenario data:", error);
+                setIsLoading(false);
+            }
+        };
+        
+        fetchScenarioData();
+    }, [scenarioId]);
+    
+    // You could show a loading indicator
+    if (isLoading) {
+        return (
+            <div className={isDarkMode ? "dark-mode" : ""}>
+                <div className="video-meeting-container loading-container">
+                    <p>Loading your scenario data...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={isDarkMode ? "dark-mode" : ""}>
@@ -349,7 +392,7 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                                     ? 'message-bubble-user'
                                                     : 'message-bubble-ai'
                                                     }`}>
-                                                    {message.sender === 'ai' && <strong className="coach-name">Coach: </strong>}
+                                                    {message.sender === 'ai' && <strong className="coach-name">{coach.name}: </strong>}
                                                     <p>{message.text}</p>
                                                 </div>
                                             </div>
