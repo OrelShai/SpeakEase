@@ -18,8 +18,25 @@ const VideoTraining = ({ onEndCall }) => {
   // 2. Extract scenarioName from location state (with fallback)
   const scenarioName = location.state?.scenarioName + " Training Session!" || "Training Session";
   
-  // 3. Should change to feedback page when the page is done
-  const handleEndCall = onEndCall || (() => navigate('/'));
+  // Should get the scenarioId from api call 
+  const scenarioId = location.state?.scenarioId || "default-scenario-id"; // should get from api 
+
+  const handleEndCall = () => {
+    // First clean up media resources
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach(track => track.stop());
+    }
+
+    //should call the api to end the call give him all the data 
+    
+    // Navigate to ScenarioOverview with just the ID
+    navigate('/ScenarioOverview', { 
+      state: { 
+        scenarioId: scenarioId,
+        scenarioName: scenarioName
+      } 
+    });
+  };
 
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
