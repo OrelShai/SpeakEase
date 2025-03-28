@@ -58,21 +58,29 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
 
           {username ? (
             <>
-              {/* ✅ Settings icon visible only if logged in */}
+              {/* ✅ אייקון הגדרות */}
               <img
                 src={
                   darkMode
-                    ? "/images/black-setting.png"
-                    : "/images/white-setting.png"
+                    ? "/images/navbar/black-setting.png"
+                    : "/images/navbar/white-setting.png"
                 }
                 alt="Settings"
                 className="settings-icon"
                 onClick={() => navigate("/edit-profile")}
               />
 
-              <button className="logout-button" onClick={handleLogout}>
-                Log Out
-              </button>
+              {/* ✅ אייקון יציאה במקום כפתור טקסט */}
+              <img
+                src={
+                  darkMode
+                    ? "/images/navbar/DARK-Log_Out.png"
+                    : "/images/navbar/WHITE-Log_Out.png"
+                }
+                alt="Log Out"
+                className="logout-icon"
+                onClick={handleLogout}
+              />
             </>
           ) : (
             <Link to="/login" className="login-icon">

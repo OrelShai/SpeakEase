@@ -119,6 +119,14 @@ nav {
 .settings-icon {
   width: 24px;
   height: 24px;
-  margin-left: 12px;
+  margin-left: 10px;
   cursor: pointer;
 }
+
+.logout-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 22px;
+  cursor: pointer;
+}
+
