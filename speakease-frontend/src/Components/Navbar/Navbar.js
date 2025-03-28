@@ -1,11 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Moon, Sun } from "lucide-react";
+import { jwtDecode } from "jwt-decode";
+import { useLocation } from "react-router-dom";
+
 import "./Navbar.css";
 
 const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
+  const [username, setUsername] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUsername(decoded.sub || decoded.username);
+      } catch (e) {
+        localStorage.removeItem("token");
+        setUsername(null);
+      }
+    } else {
+      setUsername(null);
+    }
+  }, [location]); 
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUsername(null);
+    navigate("/login");
+  };
+
   return (
     <div>
       <nav className="navbar">
@@ -22,11 +51,18 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
 
         <div className="navbar-right">
           <button onClick={toggleDarkMode} className="dark-mode-icon">
-          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <Link to="/login" className="login-icon">
-            <FontAwesomeIcon icon={faUser} />
-          </Link>
+
+          {username ? (
+            <button className="logout-button" onClick={handleLogout}>
+              Log Out
+            </button>
+          ) : (
+            <Link to="/login" className="login-icon">
+              <FontAwesomeIcon icon={faUser} />
+            </Link>
+          )}
         </div>
       </nav>
     </div>

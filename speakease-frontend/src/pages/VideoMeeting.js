@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
+
 import { 
   MdMic, MdMicOff, 
   MdVideocam, MdVideocamOff, 
@@ -11,9 +13,26 @@ import {
 import './VideoTraining.css';
 
 const VideoTraining = ({ onEndCall }) => {
+  const navigate = useNavigate();
+
+      useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+      
+        try {
+          jwtDecode(token); // ננסה רק לפענח - אם זה נכשך, הטוקן לא חוקי
+        } catch (error) {
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      }, []);
+
+    
   // 1. Use React Router's useLocation hook to access navigation state
   const location = useLocation();
-  const navigate = useNavigate();
   
   // 2. Extract scenarioName from location state (with fallback)
   const scenarioName = location.state?.scenarioName + " Training Session!" || "Training Session";

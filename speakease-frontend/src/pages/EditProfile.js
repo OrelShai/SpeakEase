@@ -1,8 +1,27 @@
-import React, { useState } from "react";
-import "./EditProfile.css";
+import React, { useState, useEffect } from 'react';
+import './CustomizeScenario.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 const EditProfile = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  
+  const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+    
+      try {
+        jwtDecode(token); // ננסה רק לפענח - אם זה נכשך, הטוקן לא חוקי
+      } catch (error) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    }, []);
 
   return (
     <div className="edit-profile-container">

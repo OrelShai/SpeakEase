@@ -1,4 +1,7 @@
 import { useState, useRef, useEffect } from "react";
+import './CustomizeScenario.css';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom"; // Add this import
 import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
 import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
@@ -14,6 +17,24 @@ const coach = {
 };
 
 const ScenarioOverview = ({ isDarkMode }) => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+    
+      try {
+        jwtDecode(token); // ננסה רק לפענח - אם זה נכשך, הטוקן לא חוקי
+      } catch (error) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    }, []);
+
     // Get passed data from navigation
     const location = useLocation();
     const scenarioId = location.state?.scenarioId || "default-scenario-id";

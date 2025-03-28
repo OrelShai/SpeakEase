@@ -98,3 +98,20 @@ nav {
   /* Log in icon color for dark mode */
   background-color: #000000;
 }
+
+.logout-button {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Dark mode */
+.dark-mode .logout-button {
+  background-color: #000000;
+  color: #ffffff;
+}
