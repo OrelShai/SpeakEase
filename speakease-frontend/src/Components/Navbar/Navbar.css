@@ -115,3 +115,10 @@ nav {
   background-color: #000000;
   color: #ffffff;
 }
+
+.settings-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 12px;
+  cursor: pointer;
+}

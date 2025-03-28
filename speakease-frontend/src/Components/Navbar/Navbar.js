@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { Moon, Sun } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
-import { useLocation } from "react-router-dom";
 
 import "./Navbar.css";
 
@@ -12,7 +11,6 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
   const [username, setUsername] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -27,7 +25,7 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
     } else {
       setUsername(null);
     }
-  }, [location]); 
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -43,7 +41,11 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
           <Link to="/">
             <img
               className="logo"
-              src={darkMode ? "/images/navbar/SpeakEaseLogo-DarkMode.png" : "/images/navbar/SpeakEaseLogo-LightMode.png"}
+              src={
+                darkMode
+                  ? "/images/navbar/SpeakEaseLogo-DarkMode.png"
+                  : "/images/navbar/SpeakEaseLogo-LightMode.png"
+              }
               alt="logo"
             />
           </Link>
@@ -55,9 +57,23 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
           </button>
 
           {username ? (
-            <button className="logout-button" onClick={handleLogout}>
-              Log Out
-            </button>
+            <>
+              {/* ✅ Settings icon visible only if logged in */}
+              <img
+                src={
+                  darkMode
+                    ? "/images/black-setting.png"
+                    : "/images/white-setting.png"
+                }
+                alt="Settings"
+                className="settings-icon"
+                onClick={() => navigate("/edit-profile")}
+              />
+
+              <button className="logout-button" onClick={handleLogout}>
+                Log Out
+              </button>
+            </>
           ) : (
             <Link to="/login" className="login-icon">
               <FontAwesomeIcon icon={faUser} />
