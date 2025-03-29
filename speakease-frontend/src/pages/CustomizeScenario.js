@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CustomizeScenario.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
+
 
 const CustomizeScenario = () => {
   // 1. Move useNavigate to the component level
@@ -16,6 +18,22 @@ const CustomizeScenario = () => {
   const [vocabularyLevel, setVocabularyLevel] = useState('Basic');
   const [participantsNumber, setParticipantsNumber] = useState('');
   const [saveSettings, setSaveSettings] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  
+    try {
+      jwtDecode(token); // ננסה רק לפענח - אם זה נכשך, הטוקן לא חוקי
+    } catch (error) {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  }, []);
+  
 
   // 3. Handle form submission and navigation
   const handleStartScenario = (e) => {
@@ -36,6 +54,8 @@ const CustomizeScenario = () => {
       } 
     });
   };
+
+  
 
   return (
     <div className="customize-container">

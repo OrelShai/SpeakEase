@@ -73,12 +73,6 @@ const HomePage = () => {
   return (
     <div className={`homepage`}>
       
-  {username && (
-        <div className="welcome-banner">
-          <p>Welcome back, {username}!</p>
-        </div>
-      )}
-
       {/* -- HERO SECTION -- */}
       <section className="hero">
         <div className="hero-overlay"></div>
