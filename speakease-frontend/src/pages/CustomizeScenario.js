@@ -120,7 +120,7 @@ const CustomizeScenario = () => {
               type="text"
               value={conversationGoal}
               onChange={(e) => setConversationGoal(e.target.value)}
-              placeholder="For example: persuade, present information, ask questions..."
+              placeholder="For example: Job interview, Business meeting, etc."
             />
           </div>
           <div className="input-group">
