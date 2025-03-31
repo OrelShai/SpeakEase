@@ -18,26 +18,6 @@ body {
     padding: 0;
 }
 
-/* Left Edge Sidebar (Icons Only) */
-.icon-sidebar {
-    width: 60px; /* Small sidebar */
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    position: absolute;
-    left: 0; /* Ensures it starts at the leftmost edge */
-    top: 0;
-    height: 100vh;
-}
-
-.icon-sidebar i {
-    font-size: 20px;
-    margin: 20px 0;
-    cursor: pointer;
-}
-
 /* Main Sidebar (Thinner) */
 .sidebar {
     width: 180px; /* Made it thinner */
@@ -178,3 +158,71 @@ input {
 .save-button:hover {
     background: #333;
 }
+
+/* Password error message */
+.password-error {
+    color: #e53935;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+  
+  /* Disabled save button */
+  .save-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+/* Password error message */
+.password-error {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    background-color: rgba(255, 68, 68, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid #ff4444;
+  }
+  
+  /* Disabled save button */
+  .save-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  /* Password error message */
+.password-error {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    background-color: rgba(255, 68, 68, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid #ff4444;
+  }
+
+  /* Success message */
+.success-message {
+    color: #4CAF50;
+    font-size: 16px;
+    margin: 15px 0;
+    padding: 12px 15px;
+    background-color: rgba(76, 175, 80, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid #4CAF50;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Password error message */
+  .password-error {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    background-color: rgba(255, 68, 68, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid #ff4444;
+  }
