@@ -950,3 +950,137 @@
 .dark-mode *::-webkit-scrollbar-thumb:hover {
   background-color: #64748b;
 }
+
+/* Add to your CustomizeScenario.css file */
+
+/* Error message styling */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  direction: rtl; /* For Hebrew text */
+}
+
+/* Voice selection container styling */
+.voice-selection-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.voice-select {
+  flex: 1;
+}
+
+.voice-sample-button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.voice-sample-button:hover {
+  background-color: #2563eb;
+}
+
+/* Textarea styling */
+.scenario-notes {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+/* Dark mode support */
+.dark-mode .error-message {
+  background-color: #4a0f0f;
+  color: #ffb4b4;
+  border: 1px solid #c62828;
+}
+
+.dark-mode .voice-sample-button {
+  background-color: #2563eb;
+}
+
+.dark-mode .voice-sample-button:hover {
+  background-color: #1d4ed8;
+}
+
+.dark-mode .scenario-notes {
+  background-color: #555;
+  color: #fff;
+  border-color: #666;
+}
+
+/* Popup styling */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+}
+
+.popup-message {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: #e53e3e;
+}
+
+.popup-close {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.popup-close:hover {
+  background-color: #2563eb;
+}
+
+/* Dark mode support */
+.dark-mode .popup-content {
+  background-color: #1e293b;
+  color: white;
+}
+
+.dark-mode .popup-message {
+  color: #f87171;
+}
