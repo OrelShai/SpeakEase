@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+
 import "./EditProfile.css";
 import { FaUser, FaHistory, FaCheck, FaEye, FaEyeSlash } from "react-icons/fa"; // Add react-icons
 
 const EditProfile = () => {
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -21,6 +24,41 @@ const EditProfile = () => {
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.error("No token found");
+          return;
+        }
+  
+        const response = await fetch("http://127.0.0.1:5000/api/users/me", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          setUsername(data.username);
+          setEmail(data.email);
+          setUsernameValid(data.username.length >= 3);
+          setEmailValid(validateEmail(data.email));
+        } else {
+          console.error("Failed to fetch user details:", data.error);
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+  
+    fetchUserDetails();
+  }, []);
 
   // Check if password meets complexity requirements
   const isPasswordValid = (pwd) => {
@@ -96,37 +134,69 @@ const EditProfile = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     setShowError(false);
     setShowSuccess(false);
-    
-    // Validate if password fields are filled
+  
+    // Validate passwords
     if (password || confirmPassword) {
       if ((password && !confirmPassword) || (!password && confirmPassword)) {
         setPasswordError("Both password fields must be filled");
         setShowError(true);
         return;
       }
-      
+  
       if (!isPasswordValid(password)) {
-        setPasswordError("Password must be at least 8 characters and contain at least one number, one special character, and one uppercase letter.");
+        setPasswordError(
+          "Password must be at least 8 characters and contain at least one number, one special character, and one uppercase letter."
+        );
         setShowError(true);
         return;
       }
-      
+  
       if (!passwordsMatch()) {
         setPasswordError("Passwords do not match");
         setShowError(true);
         return;
       }
     }
-    
-    // If we get here, validation passed
-    setShowSuccess(true);
-    console.log("Form submitted successfully");
+  
+    try {
+      const token = localStorage.getItem("token"); 
+      const payload = {};
+      if (emailValid) payload.email = email;
+      if (passwordValid && confirmPasswordValid) payload.password = password;
+  
+      const response = await fetch(`http://127.0.0.1:5000/api/users/${username}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      const result = await response.json(); // ← קריאה יחידה בלבד!
+  
+      if (response.ok) {
+        if (result.new_token) {
+          localStorage.setItem("token", result.new_token);
+        }
+        setShowSuccess(true);
+      } else {
+        setShowError(true);
+        setPasswordError(result.error || "Update failed");
+      }
+    } catch (error) {
+      setShowError(true);
+      setPasswordError("An unexpected error occurred");
+      console.error(error);
+    }
   };
+  
+
 
   return (
     <div className="edit-profile-container">
@@ -197,13 +267,14 @@ const EditProfile = () => {
                   <div className="input-group">
                     <label htmlFor="password">Password</label>
                     <div className="input-with-validation">
-                      <input 
-                        type={passwordVisible ? "text" : "password"} 
-                        id="password" 
-                        placeholder="Enter your password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                      />
+                    <input 
+                     type={passwordVisible ? "text" : "password"} 
+                     id="password" 
+                     placeholder="********"  // Placeholder for password input
+                      value={password}
+                     onChange={handlePasswordChange}
+/>
+
                       <span 
                         className="toggle-visibility" 
                         onClick={() => setPasswordVisible(!passwordVisible)}

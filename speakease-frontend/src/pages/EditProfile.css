@@ -414,6 +414,20 @@ body {
     z-index: 0;
   }
   
+  .dark-mode .profile-illustration {
+    width: 100%;
+    max-width: 600px; /* Increased from 450px */
+    height: 400px; /* Increased from 300px */
+    background-image: url(../../public/images/smallteamdiscussingideasDarkMode.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    position: absolute;
+    bottom: 30px; /* Moved closer to bottom */
+    left: -50px; /* Moved more to the left */
+    z-index: 0;
+  }
+
   /* Adjust form-illustration container for absolute positioning */
   .form-illustration {
     flex: 1;
