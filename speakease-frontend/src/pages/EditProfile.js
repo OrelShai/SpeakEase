@@ -270,7 +270,7 @@ const EditProfile = () => {
                     <input 
                      type={passwordVisible ? "text" : "password"} 
                      id="password" 
-                     placeholder="********"  // 👈 נראה כמו שיש סיסמה, בלי לחשוף אותה
+                     placeholder="********"  // Placeholder for password input
                       value={password}
                      onChange={handlePasswordChange}
 />
