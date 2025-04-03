@@ -6,6 +6,8 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -26,12 +28,19 @@ const LoginPage = () => {
         throw new Error(data.error || "Login failed");
       }
 
-      localStorage.setItem("token", data.access_token); // ✅ שמירת הטוקן ב-localStorage
-      alert("Login successful!");
-      navigate("/homepage"); // ✅ מעבר לעמוד הראשי
+      localStorage.setItem("token", data.access_token);
+      setPopupMessage("Login successful!");
+      setShowPopup(true);
+      
+      // After showing success message, navigate to homepage
+      setTimeout(() => {
+        navigate("/homepage");
+      }, 1500);
 
     } catch (error) {
       setError(error.message);
+      setPopupMessage(error.message);
+      setShowPopup(true);
     }
   };
 
@@ -42,7 +51,20 @@ const LoginPage = () => {
         <h2>Sign in to SpeakEase</h2>
         <p>Improve your performance</p>
 
-        {error && <p className="error-message">{error}</p>}
+        {/* Custom popup alert */}
+        {showPopup && (
+          <div className="popup-overlay">
+            <div className="popup-content">
+              <div className="popup-message">{popupMessage}</div>
+              <button
+                className="popup-close"
+                onClick={() => setShowPopup(false)}
+              >
+                close
+              </button>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleLogin}>
           <div className="input-group">
@@ -80,7 +102,7 @@ const LoginPage = () => {
         </form>
 
         <p className="register">
-          Don’t have an Account? <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
       </div>
       <div className="illustration">
