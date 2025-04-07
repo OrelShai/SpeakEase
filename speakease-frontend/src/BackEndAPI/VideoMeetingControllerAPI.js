@@ -164,23 +164,6 @@ class VideoMeetingControllerAPI {
       throw error;
     }
   }
-
-  /**
-   * Get available coaches/AI partners for video meetings
-   * @returns {Promise<Array>} - List of available coaches
-   */
-  async getAvailableCoaches() {
-    try {
-      const token = localStorage.getItem('token');
-      this.setAuthToken(token);
-      
-      const response = await this.axiosInstance.get('/api/coaches');
-      return response.data.coaches;
-    } catch (error) {
-      console.error('Error fetching coaches:', error);
-      throw error;
-    }
-  }
 }
 
 export default new VideoMeetingControllerAPI();
