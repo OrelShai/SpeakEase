@@ -71,19 +71,35 @@ class VideoMeetingControllerAPI {
    */
   async analyzeVideoStream(stream, scenarioId) {
     try {
-        
+      console.log(`[DEBUG] Starting video analysis for scenario: ${scenarioId}`);
+      
+      // Refresh token before each request
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.setAuthToken(token);
+        console.log('[DEBUG] Auth token refreshed');
+      } else {
+        console.warn('[DEBUG] No auth token found in localStorage');
+      }
+      
       // First convert the stream to base64
+      console.log('[DEBUG] Converting stream to base64...');
       const videoData = await this.streamToBase64(stream);
+      console.log(`[DEBUG] Base64 conversion complete, data length: ${videoData?.length || 0} characters`);
       
       // Send to backend
+      console.log('[DEBUG] Sending video data to backend API...');
       const response = await this.axiosInstance.post('/api/analyze', {
         video_data: videoData,
         scenario_id: scenarioId
       });
+      console.log('[DEBUG] Response received from backend');
       
       return response.data;
     } catch (error) {
-      console.error('Error analyzing video stream:', error);
+      console.error('[ERROR] Video analysis failed:', error);
+      console.error('[ERROR] Error status:', error.response?.status);
+      console.error('[ERROR] Error details:', error.response?.data);
       throw error;
     }
   }
@@ -135,7 +151,7 @@ class VideoMeetingControllerAPI {
       const token = localStorage.getItem('token');
       this.setAuthToken(token);
       
-      const response = await this.axiosInstance.post('/video_routes/end_session', {
+      const response = await this.axiosInstance.post('/api/end_session', {
         scenario_id: scenarioId,
         meeting_duration: meetingData.duration,
         user_metrics: meetingData.metrics || {},
@@ -158,7 +174,7 @@ class VideoMeetingControllerAPI {
       const token = localStorage.getItem('token');
       this.setAuthToken(token);
       
-      const response = await this.axiosInstance.get('/video_routes/coaches');
+      const response = await this.axiosInstance.get('/api/coaches');
       return response.data.coaches;
     } catch (error) {
       console.error('Error fetching coaches:', error);

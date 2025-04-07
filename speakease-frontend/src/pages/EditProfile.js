@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { getUserProfile, updateUserProfile, validateEmail as apiValidateEmail, validatePasswordComplexity } from "../BackEndAPI/DataModelLogicAPI";
 
 import "./EditProfile.css";
 import { FaUser, FaHistory, FaCheck, FaEye, FaEyeSlash } from "react-icons/fa"; // Add react-icons
@@ -28,29 +29,15 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("No token found");
-          return;
-        }
-  
-        const response = await fetch("http://127.0.0.1:5000/api/users/me", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        const data = await response.json();
-  
-        if (response.ok) {
-          setUsername(data.username);
-          setEmail(data.email);
-          setUsernameValid(data.username.length >= 3);
-          setEmailValid(validateEmail(data.email));
+        const result = await getUserProfile();
+        
+        if (result.success) {
+          setUsername(result.data.username);
+          setEmail(result.data.email);
+          setUsernameValid(result.data.username.length >= 3);
+          setEmailValid(validateEmail(result.data.email));
         } else {
-          console.error("Failed to fetch user details:", data.error);
+          console.error("Failed to fetch user details:", result.error);
         }
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -60,21 +47,9 @@ const EditProfile = () => {
     fetchUserDetails();
   }, []);
 
-  // Check if password meets complexity requirements
+  // Use the API's password validation for consistency
   const isPasswordValid = (pwd) => {
-    // Check minimum length (8 characters)
-    if (pwd.length < 8) return false;
-    
-    // Check for at least one number
-    if (!/\d/.test(pwd)) return false;
-    
-    // Check for at least one special character
-    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(pwd)) return false;
-    
-    // Check for at least one uppercase letter
-    if (!/[A-Z]/.test(pwd)) return false;
-    
-    return true;
+    return validatePasswordComplexity(pwd);
   };
 
   // Check if passwords match
@@ -82,10 +57,9 @@ const EditProfile = () => {
     return password === confirmPassword && password !== "";
   };
 
-  // Validate email format
+  // Use the API's validation function for consistency
   const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    return apiValidateEmail(email);
   };
 
   // Handle username change
@@ -164,26 +138,13 @@ const EditProfile = () => {
     }
   
     try {
-      const token = localStorage.getItem("token"); 
       const payload = {};
       if (emailValid) payload.email = email;
       if (passwordValid && confirmPasswordValid) payload.password = password;
   
-      const response = await fetch(`http://127.0.0.1:5000/api/users/${username}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
+      const result = await updateUserProfile(username, payload);
   
-      const result = await response.json(); // ← קריאה יחידה בלבד!
-  
-      if (response.ok) {
-        if (result.new_token) {
-          localStorage.setItem("token", result.new_token);
-        }
+      if (result.success) {
         setShowSuccess(true);
       } else {
         setShowError(true);
