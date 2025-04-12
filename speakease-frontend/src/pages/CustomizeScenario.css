@@ -303,3 +303,52 @@ button:hover {
     background-color: #444;
     color: #ff5555;
   }
+
+  .partner-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  
+  .partner-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    width: 100px;
+    transition: all 0.2s ease;
+  }
+  
+  .partner-button img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .partner-button.selected {
+    border-color: #4caf50;
+    background-color: #e6f7e6;
+  }
+  
+  .partner-button:hover {
+    border-color: #999;
+  }
+  
+  .dark-mode .partner-button {
+    background-color: #555;
+    border-color: #888;
+    color: white;
+  }
+  
+  .dark-mode .partner-button.selected {
+    border-color: #66bb6a;
+    background-color: #2e3d2e;
+  }
+  

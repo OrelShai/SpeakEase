@@ -83,69 +83,83 @@ const HomePage = () => {
 
       {/* -- SCENARIOS SECTION -- */}
       <section className="scenarios">
-        <div className="scenario-grid">
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("First Date")}
-          >
-            <img src="/images/scenarios/dating.jpg" alt="First Date" />
-            <p>First Date</p>
-          </button>
+    <div className="scenario-grid">
+    
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "First Date" }}
+    >
+      <img src="/images/scenarios/dating.jpg" alt="First Date" />
+      <p>First Date</p>
+    </Link>
 
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("Job Interview")}
-          >
-            <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
-            <p>Job Interview</p>
-          </button>
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Job Interview" }}
+    >
+      <img src="/images/scenarios/job_interview.jpg" alt="Job Interview" />
+      <p>Job Interview</p>
+    </Link>
 
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("Casual Conversation")}
-          >
-            <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
-            <p>Casual Conversation</p>
-          </button>
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Presentation" }}
+    >
+      <img src="/images/scenarios/Presentation.jpg" alt="Presentation" />
+      <p>Presentation</p>
+    </Link>
 
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("Presentation")}
-          >
-            <img src="/images/scenarios/presentation.jpg" alt="Presentation" />
-            <p>Presentation</p>
-          </button>
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Casual Conversation" }}
+    >
+      <img src="/images/scenarios/casual_conversation.jpg" alt="Casual Conversation" />
+      <p>Casual Conversation</p>
+    </Link>
 
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("Negotiation")}
-          >
-            <img src="/images/scenarios/negotiation.jpg" alt="Negotiation" />
-            <p>Negotiation</p>
-          </button>
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Negotiation" }}
+    >
+      <img src="/images/scenarios/Negotiation.jpg" alt="Negotiation" />
+      <p>Negotiation</p>
+    </Link>
+    
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Debate or Argument" }}
+    >
+      <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
+      <p>Debate or Argument</p>
+    </Link>
 
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("Debate or Argument")}
-          >
-            <img src="/images/scenarios/argument.jpg" alt="Debate or Argument" />
-            <p>Debate or Argument</p>
-          </button>
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Storytelling" }}
+    >
+      <img src="/images/scenarios/Story_telling.jpg" alt="Storytelling" />
+      <p>Storytelling</p>
+    </Link>
 
-          <button 
-            className="scenario-button"
-            onClick={() => handleScenarioSelect("Storytelling")}
-          >
-            <img src="/images/scenarios/story_telling.jpg" alt="Storytelling" />
-            <p>Storytelling</p>
-          </button>
+    <Link 
+      to="/customizescenario" 
+      className="scenario-button" 
+      state={{ scenarioName: "Custom Built" }}
+    >
+      <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
+      <p>Custom Built</p>
+    </Link>
+    
+  </div>
+</section>
 
-          <Link to="/customizescenario" className="scenario-button">
-            <img src="/images/scenarios/customized.jpg" alt="Custom Built" />
-            <p>Custom Built</p>
-          </Link>
-        </div>
-      </section>
 
       {/* -- DARK BAR FOR COOKIE CONSENT / NOTICE -- */}
       {showDarkBar && (
