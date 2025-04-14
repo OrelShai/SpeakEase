@@ -1,8 +1,8 @@
-
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode"; 
 import "./HomePage.css";
+import { validateToken, getUserInfo } from "../BackEndAPI/DataModelLogicAPI";
 
 const HomePage = () => {
   const [showDarkBar, setShowDarkBar] = useState(true);
@@ -12,16 +12,25 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decodedToken = jwtDecode(token);
-        setUsername(decodedToken.sub || decodedToken.username);
-      } catch (error) {
-        console.error("Invalid token:", error);
-        localStorage.removeItem("token"); // אם הטוקן אינו תקף, מוחקים אותו
+    const checkAuth = async () => {
+      // Validate token and automatically refresh if needed
+      const isValid = await validateToken();
+      
+      if (isValid) {
+        // Get user info from the token
+        const userInfo = getUserInfo();
+        if (userInfo) {
+          setUsername(userInfo.username);
+        }
+      } else {
+        // Token validation failed (not present or couldn't be refreshed)
+        setUsername(null);
+        // Optionally redirect to login if authentication is required
+        // navigate('/login');
       }
-    }
+    };
+    
+    checkAuth();
   }, []);
 
   

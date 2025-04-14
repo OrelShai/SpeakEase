@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { register, validatePasswordComplexity, validateEmail } from "../BackEndAPI/DataModelLogicAPI";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
@@ -20,28 +21,31 @@ const RegisterPage = () => {
       return;
     }
 
-    const requestData = { username, email, password };
+    if (!validatePasswordComplexity(password)) {
+      setError("Password must be at least 8 characters and contain at least one number, one special character, and one uppercase letter");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    const userData = { username, email, password };
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const result = await register(userData);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to register");
+      if (result.success) {
+        alert("User registered successfully!");
+        navigate("/login"); // Redirect to login page
+      } else {
+        setError(result.error || "Failed to register");
       }
 
-      alert("User registered successfully!");
-      navigate("/login"); // Redirect to login page
-
     } catch (error) {
-      setError(error.message);
+      setError("An unexpected error occurred");
+      console.error(error);
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
+import VideoMeetingControllerAPI from '../BackEndAPI/VideoMeetingControllerAPI';
 
 import { 
   MdMic, MdMicOff, 
@@ -14,80 +15,79 @@ import './VideoTraining.css';
 
 const VideoTraining = ({ onEndCall }) => {
   const navigate = useNavigate();
-
-      useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          navigate("/login");
-          return;
-        }
-      
-        try {
-          jwtDecode(token); // ננסה רק לפענח - אם זה נכשך, הטוקן לא חוקי
-        } catch (error) {
-          localStorage.removeItem("token");
-          navigate("/login");
-        }
-      }, []);
-
-    
-  // 1. Use React Router's useLocation hook to access navigation state
   const location = useLocation();
   
-  // 2. Extract scenarioName from location state (with fallback)
-  const scenarioName = location.state?.scenarioName + " Training Session!" || "Training Session";
-  
-  // Should get the scenarioId from api call 
-  const scenarioId = location.state?.scenarioId || "default-scenario-id"; // should get from api 
-
-  const handleEndCall = () => {
-    // First clean up media resources
-    if (localStreamRef.current) {
-      localStreamRef.current.getTracks().forEach(track => track.stop());
-    }
-
-    //should call the api to end the call give him all the data 
-    
-    // Navigate to ScenarioOverview with just the ID
-    navigate('/ScenarioOverview', { 
-      state: { 
-        scenarioId: scenarioId,
-        scenarioName: scenarioName
-      } 
-    });
-  };
-
+  // State variables
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isCaptionOn, setIsCaptionOn] = useState(false);
   const [isHandRaised, setIsHandRaised] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
+  const [analysisResults, setAnalysisResults] = useState({});
   
-  // useref is a React Hook that provides a way to create a mutable reference that persists across renders. 
-  // Think of it like a container that holds a value, but when that value changes, it doesn't cause your component to re-render.
-  const localVideoRef = useRef(null);  // Reference to the use video element
-  const remoteVideoRef = useRef(null); // Reference to the ai video element
-  const localStreamRef = useRef(null); // Storage user webcam's MediaStream
+  // References
+  const localVideoRef = useRef(null);
+  const remoteVideoRef = useRef(null);
+  const localStreamRef = useRef(null);
+  const analysisControllerRef = useRef(null);
   
-  // Initialize webcam
+  // Extract info from location state
+  const scenarioName = location.state?.scenarioName + " Training Session!" || "Training Session";
+  const scenarioId = location.state?.scenarioId || "default-scenario-id";
+
+  // Authentication check
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+  
+    try {
+      jwtDecode(token);
+    } catch (error) {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  // Initialize webcam and start continuous analysis
   useEffect(() => {
     const getMedia = async () => {
       try {
+        // Get user media stream
         const stream = await navigator.mediaDevices.getUserMedia({ 
           video: true, 
           audio: true 
         });
         
+        // Set local video stream
         localVideoRef.current.srcObject = stream;
         localStreamRef.current = stream;
         
-        // For demo purposes, we'll use the same stream for the remote video
-        // In a real app, this would come from WebRTC or other source
-        // we should change it when the stream of the ai is ready
+        // For demo purposes, use same stream for remote video
         setTimeout(() => {
           remoteVideoRef.current.srcObject = stream;
         }, 1000);
+        
+        // Start continuous analysis of the stream immediately
+        const token = localStorage.getItem("token");
+        VideoMeetingControllerAPI.setAuthToken(token);
+        
+        // Start continuous analysis
+        analysisControllerRef.current = VideoMeetingControllerAPI.startContinuousAnalysis(
+          stream,
+          scenarioId,
+          (results) => {
+            console.log("Received analysis:", results);
+            setAnalysisResults(prevResults => ({
+              ...prevResults,
+              ...results
+            }));
+          }
+        );
+        
       } catch (err) {
         console.error("Error accessing media devices:", err);
       }
@@ -95,13 +95,18 @@ const VideoTraining = ({ onEndCall }) => {
     
     getMedia();
     
-    // Cleanup function to ensure that we stop the webcam when the component is unmounted
+    // Cleanup: stop webcam and analysis when component unmounts
     return () => {
       if (localStreamRef.current) {
         localStreamRef.current.getTracks().forEach(track => track.stop());
       }
+      
+      // Stop the continuous analysis
+      if (analysisControllerRef.current) {
+        analysisControllerRef.current.stop();
+      }
     };
-  }, []);
+  }, [scenarioId]);
   
   // Timer functionality
   useEffect(() => {
@@ -112,11 +117,47 @@ const VideoTraining = ({ onEndCall }) => {
     return () => clearInterval(interval);
   }, []);
   
+  // Handle end call - submit data to backend
+  const handleEndCall = async () => {
+    // First stop the continuous analysis
+    if (analysisControllerRef.current) {
+      analysisControllerRef.current.stop();
+    }
+    
+    // Clean up media resources
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach(track => track.stop());
+    }
+
+    try {
+      // Send meeting data to backend
+      await VideoMeetingControllerAPI.endMeeting(scenarioId, {
+        duration: timer,
+        metrics: analysisResults,
+        feedback: {
+          completion: true,
+          timestamp: new Date().toISOString()
+        }
+      });
+      
+      console.log("Successfully ended meeting and sent data to server");
+    } catch (error) {
+      console.error("Error sending meeting data:", error);
+    }
+    
+    // Navigate to overview
+    navigate('/ScenarioOverview', { 
+      state: { 
+        scenarioId: scenarioId,
+        scenarioName: scenarioName
+      } 
+    });
+  };
+  
   // Format timer as MM:SS
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
-    // padStart() method pads the current string with another string (multiple times, if needed) until the resulting string reaches the given length.
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
   
@@ -140,6 +181,13 @@ const VideoTraining = ({ onEndCall }) => {
       });
       setIsCameraOn(!isCameraOn);
     }
+  };
+
+  // The original recording button functionality (kept separate from stream analysis)
+  const toggleRecording = () => {
+    // This is for whatever other recording functionality is needed
+    // The actual stream analysis runs continuously regardless of this button
+    setIsRecording(!isRecording);
   };
 
   return (
@@ -184,7 +232,7 @@ const VideoTraining = ({ onEndCall }) => {
         </div>
       </main>
       
-      {/* buttons */}
+      {/* Controls */}
       <footer className="meeting-controls">
         <div className="controls-container">
           <button 
@@ -216,7 +264,7 @@ const VideoTraining = ({ onEndCall }) => {
           </button>
           
           <button 
-            onClick={() => setIsRecording(!isRecording)}
+            onClick={toggleRecording}
             className={`control-button ${isRecording ? 'button-recording' : ''}`}
           >
             <MdFiberManualRecord size={24} />

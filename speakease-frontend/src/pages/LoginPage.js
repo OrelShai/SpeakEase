@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../BackEndAPI/DataModelLogicAPI';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -13,33 +14,27 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const requestData = { username, password };
-
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/users/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
-      });
+      const result = await login(username, password);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Login failed");
+      if (result.success) {
+        setPopupMessage("Login successful!");
+        setShowPopup(true);
+        
+        // After showing success message, navigate to homepage
+        setTimeout(() => {
+          navigate("/homepage");
+        }, 1500);
+      } else {
+        setError(result.error);
+        setPopupMessage(result.error);
+        setShowPopup(true);
       }
 
-      localStorage.setItem("token", data.access_token);
-      setPopupMessage("Login successful!");
-      setShowPopup(true);
-      
-      // After showing success message, navigate to homepage
-      setTimeout(() => {
-        navigate("/homepage");
-      }, 1500);
-
     } catch (error) {
-      setError(error.message);
-      setPopupMessage(error.message);
+      const errorMessage = error.message || "An unexpected error occurred";
+      setError(errorMessage);
+      setPopupMessage(errorMessage);
       setShowPopup(true);
     }
   };
