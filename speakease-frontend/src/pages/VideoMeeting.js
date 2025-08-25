@@ -1,193 +1,204 @@
+// speakease-frontend/src/pages/VideoMeeting.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
-import VideoMeetingControllerAPI from '../BackEndAPI/VideoMeetingControllerAPI';
+import './VideoTraining.css';
+import QuestionPanel from './QuestionPanel.jsx';
 
-import { 
-  MdMic, MdMicOff, 
-  MdVideocam, MdVideocamOff, 
-  MdClosedCaption, MdClosedCaptionOff,
-  MdOutlinePanTool, 
-  MdFiberManualRecord,
+import {
+  MdMic, MdMicOff,
+  MdVideocam, MdVideocamOff,
   MdCallEnd
 } from 'react-icons/md';
-import './VideoTraining.css';
 
-const VideoTraining = ({ onEndCall }) => {
+const VideoTraining = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // State variables
-  const [isMuted, setIsMuted] = useState(false);
-  const [isCameraOn, setIsCameraOn] = useState(true);
-  const [isCaptionOn, setIsCaptionOn] = useState(false);
-  const [isHandRaised, setIsHandRaised] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  const [timer, setTimer] = useState(0);
-  const [analysisResults, setAnalysisResults] = useState({});
-  
-  // References
-  const localVideoRef = useRef(null);
-  const remoteVideoRef = useRef(null);
-  const localStreamRef = useRef(null);
-  const analysisControllerRef = useRef(null);
-  
-  // Extract info from location state
-  const scenarioName = location.state?.scenarioName + " Training Session!" || "Training Session";
+
+  // --- Session info ---
+  const baseName = location.state?.scenarioName || "Training Session";
+  const scenarioName = `${baseName} Training Session!`;
   const scenarioId = location.state?.scenarioId || "default-scenario-id";
 
-  // Authentication check
+  // --- UI state ---
+  const [isMuted, setIsMuted] = useState(false);
+  const [isCameraOn, setIsCameraOn] = useState(true);
+
+  // --- Recording state ---
+  const [status, setStatus] = useState('idle'); // idle | recording | paused | stopped | uploading | sent
+  const [blob, setBlob] = useState(null);
+  const [previewURL, setPreviewURL] = useState('');
+  const [question, setQuestion] = useState('Tell me about yourself briefly (up to one minute).');
+
+  // --- Refs ---
+  const localVideoRef = useRef(null);
+  const streamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const chunksRef = useRef([]);
+
+  // --- Auth guard ---
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
       return;
     }
-  
     try {
       jwtDecode(token);
-    } catch (error) {
+    } catch {
       localStorage.removeItem("token");
       navigate("/login");
     }
   }, [navigate]);
 
-  // Initialize webcam and start continuous analysis
+  // --- Get camera/mic ---
   useEffect(() => {
-    const getMedia = async () => {
+    const init = async () => {
       try {
-        // Get user media stream
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          video: true, 
-          audio: true 
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: true
         });
-        
-        // Set local video stream
-        localVideoRef.current.srcObject = stream;
-        localStreamRef.current = stream;
-        
-        // For demo purposes, use same stream for remote video
-        setTimeout(() => {
-          remoteVideoRef.current.srcObject = stream;
-        }, 1000);
-        
-        // Start continuous analysis of the stream immediately
-        const token = localStorage.getItem("token");
-        VideoMeetingControllerAPI.setAuthToken(token);
-        
-        // Start continuous analysis
-        analysisControllerRef.current = VideoMeetingControllerAPI.startContinuousAnalysis(
-          stream,
-          scenarioId,
-          (results) => {
-            console.log("Received analysis:", results);
-            setAnalysisResults(prevResults => ({
-              ...prevResults,
-              ...results
-            }));
-          }
-        );
-        
+        streamRef.current = stream;
+        if (localVideoRef.current) localVideoRef.current.srcObject = stream;
       } catch (err) {
         console.error("Error accessing media devices:", err);
+        alert("Couldn't access camera/microphone.");
       }
     };
-    
-    getMedia();
-    
-    // Cleanup: stop webcam and analysis when component unmounts
+    init();
+
     return () => {
-      if (localStreamRef.current) {
-        localStreamRef.current.getTracks().forEach(track => track.stop());
+      // cleanup
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        try { mediaRecorderRef.current.stop(); } catch {}
       }
-      
-      // Stop the continuous analysis
-      if (analysisControllerRef.current) {
-        analysisControllerRef.current.stop();
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(t => t.stop());
       }
+      if (previewURL) URL.revokeObjectURL(previewURL);
     };
-  }, [scenarioId]);
-  
-  // Timer functionality
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer(prevTimer => prevTimer + 1);
-    }, 1000);
-    
-    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
-  // Handle end call - submit data to backend
-  const handleEndCall = async () => {
-    // First stop the continuous analysis
-    if (analysisControllerRef.current) {
-      analysisControllerRef.current.stop();
-    }
-    
-    // Clean up media resources
-    if (localStreamRef.current) {
-      localStreamRef.current.getTracks().forEach(track => track.stop());
-    }
+
+  // --- Mic/Camera toggles ---
+  const toggleMicrophone = () => {
+    if (!streamRef.current) return;
+    streamRef.current.getAudioTracks().forEach(tr => tr.enabled = !tr.enabled);
+    setIsMuted(prev => !prev);
+  };
+
+  const toggleCamera = () => {
+    if (!streamRef.current) return;
+    streamRef.current.getVideoTracks().forEach(tr => tr.enabled = !tr.enabled);
+    setIsCameraOn(prev => !prev);
+  };
+
+  // --- Recording controls ---
+  const startRecording = () => {
+    if (!streamRef.current) return;
+
+    chunksRef.current = [];
+
+    const preferred = "video/webm;codecs=vp9,opus";
+    const options = (window.MediaRecorder && MediaRecorder.isTypeSupported?.(preferred))
+      ? { mimeType: preferred }
+      : undefined; // let the browser pick if not supported
 
     try {
-      // Send meeting data to backend
-      await VideoMeetingControllerAPI.endMeeting(scenarioId, {
-        duration: timer,
-        metrics: analysisResults,
-        feedback: {
-          completion: true,
-          timestamp: new Date().toISOString()
-        }
-      });
-      
-      console.log("Successfully ended meeting and sent data to server");
-    } catch (error) {
-      console.error("Error sending meeting data:", error);
-    }
-    
-    // Navigate to overview
-    navigate('/ScenarioOverview', { 
-      state: { 
-        scenarioId: scenarioId,
-        scenarioName: scenarioName
-      } 
-    });
-  };
-  
-  // Format timer as MM:SS
-  const formatTime = (timeInSeconds) => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
-  
-  // Handle microphone toggle
-  const toggleMicrophone = () => {
-    if (localStreamRef.current) {
-      const audioTracks = localStreamRef.current.getAudioTracks();
-      audioTracks.forEach(track => {
-        track.enabled = !track.enabled;
-      });
-      setIsMuted(!isMuted);
-    }
-  };
-  
-  // Handle camera toggle
-  const toggleCamera = () => {
-    if (localStreamRef.current) {
-      const videoTracks = localStreamRef.current.getVideoTracks();
-      videoTracks.forEach(track => {
-        track.enabled = !track.enabled;
-      });
-      setIsCameraOn(!isCameraOn);
+      const mr = new MediaRecorder(streamRef.current, options);
+      mediaRecorderRef.current = mr;
+
+      mr.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunksRef.current.push(e.data);
+      };
+
+      mr.onstop = () => {
+        const type = mr.mimeType || "video/webm";
+        const recorded = new Blob(chunksRef.current, { type });
+        setBlob(recorded);
+        const url = URL.createObjectURL(recorded);
+        setPreviewURL(url);
+        setStatus('stopped');
+      };
+
+      mr.start(250); // collect chunks every 250ms
+      setStatus('recording');
+    } catch (err) {
+      console.error("MediaRecorder error", err);
+      alert("The browser did not allow starting video recording.");
     }
   };
 
-  // The original recording button functionality (kept separate from stream analysis)
-  const toggleRecording = () => {
-    // This is for whatever other recording functionality is needed
-    // The actual stream analysis runs continuously regardless of this button
-    setIsRecording(!isRecording);
+  const pauseOrResume = () => {
+    const mr = mediaRecorderRef.current;
+    if (!mr) return;
+    if (mr.state === 'recording') {
+      mr.pause();
+      setStatus('paused');
+    } else if (mr.state === 'paused') {
+      mr.resume();
+      setStatus('recording');
+    }
+  };
+
+  const stopRecording = () => {
+    const mr = mediaRecorderRef.current;
+    if (mr && mr.state !== 'inactive') {
+      mr.stop();
+    }
+  };
+
+  const sendRecording = async () => {
+    if (!blob) return alert('No recording to upload.');
+    setStatus('uploading');
+
+    try {
+      const token = localStorage.getItem('token') || '';
+
+      // 1) upload
+      const form = new FormData();
+      const ext = (blob.type || '').includes('mp4') ? 'mp4' : 'webm';
+      form.append('file', blob, `session_${Date.now()}.${ext}`);
+
+      const uploadRes = await fetch('/api/upload/session-video', {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+        body: form
+      });
+      if (!uploadRes.ok) throw new Error('Upload failed');
+      const { video_url } = await uploadRes.json();
+
+      // 2) analyze
+      const analyzeRes = await fetch('/api/performance/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
+        body: JSON.stringify({ video_url, scenario_id: scenarioId })
+      });
+      if (!analyzeRes.ok) throw new Error('Analyze failed');
+      const analysis = await analyzeRes.json();
+      console.log('Analysis:', analysis);
+
+      setStatus('sent');
+      setQuestion('Describe a conflict you had in a team and what you learned from it.');
+      alert('Recording uploaded successfully!');
+    } catch (err) {
+      console.error(err);
+      alert('Upload failed.');
+      setStatus('stopped');
+    }
+  };
+
+  const handleEndCall = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+    }
+    navigate('/ScenarioOverview', {
+      state: { scenarioId, scenarioName }
+    });
   };
 
   return (
@@ -197,19 +208,20 @@ const VideoTraining = ({ onEndCall }) => {
         <div className="header-left">
           <h1 className="scenario-title">{scenarioName}</h1>
         </div>
-        <div className="timer-display">
-          {formatTime(timer)}
-        </div>
+        {/* timer removed */}
       </header>
-      
-      {/* Video Grid */}
+
+      {/* Main: left = user video, right = question panel */}
       <main className="video-grid-container">
-        <div className="video-grid">
+        <div
+          className="video-grid"
+          style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 24 }}
+        >
           <div className="video-frame">
-            <video 
+            <video
               ref={localVideoRef}
-              autoPlay 
-              muted 
+              autoPlay
+              muted
               playsInline
               className="video-element"
             />
@@ -220,60 +232,71 @@ const VideoTraining = ({ onEndCall }) => {
             )}
             <div className="participant-label">You</div>
           </div>
-          <div className="video-frame">
-            <video 
-              ref={remoteVideoRef}
-              autoPlay 
-              playsInline
-              className="video-element"
-            />
-            <div className="participant-label">Coach</div>
+
+          <div className="question-sticky">
+            <QuestionPanel question={question} />
           </div>
         </div>
       </main>
-      
+
+      {/* Preview after stop */}
+      {previewURL && (
+        <div style={{ paddingInline: 24, marginTop: 8 }}>
+          <h4>Preview</h4>
+          <video src={previewURL} controls style={{ maxWidth: 480, width: '100%' }} />
+        </div>
+      )}
+
       {/* Controls */}
       <footer className="meeting-controls">
-        <div className="controls-container">
-          <button 
-            onClick={toggleMicrophone}
-            className={`control-button ${isMuted ? 'button-muted' : ''}`}
-          >
+        <div className="controls-container" style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+          {/* Mic */}
+          <button onClick={toggleMicrophone} className={`control-button ${isMuted ? 'button-muted' : ''}`}>
             {isMuted ? <MdMicOff size={24} /> : <MdMic size={24} />}
           </button>
-          
-          <button 
-            onClick={toggleCamera}
-            className={`control-button ${!isCameraOn ? 'button-camera-off' : ''}`}
-          >
+
+          {/* Camera */}
+          <button onClick={toggleCamera} className={`control-button ${!isCameraOn ? 'button-camera-off' : ''}`}>
             {isCameraOn ? <MdVideocam size={24} /> : <MdVideocamOff size={24} />}
           </button>
-          
-          <button 
-            onClick={() => setIsCaptionOn(!isCaptionOn)}
-            className={`control-button ${isCaptionOn ? 'button-caption-on' : ''}`}
+
+          {/* Record controls */}
+          <button
+            onClick={startRecording}
+            disabled={status === 'recording' || status === 'paused'}
+            className={`control-button ${status === 'recording' ? 'button-recording' : ''}`}
+            aria-pressed={status === 'recording'}
+            title="Start recording"
           >
-            {isCaptionOn ? <MdClosedCaption size={24} /> : <MdClosedCaptionOff size={24} />}
+            record
           </button>
-          
-          <button 
-            onClick={() => setIsHandRaised(!isHandRaised)}
-            className={`control-button ${isHandRaised ? 'button-hand-raised' : ''}`}
+
+          <button
+            onClick={pauseOrResume}
+            disabled={!(status === 'recording' || status === 'paused')}
+            className="control-button"
           >
-            <MdOutlinePanTool size={24} />
+            {status === 'paused' ? 'continue' : 'pause'}
           </button>
-          
-          <button 
-            onClick={toggleRecording}
-            className={`control-button ${isRecording ? 'button-recording' : ''}`}
+
+          <button
+            onClick={stopRecording}
+            disabled={!(status === 'recording' || status === 'paused')}
+            className="control-button"
           >
-            <MdFiberManualRecord size={24} />
+            stop
           </button>
-          
-          <button 
-            onClick={handleEndCall}
-            className="control-button button-end-call"
+
+          <button
+            onClick={sendRecording}
+            disabled={!blob || status === 'uploading' || status === 'sent'}
+            className="control-button"
           >
+            upload
+          </button>
+
+          {/* End */}
+          <button onClick={handleEndCall} className="control-button button-end-call">
             <MdCallEnd size={24} />
           </button>
         </div>
