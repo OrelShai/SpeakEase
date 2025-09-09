@@ -253,24 +253,26 @@ const handleEndCall = async () => {
       body: JSON.stringify({
         session_id: sessionIdRef.current,
         scenario_id: scenarioId
-        // optional: video_url, pipeline_version
       })
     });
 
     let completedId = null;
+    let completedDoc = null;
+
     if (res.ok) {
       const json = await res.json().catch(() => ({}));
-      completedId = json.session_id || null;
+      completedId = json.completed_id || null;
+      completedDoc = json.completed || null;
       console.log('Completed session id:', completedId);
+      console.log('Completed session doc:', completedDoc);
     } else {
       const err = await res.json().catch(() => ({}));
       console.warn('Finalize failed:', res.status, err);
-      // You can choose to block navigation here if finalize is required
     }
 
-    // Navigate to results/overview (pass completedId if you want to show fresh results)
+    // Navigate to results/overview with completed data (if available)
     navigate('/ScenarioOverview', {
-      state: { scenarioId, scenarioName, completedId }
+      state: { scenarioId, scenarioName, completedId, completed: completedDoc }
     });
   } catch (e) {
     console.error('Finalize error:', e);
