@@ -36,6 +36,13 @@ const VideoTraining = () => {
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
 
+    // Generate a session id once per page load (could be uuid; here simple timestamp-based)
+  const sessionIdRef = useRef(`S-${Date.now()}-${Math.floor(Math.random()*1e6)}`);
+  // Current question index within the session
+  const [questionIdx, setQuestionIdx] = useState(0);
+  const nextIdxRef = useRef(0);                  // authoritative next index
+  const isSendingRef = useRef(false);            // re-entrancy guard
+
   // --- Auth guard ---
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -80,6 +87,13 @@ const VideoTraining = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const allocateIdx = () => {
+    const i = nextIdxRef.current;
+    nextIdxRef.current += 1;
+    setQuestionIdx(nextIdxRef.current);          // cosmetic UI update
+    return i;
+  };
 
   // --- Mic/Camera toggles ---
   const toggleMicrophone = () => {
@@ -149,57 +163,124 @@ const VideoTraining = () => {
     }
   };
 
-  const sendRecording = async () => {
-    if (!blob) return alert('No recording to upload.');
-    setStatus('uploading');
+const sendRecording = async () => {
+  if (!blob) return alert('No recording to upload.');
+  if (isSendingRef.current) {
+    alert('Please wait until the previous upload is finished.');
+    return;            // prevent double submit
+  }
+  isSendingRef.current = true;
 
-    try {
-      const token = localStorage.getItem('token') || '';
+  // clear blob early to avoid re-click with same file
+  const localBlob = blob;
+  setBlob(null);
+  if (previewURL) URL.revokeObjectURL(previewURL);
+  setPreviewURL('');
 
-      // 1) upload
-      const form = new FormData();
-      const ext = (blob.type || '').includes('mp4') ? 'mp4' : 'webm';
-      form.append('file', blob, `session_${Date.now()}.${ext}`);
+  setStatus('uploading');
 
-      const uploadRes = await fetch('/api/upload/session-video', {
-        method: 'POST',
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-        body: form
-      });
-      if (!uploadRes.ok) throw new Error('Upload failed');
-      const { video_url } = await uploadRes.json();
+  try {
+    const token = localStorage.getItem('token') || '';
 
-      // 2) analyze
-      const analyzeRes = await fetch('/api/performance/analyze', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {})
-        },
-        body: JSON.stringify({ video_url, scenario_id: scenarioId })
-      });
-      if (!analyzeRes.ok) throw new Error('Analyze failed');
-      const analysis = await analyzeRes.json();
-      console.log('Analysis:', analysis);
+    // 0) allocate index synchronously
+    const idxToSend = allocateIdx();
 
-      setStatus('sent');
-      setQuestion('Describe a conflict you had in a team and what you learned from it.');
-      alert('Recording uploaded successfully!');
-    } catch (err) {
-      console.error(err);
-      alert('Upload failed.');
-      setStatus('stopped');
+    // 1) upload
+    const form = new FormData();
+    const ext = (localBlob.type || '').includes('mp4') ? 'mp4' : 'webm';
+    form.append('file', localBlob, `session_${Date.now()}.${ext}`);
+
+    const uploadRes = await fetch('/api/upload/session-video', {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      body: form
+    });
+    if (!uploadRes.ok) throw new Error(`Upload failed: ${uploadRes.status}`);
+    const { video_url } = await uploadRes.json();
+
+    // 2) analyze + persist
+    const analyzeRes = await fetch('/api/performance/analyze-item', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      },
+      body: JSON.stringify({
+        session_id: sessionIdRef.current,
+        scenario_id: scenarioId,
+        idx: idxToSend,                         // use allocated index
+        video_url
+      })
+    });
+    if (!analyzeRes.ok) {
+      const err = await analyzeRes.json().catch(() => ({}));
+      throw new Error(`Analyze-item failed: ${analyzeRes.status} ${err.error || ''}`);
     }
-  };
+    const analysisSaved = await analyzeRes.json();
+    console.log('Analyze result:', analysisSaved);
 
-  const handleEndCall = () => {
+    setStatus('idle');
+    setQuestion('Describe a conflict you had in a team and what you learned from it.');
+    alert('Recording uploaded and saved successfully!');
+  } catch (err) {
+    console.error(err);
+    setStatus('stopped');
+    // roll back index on failure (optional)
+    nextIdxRef.current = Math.max(0, nextIdxRef.current - 1);
+    setQuestionIdx(nextIdxRef.current);
+    alert('Upload or analyze failed.');
+  } finally {
+    isSendingRef.current = false;
+  }
+};
+
+const handleEndCall = async () => {
+  try {
+    const token = localStorage.getItem('token') || '';
+
+    // Stop camera/mic tracks
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop());
     }
-    navigate('/ScenarioOverview', {
-      state: { scenarioId, scenarioName }
+
+    // Finalize the session on the server (creates completed_sessions doc)
+    const res = await fetch('/api/performance/finalize-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      },
+      body: JSON.stringify({
+        session_id: sessionIdRef.current,
+        scenario_id: scenarioId
+      })
     });
-  };
+
+    let completedId = null;
+    let completedDoc = null;
+
+    if (res.ok) {
+      const json = await res.json().catch(() => ({}));
+      completedId = json.completed_id || null;
+      completedDoc = json.completed || null;
+      console.log('Completed session id:', completedId);
+      console.log('Completed session doc:', completedDoc);
+    } else {
+      const err = await res.json().catch(() => ({}));
+      console.warn('Finalize failed:', res.status, err);
+    }
+
+    // Navigate to results/overview with completed data (if available)
+    navigate('/ScenarioOverview', {
+      state: { scenarioId, scenarioName, completedId, completed: completedDoc }
+    });
+  } catch (e) {
+    console.error('Finalize error:', e);
+    // Fallback navigation even if finalize failed
+    navigate('/ScenarioOverview', { state: { scenarioId, scenarioName } });
+  }
+};
+
 
   return (
     <div className="video-meeting-container">
