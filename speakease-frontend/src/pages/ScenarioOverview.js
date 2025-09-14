@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom"; // Add this import
 import { LineChart, Line, PieChart, Pie, Cell, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
+
 import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
 import "./ScenarioOverview.css";
 
 const scenarioName = "Scenario Name from api"; // This should come from the backend
 const practiceTimer = "00:00:00"; // This should come from the backend
+
 
 // Coach info - this will make it easy to update later from API
 const coach = {
@@ -39,7 +41,8 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const location = useLocation();
     const scenarioId = location.state?.scenarioId || "default-scenario-id";
     const scenarioName = location.state?.scenarioName || "Default Scenario";
-    
+const analysisResults = location.state?.analysisResults || [];
+
     // Add loading state for API calls
     const [isLoading, setIsLoading] = useState(true);
     
@@ -47,11 +50,11 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const [messages, setMessages] = useState([
         { id: 1, sender: 'ai', text: "I've analyzed your recent practice session. You performed well in [mention strengths], but there’s room for improvement in [mention weaknesses]. Let me know if you want insights on any specific part!" }
     ]);
-    const [newMessage, setNewMessage] = useState('');
+    const [newMessage, setNewMessage] =  useState('');
     const [activeTab, setActiveTab] = useState('verbal');
     const [currentTip, setCurrentTip] = useState(0); // usestate 0 to show the first tip
     const chatEndRef = useRef(null);
-
+    const analyzers = analysisResults[0]?.analyzers || {};
     // Sample data for charts (Progress Over Time)
     const data = [
         { name: "1", score: 5 },
@@ -63,31 +66,24 @@ const ScenarioOverview = ({ isDarkMode }) => {
     ];
 
     // static data for pie chart will probably calculate this base on the performance data 
-    const pieData = [
-        { name: "Speech Quality", value: 30 },
-        { name: "Engagement", value: 20 },
-        { name: "Body Language", value: 25 },
-        { name: "Voice Usage", value: 25 },
-    ];
+    const pieData = Object.entries(analyzers).map(([key, value]) => ({
+    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), // עיצוב שם יפה
+    value: value.score || 0
+}));
 
     // Sample performance data
-    const performanceData = {
-        verbal: [
-            { name: "Verbal Clarity", score: 92, change: +8 },
-            { name: "Tone and Intonation", score: 85, change: +5 },
-            { name: "Pacing", score: 78, change: +12 },
-        ],
-        nonverbal: [
-            { name: "Posture", score: 83, change: +3 },
-            { name: "Gestures", score: 76, change: -2 },
-            { name: "Eye Contact", score: 64, change: +6 },
-            { name: "Facial Expressions", score: 79, change: +10 },
-        ],
-        engagement: [
-            { name: "Stress Level", score: 71, change: +15 },
-            { name: "Appropriateness", score: 88, change: +4 },
-        ]
-    };
+   const performanceData = Object.entries(analyzers).reduce((acc, [key, value]) => {
+    // נניח שיש לך קטגוריה לכל אנלייזר (למשל: verbal, nonverbal, engagement)
+    // אם יש לך קטגוריה בתוך value.category, השתמש בה, אחרת שים הכל תחת verbal
+    const category = value.category || 'verbal';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push({
+        name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+        score: value.score || 0,
+        change: value.change || 0
+    });
+    return acc;
+}, { verbal: [], nonverbal: [], engagement: [] });
 
     // sample tips should get it from the backend
     const tips = [

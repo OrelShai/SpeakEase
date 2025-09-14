@@ -14,6 +14,8 @@ import {
 const VideoTraining = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [analysisResults, setAnalysisResults] = useState([]);
+
 
   // --- Session info ---
   const baseName = location.state?.scenarioName || "Training Session";
@@ -218,6 +220,7 @@ const sendRecording = async () => {
     }
     const analysisSaved = await analyzeRes.json();
     console.log('Analyze result:', analysisSaved);
+    setAnalysisResults(prev => [...prev, analysisSaved]);
 
     setStatus('idle');
     setQuestion('Describe a conflict you had in a team and what you learned from it.');
@@ -271,13 +274,13 @@ const handleEndCall = async () => {
     }
 
     // Navigate to results/overview with completed data (if available)
-    navigate('/ScenarioOverview', {
-      state: { scenarioId, scenarioName, completedId, completed: completedDoc }
-    });
+   navigate('/ScenarioOverview', {
+  state: { scenarioId, scenarioName, completedId, completed: completedDoc, analysisResults }
+});
   } catch (e) {
     console.error('Finalize error:', e);
     // Fallback navigation even if finalize failed
-    navigate('/ScenarioOverview', { state: { scenarioId, scenarioName } });
+    navigate('/ScenarioOverview', { state: { scenarioId, scenarioName, analysisResults } });
   }
 };
 
