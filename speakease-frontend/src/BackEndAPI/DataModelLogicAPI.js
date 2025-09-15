@@ -257,7 +257,7 @@ const createCustomScenario = async (scenarioData) => {
 
 // simplified scenario creation used by QuickSetupModal
 const createUserCustomScenario = async (payload) => {
-  // payload shape: { scenarioId, scenarioName, durationMin, notes? }
+  // payload shape: { scenarioName, durationMin, notes? }
   const response = await apiRequest('/scenarios/create-scenario', {
     method: 'POST',
     body: JSON.stringify(payload)

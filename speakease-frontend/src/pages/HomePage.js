@@ -77,25 +77,22 @@ const HomePage = () => {
   // Called after "Start" in the modal
   const handleQuickStart = async ({ durationMin, notes }) => {
     const payload = {
-      scenarioId:
-        selectedScenario.id ||
-        (selectedScenario.name || "").toLowerCase().replace(/\s+/g, "_"),
       scenarioName: selectedScenario.name,
       durationMin,
       notes,
     };
 
     const saved = await createUserCustomScenario(payload);
+    // saved = { _id, username, scenarioName, durationMin, notes }
 
     setQsOpen(false);
 
     navigate("/VideoTraining", {
       state: {
         scenarioName: saved.scenarioName || selectedScenario.name,
-        scenarioId: saved.scenarioId || payload.scenarioId,
+        sessionId: saved._id,
         durationMin,
         notes,
-        userCustomScenarioId: saved._id,
       },
     });
   };
