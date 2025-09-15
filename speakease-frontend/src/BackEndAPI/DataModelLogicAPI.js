@@ -255,6 +255,28 @@ const createCustomScenario = async (scenarioData) => {
   }
 };
 
+// simplified scenario creation used by QuickSetupModal
+const createUserCustomScenario = async (payload) => {
+  // payload shape: { scenarioName, durationMin, notes? }
+  const response = await apiRequest('/scenarios/create-scenario', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  });
+
+  if (!response) {
+    throw new Error("Unauthorized or no response");
+  }
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data?.error || "Failed to create scenario");
+  }
+
+  // return raw doc for HomePage.js (expects `saved._id` etc.)
+  return data;
+};
+
 const getUserScenarios = async () => {
   try {
     const response = await apiRequest('/scenarios', {
@@ -331,6 +353,7 @@ export {
   refreshToken,
   getUserProfile,
   updateUserProfile,
+  createUserCustomScenario,
   createCustomScenario,
   getUserScenarios,
   getUserHistory,
