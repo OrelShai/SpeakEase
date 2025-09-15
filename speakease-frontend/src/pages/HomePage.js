@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import "./HomePage.css";
-import { validateToken, getUserInfo } from "../BackEndAPI/DataModelLogicAPI";
+import { validateToken, getUserInfo, createUserCustomScenario } from "../BackEndAPI/DataModelLogicAPI";
 import QuickSetupModal from "../Components/QuickSetupModal/QuickSetupModal";
 
 const HomePage = () => {
@@ -85,19 +85,8 @@ const HomePage = () => {
       notes,
     };
 
-    const res = await fetch("/api/scenarios/create-scenario", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      credentials: "include", // If you are using session cookies
-    });
+    const saved = await createUserCustomScenario(payload);
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err?.error || "Server error");
-    }
-
-    const saved = await res.json();
     setQsOpen(false);
 
     navigate("/VideoTraining", {
