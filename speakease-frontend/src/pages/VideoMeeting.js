@@ -18,13 +18,13 @@ const VideoTraining = () => {
 
 
   // --- Session info ---
-  const baseName = location.state?.scenarioName || "Training Session";
-  const scenarioName = `${baseName} Training Session!`;
-  const scenarioId = location.state?.scenarioId || "default-scenario-id";
+ const baseName = location.state?.scenarioName || "Training Session";
+ const scenarioName = `${baseName} Training Session!`;
 
   // --- UI state ---
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
+  const [scenarioId, setScenarioId] = useState(location.state?.scenarioId || null);
 
   // --- Recording state ---
   const [status, setStatus] = useState('idle'); // idle | recording | paused | stopped | uploading | sent
@@ -37,9 +37,10 @@ const VideoTraining = () => {
   const streamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const chunksRef = useRef([]);
-
-    // Generate a session id once per page load (could be uuid; here simple timestamp-based)
-  const sessionIdRef = useRef(`S-${Date.now()}-${Math.floor(Math.random()*1e6)}`);
+  // use the session id as uniqe id once per page load
+  const sessionIdRef = useRef(
+    location.state?.sessionId || location.state?.userCustomScenarioId || `TEMP-${Date.now()}-${Math.random()}`
+  );
   // Current question index within the session
   const [questionIdx, setQuestionIdx] = useState(0);
   const nextIdxRef = useRef(0);                  // authoritative next index
@@ -209,7 +210,7 @@ const sendRecording = async () => {
       },
       body: JSON.stringify({
         session_id: sessionIdRef.current,
-        scenario_id: scenarioId,
+        scenario_name: baseName,
         idx: idxToSend,                         // use allocated index
         video_url
       })
@@ -255,7 +256,7 @@ const handleEndCall = async () => {
       },
       body: JSON.stringify({
         session_id: sessionIdRef.current,
-        scenario_id: scenarioId
+        scenario_name: baseName
       })
     });
 
@@ -277,10 +278,13 @@ const handleEndCall = async () => {
    navigate('/ScenarioOverview', {
   state: { scenarioId, scenarioName, completedId, completed: completedDoc, analysisResults }
 });
+    navigate('/ScenarioOverview', {
+      state: { sessionId: sessionIdRef.current, scenarioName, completedId, completed: completedDoc }
+    });
   } catch (e) {
     console.error('Finalize error:', e);
     // Fallback navigation even if finalize failed
-    navigate('/ScenarioOverview', { state: { scenarioId, scenarioName, analysisResults } });
+    navigate('/ScenarioOverview', { state: { sessionId: sessionIdRef.current, scenarioName, analysisResults } });
   }
 };
 

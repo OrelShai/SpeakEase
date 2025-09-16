@@ -5,7 +5,6 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import EditProfile from './pages/EditProfile';
 import HomePage from './pages/HomePage';
-import CustomizeScenario from './pages/CustomizeScenario';
 import Navbar from './Components/Navbar/Navbar';
 import VideoTraining from './pages/VideoMeeting';
 import ScenarioOverview from './pages/ScenarioOverview';
@@ -31,7 +30,6 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/homepage" element={<HomePage />} />
-            <Route path="/customizescenario" element={<CustomizeScenario />} />
             <Route path="/VideoTraining" element={<VideoTraining />} />
             <Route path="/ScenarioOverview" element={<ScenarioOverview />} />
           </Routes>
