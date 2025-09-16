@@ -89,6 +89,7 @@ const HomePage = () => {
 
     navigate("/VideoTraining", {
       state: {
+        scenarioId: selectedScenario.id,
         scenarioName: saved.scenarioName || selectedScenario.name,
         sessionId: saved._id,
         durationMin,

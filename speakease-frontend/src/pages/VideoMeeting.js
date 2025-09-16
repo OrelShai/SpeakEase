@@ -14,6 +14,8 @@ import {
 const VideoTraining = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [analysisResults, setAnalysisResults] = useState([]);
+
 
   // --- Session info ---
  const baseName = location.state?.scenarioName || "Training Session";
@@ -23,7 +25,7 @@ const VideoTraining = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [scenarioId, setScenarioId] = useState(location.state?.scenarioId || null);
-
+  console.log("Scenario ID:", scenarioId);
   // --- Recording state ---
   const [status, setStatus] = useState('idle'); // idle | recording | paused | stopped | uploading | sent
   const [blob, setBlob] = useState(null);
@@ -219,6 +221,7 @@ const sendRecording = async () => {
     }
     const analysisSaved = await analyzeRes.json();
     console.log('Analyze result:', analysisSaved);
+    setAnalysisResults(prev => [...prev, analysisSaved]);
 
     setStatus('idle');
     setQuestion('Describe a conflict you had in a team and what you learned from it.');
@@ -256,9 +259,8 @@ const handleEndCall = async () => {
         scenario_name: baseName
       })
     });
-
     let completedId = null;
-    let completedDoc = null;
+    let completedDoc = null;  
 
     if (res.ok) {
       const json = await res.json().catch(() => ({}));
@@ -269,19 +271,19 @@ const handleEndCall = async () => {
     } else {
       const err = await res.json().catch(() => ({}));
       console.warn('Finalize failed:', res.status, err);
+      completedDoc = {}; // במקרה של כישלון, שלח אובייקט ריק
     }
 
-    // Navigate to results/overview with completed data (if available)
+    // ניווט למסך הסופי עם הנתונים הנכונים
     navigate('/ScenarioOverview', {
-      state: { sessionId: sessionIdRef.current, scenarioName, completedId, completed: completedDoc }
+      state: { scenarioId, scenarioName, analysisResults: [completedDoc] }
     });
   } catch (e) {
     console.error('Finalize error:', e);
     // Fallback navigation even if finalize failed
-    navigate('/ScenarioOverview', { state: { sessionId: sessionIdRef.current, scenarioName } });
+    navigate('/ScenarioOverview', { state: { scenarioId, scenarioName, analysisResults: [{}] } });
   }
 };
-
 
   return (
     <div className="video-meeting-container">
