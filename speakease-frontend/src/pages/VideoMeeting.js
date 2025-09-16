@@ -259,9 +259,8 @@ const handleEndCall = async () => {
         scenario_name: baseName
       })
     });
-
     let completedId = null;
-    let completedDoc = null;
+    let completedDoc = null;  
 
     if (res.ok) {
       const json = await res.json().catch(() => ({}));
@@ -272,22 +271,19 @@ const handleEndCall = async () => {
     } else {
       const err = await res.json().catch(() => ({}));
       console.warn('Finalize failed:', res.status, err);
+      completedDoc = {}; // במקרה של כישלון, שלח אובייקט ריק
     }
 
-    // Navigate to results/overview with completed data (if available)
-   navigate('/ScenarioOverview', {
-  state: { scenarioId, scenarioName, completedId, completed: completedDoc, analysisResults }
-});
+    // ניווט למסך הסופי עם הנתונים הנכונים
     navigate('/ScenarioOverview', {
-      state: { sessionId: sessionIdRef.current, scenarioName, completedId, completed: completedDoc }
+      state: { scenarioId, scenarioName, analysisResults: [completedDoc] }
     });
   } catch (e) {
     console.error('Finalize error:', e);
     // Fallback navigation even if finalize failed
-    navigate('/ScenarioOverview', { state: { sessionId: sessionIdRef.current, scenarioName, analysisResults } });
+    navigate('/ScenarioOverview', { state: { scenarioId, scenarioName, analysisResults: [{}] } });
   }
 };
-
 
   return (
     <div className="video-meeting-container">

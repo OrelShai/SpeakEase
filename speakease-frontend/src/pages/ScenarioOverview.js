@@ -41,7 +41,25 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const location = useLocation();
     const scenarioId = location.state?.scenarioId || "default-scenario-id";
     const scenarioName = location.state?.scenarioName || "Default Scenario";
-const analysisResults = location.state?.analysisResults || [];
+    const analysisResults = location.state?.analysisResults || [];
+    const categorizeAnalyzer = (key) => {
+    if (
+        key.includes('grammar') ||
+        key.includes('language') ||
+        key.includes('speech_style') ||
+        key.includes('tone')
+    ) {
+        return 'verbal';
+    }
+    if (
+        key.includes('eye_contact') ||
+        key.includes('facial_expression') ||
+        key.includes('head_pose')
+    ) {
+        return 'nonverbal';
+    }
+    return 'engagement';
+};
 
     // Add loading state for API calls
     const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +73,9 @@ const analysisResults = location.state?.analysisResults || [];
     const [currentTip, setCurrentTip] = useState(0); // usestate 0 to show the first tip
     const chatEndRef = useRef(null);
     const analyzers = analysisResults[0]?.analyzers || {};
+
+    console.log("analysisResults:", analysisResults);
+console.log("analyzers:", analyzers);
     // Sample data for charts (Progress Over Time)
     const data = [
         { name: "1", score: 5 },
@@ -63,27 +84,24 @@ const analysisResults = location.state?.analysisResults || [];
         { name: "4", score: 6.5 },
         { name: "5", score: 8 },
         { name: "6", score: 4 },
-    ];
-
-    // static data for pie chart will probably calculate this base on the performance data 
-    const pieData = Object.entries(analyzers).map(([key, value]) => ({
-    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), // עיצוב שם יפה
-    value: value.score || 0
-}));
+    ];  
 
     // Sample performance data
    const performanceData = Object.entries(analyzers).reduce((acc, [key, value]) => {
-    // נניח שיש לך קטגוריה לכל אנלייזר (למשל: verbal, nonverbal, engagement)
-    // אם יש לך קטגוריה בתוך value.category, השתמש בה, אחרת שים הכל תחת verbal
-    const category = value.category || 'verbal';
+    const category = categorizeAnalyzer(key);
     if (!acc[category]) acc[category] = [];
     acc[category].push({
         name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        score: value.score || 0,
-        change: value.change || 0
+        score: Math.round(value.score || 0),
+        change: 0 // אם יש לך שינוי, תכניס אותו כאן
     });
     return acc;
 }, { verbal: [], nonverbal: [], engagement: [] });
+
+const pieData = Object.entries(analyzers).map(([key, value]) => ({
+    name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+    value: Math.round(value.score || 0)
+}));
 
     // sample tips should get it from the backend
     const tips = [
@@ -238,7 +256,7 @@ const analysisResults = location.state?.analysisResults || [];
                                                 <div className="metric-header">
                                                     <span className="metric-name">{metric.name}</span>
                                                     <div className="metric-value">
-                                                        <span className="metric-score">{metric.score}%</span>
+                                                        <span className="metric-score">{Math.round(metric.score)}%</span>
                                                         <span className={
                                                             metric.change > 0 ? 'change-positive' :
                                                                 metric.change < 0 ? 'change-negative' :
