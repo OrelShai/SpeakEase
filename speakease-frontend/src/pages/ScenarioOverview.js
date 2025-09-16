@@ -39,7 +39,8 @@ const ScenarioOverview = ({ isDarkMode }) => {
 
     // Get passed data from navigation
     const location = useLocation();
-    const scenarioId = location.state?.scenarioId || "default-scenario-id";
+    const scenarioId = location.state?.scenarioId;
+    console.log("scenarioId:", scenarioId);
     const scenarioName = location.state?.scenarioName || "Default Scenario";
     const analysisResults = location.state?.analysisResults || [];
     const categorizeAnalyzer = (key) => {
@@ -75,7 +76,7 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const analyzers = analysisResults[0]?.analyzers || {};
 
     console.log("analysisResults:", analysisResults);
-console.log("analyzers:", analyzers);
+    console.log("analyzers:", analyzers);
     // Sample data for charts (Progress Over Time)
     const data = [
         { name: "1", score: 5 },
@@ -161,15 +162,47 @@ const pieData = Object.entries(analyzers).map(([key, value]) => ({
 
     // Enhanced Progress Chart component
 
-    // Update your data array with more meaningful practice scores
-    const practiceScoreHistory = [
-        { practice: 1, score: 60 },
-        { practice: 2, score: 80 },
-        { practice: 3, score: 78 },
-        { practice: 4, score: 69 },
-        { practice: 5, score: 100 },
-        { practice: 6, score: 89 }
-    ];
+    const [practiceScoreHistory, setPracticeScoreHistory] = useState([]);
+
+useEffect(() => {
+    const fetchPracticeHistory = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch('/api/completed-sessions', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            const result = await res.json();
+            const allSessions = Array.isArray(result) ? result : [];
+            // הדפסת כל הערכים לבדיקה
+            console.log("scenarioId from navigation:", scenarioId);
+            console.log("all scenario_id values from API:", allSessions.map(s => s.scenario_id));
+            // סינון לפי מזהה הסנריו בלבד
+            const normalize = str => str.trim().toLowerCase().replace(/_/g, ' ');
+
+const filteredSessions = allSessions.filter(session =>
+    session &&
+    typeof session.scenario_id === "string" &&
+    typeof scenarioId === "string" &&
+    normalize(session.scenario_id) === normalize(scenarioId)
+);
+            console.log("filteredSessions:", filteredSessions);
+            const history = filteredSessions.map((session, idx) => ({
+                practice: idx + 1,
+                score: session.overall?.score ? Math.round(session.overall.score) : 0
+            }));
+            setPracticeScoreHistory(history);
+        } catch (err) {
+            console.error("Failed to fetch practice history", err);
+            setPracticeScoreHistory([]);
+        }
+    };
+    fetchPracticeHistory();
+}, [scenarioId]);
+
 
     // Add effect to fetch data when component mounts or scenarioId changes
     useEffect(() => {

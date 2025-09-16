@@ -25,7 +25,7 @@ const VideoTraining = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [scenarioId, setScenarioId] = useState(location.state?.scenarioId || null);
-
+  console.log("Scenario ID:", scenarioId);
   // --- Recording state ---
   const [status, setStatus] = useState('idle'); // idle | recording | paused | stopped | uploading | sent
   const [blob, setBlob] = useState(null);
