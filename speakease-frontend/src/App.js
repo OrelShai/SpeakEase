@@ -28,7 +28,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/my-profile" element={<EditProfile />} />
+            {/* Legacy routes for backward compatibility */}
             <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/history" element={<EditProfile />} />
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/VideoTraining" element={<VideoTraining />} />
             <Route path="/ScenarioOverview" element={<ScenarioOverview />} />

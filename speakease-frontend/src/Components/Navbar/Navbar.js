@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, User } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
 
 import "./Navbar.css";
@@ -58,19 +58,16 @@ const Navbar = ({ toggleDarkMode, darkMode, setSidebar }) => {
 
           {username ? (
             <>
-              {/* ✅ אייקון הגדרות */}
-              <img
-                src={
-                  darkMode
-                    ? "/images/navbar/black-setting.png"
-                    : "/images/navbar/white-setting.png"
-                }
-                alt="Settings"
-                className="settings-icon"
-                onClick={() => navigate("/edit-profile")}
-              />
+              {/* Profile Icon */}
+              <button 
+                onClick={() => navigate("/my-profile")} 
+                className="profile-icon"
+                title="My Profile"
+              >
+                <User size={20} />
+              </button>
 
-              {/* ✅ אייקון יציאה במקום כפתור טקסט */}
+              {/* Logout Icon */}
               <img
                 src={
                   darkMode
