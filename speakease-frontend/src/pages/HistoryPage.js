@@ -19,6 +19,22 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
     }
   }, [isActive, hasLoaded]);
 
+  // Normalize various date shapes (ISO string, number, Mongo {$date}, Firestore-like, etc.)
+  const extractDateValue = (raw) => {
+    if (!raw) return null;
+    if (raw instanceof Date) return raw;
+    if (typeof raw === 'string' || typeof raw === 'number') return new Date(raw);
+    // Mongo Extended JSON: { $date: "..." } OR { $date: { $numberLong: "..." } }
+    if (raw.$date) {
+      const v = raw.$date;
+      if (typeof v === 'string' || typeof v === 'number') return new Date(v);
+      if (typeof v === 'object' && v.$numberLong) return new Date(Number(v.$numberLong));
+    }
+    // Firestore-like: { _seconds: 1694956776, _nanoseconds: 0 }
+    if (raw._seconds) return new Date(raw._seconds * 1000);
+    return null;
+    };
+
   const fetchHistoryData = async () => {
     try {
       setLoading(true);
@@ -56,7 +72,10 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
     const lineChartData = historyData.map((session, index) => ({
       session: index + 1,
       score: Math.round(session.overall?.score || 0),
-      date: session.date || session.created_at
+      date: (extractDateValue(session.timestamp) || 
+        extractDateValue(session.created_at) || 
+        extractDateValue(session.date))?.toISOString?.() ||
+        null
     }));
 
     // Process latest session data for pie chart
@@ -119,13 +138,13 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
   // Helper function to format date safely
   const formatDate = (session) => {
     try {
-      // Try different date fields in order of preference
-      const dateValue = session.timestamp?.date || session.date || session.created_at || session.timestamp;
-      
-      if (!dateValue) return 'Date not available';
-      
-      const date = new Date(dateValue);
-      if (isNaN(date.getTime())) return 'Invalid date';
+      // Prefer explicit timestamp; then created_at/date
+      const date =
+        extractDateValue(session.timestamp) ||
+        extractDateValue(session.created_at) ||
+        extractDateValue(session.date);
+
+      if (!date || isNaN(date.getTime())) return 'Invalid date';
       
       return date.toLocaleDateString('en-US', {
         year: 'numeric',
