@@ -41,6 +41,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
       const result = await getUserHistory();
       
       if (result && result.success) {
+        // Keep original order from database (oldest first, newest last)
         setHistoryData(result.data || []);
         setError(null);
       } else {
@@ -68,7 +69,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
       };
     }
 
-    // Process overall performance data for line chart
+    // For line chart, use original chronological order (oldest to newest)
     const lineChartData = historyData.map((session, index) => ({
       session: index + 1,
       score: Math.round(session.overall?.score || 0),
@@ -78,7 +79,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
         null
     }));
 
-    // Process latest session data for pie chart
+    // For pie chart, we want the LATEST session (last item in array)
     const latestSession = historyData[historyData.length - 1];
     const latestAnalyzers = latestSession?.analyzers || {};
     
@@ -87,7 +88,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
       value: Math.round(value.score || 0)
     }));
 
-    // Process category data for category breakdown chart
+    // For category data, use chronological order
     const categoryData = historyData.map(session => {
       const categories = session.categories || {};
       
@@ -121,6 +122,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
     const averageScore = Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length);
     const bestScore = Math.round(Math.max(...scores));
     const totalSessions = historyData.length;
+    // Latest score is last in array, oldest is first
     const improvement = historyData.length > 1 
       ? Math.round(scores[scores.length - 1] - scores[0])
       : 0;
@@ -159,7 +161,9 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
 
   // Helper function to open details modal
   const openDetailsModal = (session, sessionIndex) => {
-    setSelectedSession({ ...session, sessionNumber: sessionIndex + 1 });
+    // Session number matches chronological order: oldest session = 1, newest = historyData.length
+    const sessionNumber = sessionIndex + 1;
+    setSelectedSession({ ...session, sessionNumber });
     setShowDetails(true);
   };
 
@@ -289,13 +293,16 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
         <h2>Session History</h2>
         <div className="history-list">
           {historyData.map((session, index) => {
+            // Session number matches chronological order: oldest session = 1, newest = historyData.length
+            const sessionNumber = index + 1;
             // Debug: Log session data to see what's available
-            console.log(`Session ${index + 1} data:`, session);
+            console.log(`Session ${sessionNumber} data:`, session);
+            console.log(`Session ${sessionNumber} ID:`, session._id);
             
             return (
               <div key={session._id || index} className="history-item">
                 <div className="session-header">
-                  <h3>Session {index + 1}</h3>
+                  <h3>Session {sessionNumber}</h3>
                   <div className="session-date">
                     {formatDate(session)}
                   </div>
