@@ -42,11 +42,8 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
       
       if (result && result.success) {
         const rawData = result.data || [];
-        
         // Reverse the data so oldest session is first, newest is last
-        // This ensures Session 1 = oldest (high score), Session 16 = newest (lower score)
         const reversedData = rawData.reverse();
-        
         setHistoryData(reversedData);
         setError(null);
       } else {
@@ -305,9 +302,6 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
           {historyData.map((session, index) => {
             // Session number matches chronological order: oldest session = 1, newest = historyData.length
             const sessionNumber = index + 1;
-            // Debug: Log session data to see what's available
-            console.log(`Session ${sessionNumber} data:`, session);
-            console.log(`Session ${sessionNumber} ID:`, session._id);
             
             return (
               <div key={session._id || index} className="history-item">
