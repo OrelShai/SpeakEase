@@ -41,8 +41,13 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
       const result = await getUserHistory();
       
       if (result && result.success) {
-        // Keep original order from database (oldest first, newest last)
-        setHistoryData(result.data || []);
+        const rawData = result.data || [];
+        
+        // Reverse the data so oldest session is first, newest is last
+        // This ensures Session 1 = oldest (high score), Session 16 = newest (lower score)
+        const reversedData = rawData.reverse();
+        
+        setHistoryData(reversedData);
         setError(null);
       } else {
         setError(result?.error || 'Failed to fetch history data');
