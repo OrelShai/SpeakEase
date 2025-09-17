@@ -233,29 +233,61 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
       <div className="session-history">
         <h2>Session History</h2>
         <div className="history-list">
-          {historyData.map((session, index) => (
-            <div key={session._id || index} className="history-item">
-              <div className="session-info">
-                <h3>Session {index + 1}</h3>
-                <p className="session-date">
-                  {session.date ? new Date(session.date).toLocaleDateString() : 
-                   session.created_at ? new Date(session.created_at).toLocaleDateString() : 
-                   'Date not available'}
-                </p>
-                <p className="session-scenario">
-                  Scenario: {session.scenario_id || session.scenario_name || 'General Practice'}
-                </p>
-              </div>
-              <div className="session-stats">
-                <div className="score">
-                  {Math.round(session.overall?.score || 0)}%
+          {historyData.map((session, index) => {
+            // Debug: Log session data to see what's available
+            console.log(`Session ${index + 1} data:`, session);
+            
+            return (
+              <div key={session._id || index} className="history-item">
+                <div className="session-header">
+                  <h3>Session {index + 1}</h3>
+                  <div className="session-date">
+                    {session.date ? new Date(session.date).toLocaleDateString('en-US') : 
+                     session.created_at ? new Date(session.created_at).toLocaleDateString('en-US') : 
+                     session.timestamp ? new Date(session.timestamp).toLocaleDateString('en-US') :
+                     'Date not available'}
+                  </div>
+                  <div className="session-scenario">
+                    Scenario: {session.scenario_id || session.scenario_name || 'General Practice'}
+                  </div>
                 </div>
-                <div className="duration">
-                  {session.duration ? `${Math.round(session.duration / 60)}min` : 'N/A'}
+                
+                <div className="session-divider"></div>
+                
+                <div className="session-content">
+                  <div className="overall-score">
+                    <div className="session-score">
+                      {Math.round(session.overall?.score || 0)}%
+                    </div>
+                    <div className="score-label">Overall Score</div>
+                  </div>
+                  
+                  <div className="category-scores">
+                    {session.categories && Object.entries(session.categories).map(([category, data]) => (
+                      <div key={category} className="category-score">
+                        <span className="category-name">
+                          {category === 'verbal' ? '🗣️ Verbal Communication' : 
+                           category === 'body_language' ? '👤 Body Language' : 
+                           category === 'interaction' ? '🤝 Interaction' : 
+                           `📊 ${category.replace(/_/g, ' ')}`}
+                        </span>
+                        <span className="category-value">{Math.round(data.score || 0)}%</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="session-actions">
+                    <button 
+                      className="details-btn" 
+                      onClick={() => console.log('View details for session:', session)}
+                    >
+                      📊 View Details
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
