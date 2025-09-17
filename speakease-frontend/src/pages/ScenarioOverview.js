@@ -54,7 +54,17 @@ const ScenarioOverview = ({ isDarkMode }) => {
         ) {
             return 'nonverbal';
         }
-        return 'engagement';
+        // Explicitly check for engagement/interaction related analyzers
+        if (
+            key.includes('engagement') ||
+            key.includes('interaction') ||
+            key.includes('confidence') ||
+            key.includes('speaking_pace') ||
+            key.includes('voice_clarity')
+        ) {
+            return 'engagement';
+        }
+        return 'engagement'; // Default fallback
     };
 
     const [isLoading, setIsLoading] = useState(true);

@@ -300,7 +300,8 @@ const getUserScenarios = async () => {
 
 const getUserHistory = async () => {
   try {
-    const response = await apiRequest('/users/history', {
+    // Use correct endpoint path (no /api prefix since API_BASE_URL already includes it)
+    const response = await apiRequest('/completed-sessions', {
       method: 'GET'
     });
     
