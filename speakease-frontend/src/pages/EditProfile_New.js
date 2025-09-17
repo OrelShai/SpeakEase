@@ -1,35 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { getUserProfile, updateUserProfile, validateEmail as apiValidateEmail, validatePasswordComplexity } from "../BackEndAPI/DataModelLogicAPI";
-import HistoryPage from "./HistoryPage";
 
 import "./EditProfile.css";
-import "./HistoryPage.css";
 import { FaUser, FaHistory, FaCheck, FaEye, FaEyeSlash } from "react-icons/fa";
 
 const EditProfile = () => {
-  const [activeTab, setActiveTab] = useState("history"); // History as default tab
-  
-  // Detect dark mode from document class
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark-mode'));
-    };
-    
-    // Check initial state
-    checkDarkMode();
-    
-    // Set up observer for class changes
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
-  }, []);
+  const [activeTab, setActiveTab] = useState("history");
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -215,9 +192,19 @@ const EditProfile = () => {
 
       {/* Content Area */}
       <div className="profile-content">
-        {activeTab === "history" ? (
-          <HistoryPage isDarkMode={isDarkMode} isActive={true} />
-        ) : activeTab === "edit" ? (
+        {activeTab === "history" && (
+          <div className="history-view">
+            <h1>Training History</h1>
+            <p>Your conversation training sessions will appear here.</p>
+            {/* History content will be implemented */}
+            <div className="no-history">
+              <p>No training sessions yet.</p>
+              <p>Start your first conversation to see your progress!</p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "edit" && (
           <>
             <h1>Edit Profile</h1>
             
@@ -322,7 +309,7 @@ const EditProfile = () => {
               </div>
             </div>
           </>
-        ) : null}
+        )}
       </div>
     </div>
   );

@@ -38,24 +38,6 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const scenarioId = location.state?.scenarioId;
     const scenarioName = location.state?.scenarioName || "Default Scenario";
     const analysisResults = location.state?.analysisResults || [];
-    const categorizeAnalyzer = (key) => {
-        if (
-            key.includes('grammar') ||
-            key.includes('language') ||
-            key.includes('speech_style') ||
-            key.includes('tone')
-        ) {
-            return 'verbal';
-        }
-        if (
-            key.includes('eye_contact') ||
-            key.includes('facial_expression') ||
-            key.includes('head_pose')
-        ) {
-            return 'nonverbal';
-        }
-        return 'engagement';
-    };
 
     const [isLoading, setIsLoading] = useState(true);
     const [messages, setMessages] = useState([
@@ -64,18 +46,29 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const [newMessage, setNewMessage] = useState('');
     const [activeTab, setActiveTab] = useState('verbal');
     const chatEndRef = useRef(null);
+    
+    // Use categories from completed session instead of analyzers
+    const categories = analysisResults[0]?.categories || {};
     const analyzers = analysisResults[0]?.analyzers || {};
 
-    const performanceData = Object.entries(analyzers).reduce((acc, [key, value]) => {
-        const category = categorizeAnalyzer(key);
-        if (!acc[category]) acc[category] = [];
-        acc[category].push({
-            name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-            score: Math.round(value.score || 0),
+    // Map categories to display format
+    const performanceData = {
+        verbal: categories.verbal ? [{
+            name: 'Verbal Communication',
+            score: Math.round(categories.verbal.score || 0),
             change: 0
-        });
-        return acc;
-    }, { verbal: [], nonverbal: [], engagement: [] });
+        }] : [],
+        body_language: categories.body_language ? [{
+            name: 'Body Language', 
+            score: Math.round(categories.body_language.score || 0),
+            change: 0
+        }] : [],
+        interaction: categories.interaction ? [{
+            name: 'Interaction',
+            score: Math.round(categories.interaction.score || 0), 
+            change: 0
+        }] : []
+    };
 
     const pieData = Object.entries(analyzers).map(([key, value]) => ({
         name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
@@ -93,8 +86,8 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const calculateOverallGrade = () => {
         const allMetrics = [
             ...performanceData.verbal,
-            ...performanceData.nonverbal,
-            ...performanceData.engagement
+            ...performanceData.body_language,
+            ...performanceData.interaction
         ];
         const totalScore = allMetrics.reduce((sum, metric) => sum + metric.score, 0);
         const avgScore = Math.round(totalScore / allMetrics.length);
@@ -257,16 +250,16 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                             Verbal
                                         </button>
                                         <button
-                                            onClick={() => setActiveTab('nonverbal')}
-                                            className={`tab-button ${activeTab === 'nonverbal' ? 'tab-button-active' : ''}`}
+                                            onClick={() => setActiveTab('body_language')}
+                                            className={`tab-button ${activeTab === 'body_language' ? 'tab-button-active' : ''}`}
                                         >
-                                            Non-verbal
+                                            Body Language
                                         </button>
                                         <button
-                                            onClick={() => setActiveTab('engagement')}
-                                            className={`tab-button ${activeTab === 'engagement' ? 'tab-button-active' : ''}`}
+                                            onClick={() => setActiveTab('interaction')}
+                                            className={`tab-button ${activeTab === 'interaction' ? 'tab-button-active' : ''}`}
                                         >
-                                            Engagement
+                                            Interaction
                                         </button>
                                     </div>
                                     <div className="metrics-container">

@@ -123,6 +123,58 @@ nav {
   cursor: pointer;
 }
 
+.profile-icon {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.profile-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .profile-icon {
+  color: #ffffff;
+}
+
+.dark-mode .profile-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-icon {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.history-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .history-icon {
+  color: #ffffff;
+}
+
+.dark-mode .history-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .logout-icon {
   width: 24px;
   height: 24px;
