@@ -84,7 +84,7 @@
 }
 
 .stat-card h3 {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #6b7280;
   margin-bottom: 0.5rem;
@@ -118,7 +118,7 @@
   padding: 0.75rem 1.5rem;
   background: none;
   border: none;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: 500;
   color: #6b7280;
   cursor: pointer;
@@ -164,7 +164,7 @@
 }
 
 .session-history h2 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 1.5rem;
@@ -198,7 +198,7 @@
 }
 
 .session-header {
-  margin-right: 2rem;
+  margin-right: 1rem;
   margin-left: 2.5rem;
   min-width: 200px;
   position: relative;
@@ -210,16 +210,16 @@
   top: 50%;
   left: -4rem;
   transform: translateY(-50%);
-  font-size: 2rem;
+  font-size: 2.3rem;
   z-index: 1;
 }
 
 .session-header h3 {
   color: #1f2937;
   margin: 0.5rem 0 0.5rem 0;
-  font-size: 1.3rem;
+  font-size: 2rem;
   font-weight: 700;
-  text-align: left;
+  text-align: center;
   background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   background-clip: text;
   -webkit-background-clip: text;
@@ -230,16 +230,16 @@
 .session-date {
   color: #6b7280;
   margin: 0 0 0.5rem 0;
-  font-size: 0.9rem;
-  text-align: left;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .session-scenario {
   color: #6b7280;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-style: italic;
-  text-align: left;
+  text-align: center;
 }
 
 .session-divider {
@@ -360,7 +360,7 @@
 }
 
 .category-name {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   color: #374151;
   font-weight: 500;
   text-transform: capitalize;
@@ -368,7 +368,7 @@
 }
 
 .category-value {
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #1f2937;
   min-width: 45px;
@@ -398,7 +398,7 @@
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
