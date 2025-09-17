@@ -9,6 +9,8 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
   const [error, setError] = useState(null);
   const [selectedChart, setSelectedChart] = useState('overall'); // 'overall', 'categories'
   const [hasLoaded, setHasLoaded] = useState(false); // Track if data has been loaded
+  const [selectedSession, setSelectedSession] = useState(null); // For detailed view
+  const [showDetails, setShowDetails] = useState(false); // Modal state
 
   useEffect(() => {
     // Only fetch data when the History tab is active AND we haven't loaded yet
@@ -113,6 +115,40 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
   };
 
   const stats = calculateStats();
+
+  // Helper function to format date safely
+  const formatDate = (session) => {
+    try {
+      // Try different date fields in order of preference
+      const dateValue = session.timestamp?.date || session.date || session.created_at || session.timestamp;
+      
+      if (!dateValue) return 'Date not available';
+      
+      const date = new Date(dateValue);
+      if (isNaN(date.getTime())) return 'Invalid date';
+      
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Date error';
+    }
+  };
+
+  // Helper function to open details modal
+  const openDetailsModal = (session, sessionIndex) => {
+    setSelectedSession({ ...session, sessionNumber: sessionIndex + 1 });
+    setShowDetails(true);
+  };
+
+  // Helper function to close details modal
+  const closeDetailsModal = () => {
+    setSelectedSession(null);
+    setShowDetails(false);
+  };
 
   if (loading) {
     return (
@@ -242,10 +278,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
                 <div className="session-header">
                   <h3>Session {index + 1}</h3>
                   <div className="session-date">
-                    {session.date ? new Date(session.date).toLocaleDateString('en-US') : 
-                     session.created_at ? new Date(session.created_at).toLocaleDateString('en-US') : 
-                     session.timestamp ? new Date(session.timestamp).toLocaleDateString('en-US') :
-                     'Date not available'}
+                    {formatDate(session)}
                   </div>
                   <div className="session-scenario">
                     Scenario: {session.scenario_id || session.scenario_name || 'General Practice'}
@@ -279,7 +312,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
                   <div className="session-actions">
                     <button 
                       className="details-btn" 
-                      onClick={() => console.log('View details for session:', session)}
+                      onClick={() => openDetailsModal(session, index)}
                     >
                       📊 View Details
                     </button>
@@ -290,6 +323,145 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
           })}
         </div>
       </div>
+
+      {/* Session Details Modal */}
+      {showDetails && selectedSession && (
+        <div className="modal-overlay" onClick={closeDetailsModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Session {selectedSession.sessionNumber} Details</h2>
+              <button className="modal-close" onClick={closeDetailsModal}>
+                ✕
+              </button>
+            </div>
+            
+            <div className="modal-body">
+              {/* Session Overview */}
+              <div className="detail-section">
+                <h3>📅 Session Overview</h3>
+                <div className="detail-grid">
+                  <div className="detail-item">
+                    <span className="detail-label">Date:</span>
+                    <span className="detail-value">{formatDate(selectedSession)}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Scenario:</span>
+                    <span className="detail-value">
+                      {selectedSession.scenario_id || selectedSession.scenario_name || 'General Practice'}
+                    </span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Overall Score:</span>
+                    <span className="detail-value score-highlight">
+                      {Math.round(selectedSession.overall?.score || 0)}%
+                    </span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Confidence:</span>
+                    <span className="detail-value">
+                      {selectedSession.overall?.confidence ? 
+                        `${(selectedSession.overall.confidence * 100).toFixed(1)}%` : 
+                        'N/A'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Category Performance */}
+              {selectedSession.categories && Object.keys(selectedSession.categories).length > 0 && (
+                <div className="detail-section">
+                  <h3>📊 Category Performance</h3>
+                  <div className="category-details">
+                    {Object.entries(selectedSession.categories).map(([category, data]) => (
+                      <div key={category} className="category-detail-item">
+                        <div className="category-detail-header">
+                          <span className="category-icon">
+                            {category === 'verbal' ? '🗣️' : 
+                             category === 'body_language' ? '👤' : 
+                             category === 'interaction' ? '🤝' : '📊'}
+                          </span>
+                          <span className="category-title">
+                            {category === 'verbal' ? 'Verbal Communication' : 
+                             category === 'body_language' ? 'Body Language' : 
+                             category === 'interaction' ? 'Interaction' : 
+                             category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          </span>
+                          <span className="category-score-large">
+                            {Math.round(data.score || 0)}%
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Analyzer Breakdown */}
+              {selectedSession.analyzers && Object.keys(selectedSession.analyzers).length > 0 && (
+                <div className="detail-section">
+                  <h3>🔍 Analyzer Breakdown</h3>
+                  <div className="analyzer-details">
+                    {Object.entries(selectedSession.analyzers).map(([analyzer, data]) => (
+                      <div key={analyzer} className="analyzer-item">
+                        <div className="analyzer-header">
+                          <span className="analyzer-name">
+                            {analyzer.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                          </span>
+                          <span className="analyzer-score">
+                            {Math.round(data.score || 0)}%
+                          </span>
+                        </div>
+                        {data.confidence && (
+                          <div className="analyzer-confidence">
+                            Confidence: {(data.confidence * 100).toFixed(1)}%
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Session Summary */}
+              {selectedSession.summary_text && (
+                <div className="detail-section">
+                  <h3>📝 Session Summary</h3>
+                  <div className="summary-text">
+                    {selectedSession.summary_text}
+                  </div>
+                </div>
+              )}
+
+              {/* Technical Details */}
+              <div className="detail-section">
+                <h3>🔧 Technical Details</h3>
+                <div className="detail-grid">
+                  {selectedSession.meta && (
+                    <>
+                      <div className="detail-item">
+                        <span className="detail-label">Schema Version:</span>
+                        <span className="detail-value">{selectedSession.meta.schema_version}</span>
+                      </div>
+                      <div className="detail-item">
+                        <span className="detail-label">Pipeline Version:</span>
+                        <span className="detail-value">{selectedSession.meta.pipeline_version}</span>
+                      </div>
+                      <div className="detail-item">
+                        <span className="detail-label">Items Processed:</span>
+                        <span className="detail-value">{selectedSession.meta.num_items}</span>
+                      </div>
+                    </>
+                  )}
+                  <div className="detail-item">
+                    <span className="detail-label">Session ID:</span>
+                    <span className="detail-value session-id">{selectedSession._id}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
