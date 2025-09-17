@@ -127,9 +127,14 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
     const averageScore = Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length);
     const bestScore = Math.round(Math.max(...scores));
     const totalSessions = historyData.length;
-    // Latest score is last in array, oldest is first
+    // Calculate improvement as latest session score minus average of all previous sessions
     const improvement = historyData.length > 1 
-      ? Math.round(scores[scores.length - 1] - scores[0])
+      ? (() => {
+          // Calculate average of all sessions except the last one
+          const previousScores = scores.slice(0, -1); // All scores except the last
+          const previousAverage = previousScores.reduce((sum, score) => sum + score, 0) / previousScores.length;
+          return Math.round(scores[scores.length - 1] - previousAverage);
+        })()
       : 0;
 
     return {
@@ -236,7 +241,7 @@ const HistoryPage = ({ isDarkMode = false, isActive = true }) => {
             <div className="stat-value">{stats.bestScore}%</div>
           </div>
           <div className="stat-card">
-            <h3>Improvement</h3>
+            <h3>Latest Improvement</h3>
             <div className={`stat-value ${stats.improvement >= 0 ? 'positive' : 'negative'}`}>
               {stats.improvement >= 0 ? '+' : ''}{stats.improvement}%
             </div>
