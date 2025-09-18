@@ -83,7 +83,7 @@ const HomePage = () => {
     };
 
     const saved = await createUserCustomScenario(payload);
-    // saved = { _id, username, scenarioName, durationMin, notes }
+    // saved = { _id, username, scenarioName, durationMin, notes, questions }
 
     setQsOpen(false);
 
@@ -94,6 +94,7 @@ const HomePage = () => {
         sessionId: saved._id,
         durationMin,
         notes,
+        questions: saved.questions,
       },
     });
   };
