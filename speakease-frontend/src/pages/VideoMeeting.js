@@ -26,11 +26,30 @@ const VideoTraining = () => {
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [scenarioId, setScenarioId] = useState(location.state?.scenarioId || null);
   console.log("Scenario ID:", scenarioId);
+  
+  // --- Questions state ---
+  const questionsData = location.state?.questions || [{ question_text: 'Tell me about yourself briefly (up to one minute).', expected_duration: 60 }];
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  
+  // Extract question text from the current question object
+  const getCurrentQuestionText = (index) => {
+    const questionObj = questionsData[index];
+    if (typeof questionObj === 'string') {
+      return questionObj;
+    }
+    return questionObj?.question_text || 'Tell me about yourself briefly (up to one minute).';
+  };
+  
+  const [question, setQuestion] = useState(getCurrentQuestionText(0));
+  
+  console.log("Questions received:", questionsData);
+  console.log("Current question index:", currentQuestionIndex);
+  console.log("Current question:", question);
+  
   // --- Recording state ---
   const [status, setStatus] = useState('idle'); // idle | recording | paused | stopped | uploading | sent
   const [blob, setBlob] = useState(null);
   const [previewURL, setPreviewURL] = useState('');
-  const [question, setQuestion] = useState('Tell me about yourself briefly (up to one minute).');
 
   // --- Refs ---
   const localVideoRef = useRef(null);
@@ -212,7 +231,8 @@ const sendRecording = async () => {
         session_id: sessionIdRef.current,
         scenario_name: baseName,
         idx: idxToSend,                         // use allocated index
-        video_url
+        video_url,
+        question: questionsData[currentQuestionIndex],  // send the current question object
       })
     });
     if (!analyzeRes.ok) {
@@ -224,7 +244,17 @@ const sendRecording = async () => {
     setAnalysisResults(prev => [...prev, analysisSaved]);
 
     setStatus('idle');
-    setQuestion('Describe a conflict you had in a team and what you learned from it.');
+    
+    // Move to the next question if available
+    const nextIndex = currentQuestionIndex + 1;
+    if (nextIndex < questionsData.length) {
+      setCurrentQuestionIndex(nextIndex);
+      setQuestion(getCurrentQuestionText(nextIndex));
+    } else {
+      // No more questions, keep the current question or show completion message
+      setQuestion('All questions completed. You can continue recording or end the session.');
+    }
+    
     alert('Recording uploaded and saved successfully!');
   } catch (err) {
     console.error(err);
@@ -291,6 +321,7 @@ const handleEndCall = async () => {
       <header className="meeting-header">
         <div className="header-left">
           <h1 className="scenario-title">{scenarioName}</h1>
+          <p className="question-counter">Question {currentQuestionIndex + 1} of {questionsData.length}</p>
         </div>
         {/* timer removed */}
       </header>

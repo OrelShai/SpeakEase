@@ -27,7 +27,8 @@
 
 .header-left {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .scenario-title {
@@ -35,6 +36,15 @@
   font-size: 1.3rem;
   font-weight: 1000;
   color: #333; /* Dark text for light mode */
+  margin-bottom: 0.2rem;
+}
+
+.question-counter {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  font-weight: 500;
 }
 
 
