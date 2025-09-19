@@ -268,6 +268,8 @@ const sendRecording = async () => {
   }
 };
 
+const [sessionAiSummary, setSessionAiSummary] = useState(null);
+
 const handleEndCall = async () => {
   try {
     const token = localStorage.getItem('token') || '';
@@ -291,13 +293,17 @@ const handleEndCall = async () => {
     });
     let completedId = null;
     let completedDoc = null;  
+    let aiSummary = null;
 
     if (res.ok) {
       const json = await res.json().catch(() => ({}));
       completedId = json.completed_id || null;
       completedDoc = json.completed || null;
+      aiSummary = json.sessionAiSummary; // Fixed typo and use local variable
+      setSessionAiSummary(aiSummary); // Update state
       console.log('Completed session id:', completedId);
       console.log('Completed session doc:', completedDoc);
+      console.log('AI Summary:', aiSummary);
     } else {
       const err = await res.json().catch(() => ({}));
       console.warn('Finalize failed:', res.status, err);
@@ -306,7 +312,7 @@ const handleEndCall = async () => {
 
     // ניווט למסך הסופי עם הנתונים הנכונים
     navigate('/ScenarioOverview', {
-      state: { scenarioId, scenarioName, analysisResults: [completedDoc] }
+      state: { scenarioId, scenarioName, analysisResults: [completedDoc], sessionAiSummary: aiSummary }
     });
   } catch (e) {
     console.error('Finalize error:', e);

@@ -64,9 +64,9 @@
 .chat-column {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;      /* מיישר את הפאנל והצ'אט לשמאל */
-  justify-content: flex-start;  /* הצ'אט יתחיל אחרי הפאנל, לא יעלה עליו */
-  gap: 7rem;                  /* מוסיף מרווח בין הפאנל לצ'אט */
+  height: calc(100vh - 150px); /* Use most of the viewport height */
+  position: relative;
+  gap: 1rem;
 }
 
 .card {
@@ -413,7 +413,118 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100%; 
+  height: calc(100vh - 200px); /* Use full viewport height minus header/margins */
+  min-height: 600px;
+  max-height: 800px;
+}
+
+/* New coach questions at bottom */
+.coach-questions-bottom {
+  margin-top: auto; /* Push to bottom */
+  padding: 0.75rem;
+  background: var(--card-background, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Don't shrink this section */
+}
+
+.quick-questions-header {
+  margin-bottom: 0.5rem;
+}
+
+.quick-questions-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.coach-questions-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.coach-question-pill {
+  padding: 0.4rem 0.8rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.coach-question-pill:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.coach-question-pill:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.coach-question-pill:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Dark mode styles for new coach questions */
+.dark-mode .coach-questions-bottom {
+  background: var(--card-background-dark, #1e293b);
+  border: 1px solid var(--border-dark, #334155);
+}
+
+.dark-mode .quick-questions-title {
+  color: var(--text-secondary-dark, #94a3b8);
+}
+
+/* Responsive styles for coach questions */
+@media (max-width: 768px) {
+  .coach-questions-horizontal {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .coach-question-pill {
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .chat-container {
+    height: calc(100vh - 250px);
+    min-height: 500px;
+  }
+  
+  .chat-messages {
+    min-height: 350px;
+    max-height: calc(100vh - 400px);
+  }
+
+  .chat-column {
+    height: calc(100vh - 200px);
+  }
+}
+
+@media (min-width: 769px) {
+  .coach-questions-horizontal {
+    justify-content: flex-start;
+  }
+  
+  .coach-question-pill {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 /* Chat header with coach avatar styling */
@@ -552,8 +663,8 @@
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
-  min-height: 400px;
-  max-height: 500px; /* Remove the max height to use full space */
+  min-height: 450px;
+  max-height: calc(100vh - 350px); /* Dynamic height based on viewport */
 }
 
 .message-list {
