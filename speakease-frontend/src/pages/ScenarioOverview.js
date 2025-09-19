@@ -422,23 +422,7 @@ const ScenarioOverview = ({ isDarkMode }) => {
                         </div>
                         {/* Right column - AI chat + Coach questions */}
                         <div className="chat-column">
-                            {/* Coach questions panel */}
-                            <div className="coach-questions-panel card">
-                                <h3>Coach Questions</h3>
-                                <ul>
-                                    {coachQuestions.map((q, idx) => (
-                                        <li key={idx}>
-                                            <button
-                                                className="coach-question-btn"
-                                                onClick={() => handleCoachQuestion(q)}
-                                            >
-                                                {q}
-                                            </button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            {/* Chat itself */}
+                            {/* Chat itself - now takes most of the space */}
                             <div className="card chat-container">
                                 <div className="chat-header">
                                     <div className="chat-header-content">
@@ -494,6 +478,25 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                             )}
                                         </button>
                                     </div>
+                                </div>
+                            </div>
+                            
+                            {/* Coach questions panel - now at bottom */}
+                            <div className="coach-questions-bottom">
+                                <div className="quick-questions-header">
+                                    <span className="quick-questions-title">Quick Questions:</span>
+                                </div>
+                                <div className="coach-questions-horizontal">
+                                    {coachQuestions.map((q, idx) => (
+                                        <button
+                                            key={idx}
+                                            className="coach-question-pill"
+                                            onClick={() => handleCoachQuestion(q)}
+                                            disabled={isChatLoading}
+                                        >
+                                            {q}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         </div>
