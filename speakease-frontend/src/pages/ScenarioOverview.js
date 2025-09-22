@@ -136,13 +136,6 @@ const ScenarioOverview = ({ isDarkMode }) => {
         value: Math.round(value.score || 0)
     })).filter(item => item.value > 0); // Filter out analyzers with 0 score
 
-    // Debug logging to see analyzer categorization
-    console.log('Available analyzers:', Object.keys(analyzers));
-    Object.keys(analyzers).forEach(key => {
-        console.log(`${key} -> ${categorizeAnalyzer(key)}`);
-    });
-    console.log('Performance data:', performanceData);
-
     const tips = [
         "Focus on your verbal clarity and reduce filler words.",
         "Try maintaining eye contact for 3-5 seconds before looking away.",
