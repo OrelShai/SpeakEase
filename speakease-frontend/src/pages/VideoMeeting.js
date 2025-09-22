@@ -25,7 +25,6 @@ const VideoTraining = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [scenarioId, setScenarioId] = useState(location.state?.scenarioId || null);
-  console.log("Scenario ID:", scenarioId);
   
   // --- Questions state ---
   const questionsData = location.state?.questions || [{ question_text: 'Tell me about yourself briefly (up to one minute).', expected_duration: 60 }];
@@ -41,10 +40,6 @@ const VideoTraining = () => {
   };
   
   const [question, setQuestion] = useState(getCurrentQuestionText(0));
-  
-  console.log("Questions received:", questionsData);
-  console.log("Current question index:", currentQuestionIndex);
-  console.log("Current question:", question);
   
   // --- Recording state ---
   const [status, setStatus] = useState('idle'); // idle | recording | paused | stopped | uploading | sent
@@ -64,6 +59,19 @@ const VideoTraining = () => {
   const [questionIdx, setQuestionIdx] = useState(0);
   const nextIdxRef = useRef(0);                  // authoritative next index
   const isSendingRef = useRef(false);            // re-entrancy guard
+
+  // Log session info once on mount
+  useEffect(() => {
+    console.log('=== Session Started ===');
+    console.log('Scenario ID:', scenarioId);
+    console.log('Session ID:', sessionIdRef.current);
+    console.log('Questions List:', questionsData.map((q, index) => ({
+      index: index + 1,
+      question: typeof q === 'string' ? q : q.question_text,
+      duration: typeof q === 'object' ? q.expected_duration : 'N/A'
+    })));
+    console.log('======================');
+  }, [scenarioId, questionsData]);
 
   // --- Auth guard ---
   useEffect(() => {
@@ -240,7 +248,17 @@ const sendRecording = async () => {
       throw new Error(`Analyze-item failed: ${analyzeRes.status} ${err.error || ''}`);
     }
     const analysisSaved = await analyzeRes.json();
-    console.log('Analyze result:', analysisSaved);
+    console.log('=== Video Analysis Results ===');
+    console.log('Question:', currentQuestionIndex + 1, '/', questionsData.length);
+    console.log('Question Text:', getCurrentQuestionText(currentQuestionIndex));
+    console.log('Analysis Details:', analysisSaved);
+    if (analysisSaved.analyzers) {
+      console.log('Analyzers Results:', analysisSaved.analyzers);
+    }
+    if (analysisSaved.performance_data) {
+      console.log('Performance Data:', analysisSaved.performance_data);
+    }
+    console.log('=============================');
     setAnalysisResults(prev => [...prev, analysisSaved]);
 
     setStatus('idle');
@@ -301,9 +319,14 @@ const handleEndCall = async () => {
       completedDoc = json.completed || null;
       aiSummary = json.sessionAiSummary; // Fixed typo and use local variable
       setSessionAiSummary(aiSummary); // Update state
-      console.log('Completed session id:', completedId);
-      console.log('Completed session doc:', completedDoc);
+      
+      console.log('=== SESSION FINALIZED ===');
+      console.log('Completed Session ID:', completedId);
+      console.log('Total Questions Answered:', analysisResults.length);
+      console.log('Final Session Document:', completedDoc);
       console.log('AI Summary:', aiSummary);
+      console.log('All Analysis Results:', analysisResults);
+      console.log('========================');
     } else {
       const err = await res.json().catch(() => ({}));
       console.warn('Finalize failed:', res.status, err);
