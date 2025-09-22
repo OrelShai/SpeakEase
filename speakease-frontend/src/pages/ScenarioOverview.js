@@ -39,13 +39,16 @@ const ScenarioOverview = ({ isDarkMode }) => {
     const scenarioName = location.state?.scenarioName || "Default Scenario";
     const analysisResults = location.state?.analysisResults || [];
     const categorizeAnalyzer = (key) => {
-        // Verbal category: language_quality, speech_style, grammar_ml
+        // Skip Text To Speech analyzer (formerly Language Quality) as it's only for transcription
+        if (key.includes('language_quality') || key.includes('text_to_speech')) {
+            return null; // Don't categorize this analyzer
+        }
+        
+        // Verbal category: speech_style, grammar_ml
         if (
-            key.includes('language_quality') ||
             key.includes('speech_style') ||
             key.includes('grammar_ml') ||
             key.includes('grammar') ||
-            key.includes('language') ||
             key.includes('speech') ||
             key.includes('clarity') ||
             key.includes('pace') ||
@@ -105,6 +108,11 @@ const ScenarioOverview = ({ isDarkMode }) => {
         Object.entries(analyzers).forEach(([key, value]) => {
             const analyzer = categorizeAnalyzer(key);
             
+            // Skip analyzers that return null (like Text To Speech)
+            if (analyzer === null) {
+                return;
+            }
+            
             // Map UI category names to analyzer categories
             const categoryMapping = {
                 'verbal': 'verbal',
@@ -115,8 +123,7 @@ const ScenarioOverview = ({ isDarkMode }) => {
             if (categoryMapping[categoryName] === analyzer) {
                 categoryAnalyzers.push({
                     name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-                    score: Math.round(value.score || 0),
-                    change: 0
+                    score: Math.round(value.score || 0)
                 });
             }
         });
@@ -131,10 +138,13 @@ const ScenarioOverview = ({ isDarkMode }) => {
         interaction: getAnalyzersForCategory('interaction')
     };
 
-    const pieData = Object.entries(analyzers).map(([key, value]) => ({
-        name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-        value: Math.round(value.score || 0)
-    })).filter(item => item.value > 0); // Filter out analyzers with 0 score
+    const pieData = Object.entries(analyzers)
+        .filter(([key, value]) => categorizeAnalyzer(key) !== null) // Filter out Text To Speech
+        .map(([key, value]) => ({
+            name: key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+            value: Math.round(value.score || 0)
+        }))
+        .filter(item => item.value > 0); // Filter out analyzers with 0 score
 
     const tips = [
         "Focus on your verbal clarity and reduce filler words.",
@@ -375,13 +385,6 @@ const ScenarioOverview = ({ isDarkMode }) => {
                                                     <span className="metric-name">{metric.name}</span>
                                                     <div className="metric-value">
                                                         <span className="metric-score">{Math.round(metric.score)}%</span>
-                                                        <span className={
-                                                            metric.change > 0 ? 'change-positive' :
-                                                                metric.change < 0 ? 'change-negative' :
-                                                                    'change-neutral'
-                                                        }>
-                                                            {metric.change > 0 ? `+${metric.change}%` : `${metric.change}%`}
-                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div className="progress-bar-container">
