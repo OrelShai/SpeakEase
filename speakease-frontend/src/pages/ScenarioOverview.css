@@ -1,5 +1,18 @@
 /* ========== GENERAL STYLES ========== */
 
+@font-face {
+  font-family: 'NotoSerif';
+  src: url('./fonts/NotoSerif-VariableFont_wdth\,wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+body {
+
+  font-family: 'NotoSerif', sans-serif;
+
+}
+
 .scenario-content {
     overflow-y: auto; /* scroling bar */
   }

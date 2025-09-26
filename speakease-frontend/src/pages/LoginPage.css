@@ -1,311 +1,259 @@
-/* LoginPage.css */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
+@font-face {
+  font-family: 'SourGummy';
+  src: url('./fonts/SourGummy-VariableFont_wdth,wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
 }
 
+body {
+
+  font-family: 'SourGummy', sans-serif;
+
+}
 .login-container {
   display: flex;
-  width: 200%;
-  height: 100vh;
-  background-color: transparent;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.login-box {
-  flex: 1;
-  padding: 40px;
-}
-
-h1 {
-  font-size: 2rem;
+  justify-content: flex-end; /* הכל לימין */
+  align-items: center;
+  gap: 4rem;
+  width: 130vw;
+  height: 90vh;
   margin: 0;
-  color: #333;
+  padding: 0 3rem 0 0; /* ריווח מהשוליים הימניים */
+  background: #f8f9fa;
+  box-sizing: border-box;
 }
 
-h2 {
-  font-size: 1.5rem;
-  margin-top: 10px;
-  color: #555;
+.login-view {
+  flex: 1 1 420px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* גם התוכן בתוך הטופס לימין */
 }
 
-p {
-  margin: 10px 0;
-  color: #777;
+.login-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 0;
+  transition: box-shadow 0.3s;
+  align-items: center; /* כל רכיבי הטופס לימין */
+}
+
+.login-card:hover {
+  box-shadow: 0 8px 25px rgba(59,130,246,0.15);
+}
+
+.login-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  color: #6b7280;
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 .input-group {
-  margin-bottom: 20px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 label {
-  display: block;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  color: #555;
+  font-size: 6rem;
+  color: #6b7280;
+  font-weight: 500;
+  text-align: right;
 }
 
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   font-size: 1rem;
+  background: #f9fafb;
+  transition: border-color 0.2s;
+  text-align: left;
+  width: 100%; /* מרחיב את השדה */
+  min-width: 400px; /* אפשר לשנות לפי הצורך */
+  max-width: 1000px; /* אפשר לשנות לפי הצורך */
 }
 
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
+input:focus {
+  border-color: #3b82f6;
+  outline: none;
 }
 
-.options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.forgot-password {
-  color: #007BFF;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
 
 .login-button {
   width: 100%;
-  padding: 10px;
-  background-color: #007BFF;
+  padding: 0.75rem 0;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+  transition: background 0.3s, box-shadow 0.3s;
+  text-align: center;
 }
 
 .login-button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.4);
 }
 
 .social-login {
-  text-align: center;
-  margin-top: 20px;
+  text-align: right;
+  margin-top: 1rem;
 }
 
-.social-login .social-icons {
+.social-icons {
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
-.social-login .social-icons button {
+.social-icons button {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
   border-radius: 50%;
+  transition: box-shadow 0.2s;
 }
 
-.social-login .social-icons img {
-  width: 40px;
-  height: 40px;
+.social-icons button:hover {
+  box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+}
+
+.social-icons img {
+  width: 36px;
+  height: 36px;
 }
 
 .register {
-  text-align: center;
-  margin-top: 20px;
-  color: #555;
+  text-align: right;
+  margin-top: 1.5rem;
+  color: #6b7280;
+  font-size: 1rem;
 }
 
 .register a {
-  color: #007BFF;
+  color: #3b82f6;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .register a:hover {
   text-decoration: underline;
 }
 
-.illustration {
-  flex: 1;
+.login-image {
+  flex: 1 1 500px;
+  max-width: 500px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  padding: 20px;
 }
 
-.illustration img {
-  max-width: 100%;
-  height: auto;
+.login-image img {
+  width: 100%;
 }
 
-/* Dark mode styles */
+/* מצב כהה */
 .dark-mode body {
-  background-color: #222;
-  color: #fff;
+  background-color: #1e293b;
 }
 
-.dark-mode .login-box {
-  background-color: #333;
+.dark-mode .login-card {
+  background-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(96,165,250,0.2);
 }
 
-.dark-mode h1 {
-  color: #fff;
+.dark-mode .login-title {
+  color: #f8fafc;
 }
 
-.dark-mode h2 {
-  color: #eee;
-}
-
-.dark-mode p {
-  color: #ccc;
+.dark-mode .login-subtitle,
+.dark-mode .register {
+  color: #94a3b8;
 }
 
 .dark-mode label {
-  color: #ddd;
+  color: #94a3b8;
 }
 
 .dark-mode input[type="text"],
 .dark-mode input[type="password"],
 .dark-mode input[type="email"] {
-  background-color: #444;
-  border-color: #555;
-  color: #fff;
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #f8fafc;
+}
+
+.dark-mode input:focus {
+  border-color: #60a5fa;
 }
 
 .dark-mode .forgot-password {
-  color: #4da3ff;
+  color: #60a5fa;
 }
 
 .dark-mode .login-button {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #1e40af, #1d4ed8);
 }
 
 .dark-mode .login-button:hover {
-  background-color: #0069d9;
-}
-
-.dark-mode .register {
-  color: #ccc;
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
 }
 
 .dark-mode .register a {
-  color: #4da3ff;
+  color: #60a5fa;
 }
 
-/* Make the illustration darker in dark mode */
-.dark-mode .illustration {
-  position: relative;
-  background-color: #ffffff;
+@media (max-width: 800px) {
+  .login-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 0.5rem;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .login-image {
+    max-width: 100%;
+    justify-content: flex-end;
+  }
+  .login-image img {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .login-view {
+    align-items: flex-end;
+  }
 }
 
-.dark-mode .illustration::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(30, 30, 30, 0.7);
-  z-index: 1;
-}
-
-.dark-mode .illustration img {
-  position: relative;
-  z-index: 2;
-  filter: brightness(0.85);
-  opacity: 0.95;
-}
-
-/* Style checkbox for dark mode */
-.dark-mode .checkbox-wrapper {
-  color: #ccc;
-}
-
-.dark-mode .checkbox-wrapper input {
-  accent-color: #0056b3;
-}
-
-/* Add popup styles - match CustomizeScenario popup */
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease-out;
-}
-
-.popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.popup-message {
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-
-.popup-close {
-  padding: 8px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.popup-close:hover {
-  background-color: #0056b3;
-}
-
-/* Dark mode popup styles */
-.dark-mode .popup-content {
-  background-color: #333;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-}
-
-.dark-mode .popup-message {
-  color: #eee;
-}
-
-.dark-mode .popup-close {
-  background-color: #0056b3;
-}
-
-.dark-mode .popup-close:hover {
-  background-color: #0069d9;
+@media (max-width: 600px) {
+  .login-card {
+    padding: 1.5rem 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .login-title {
+    font-size: 1.5rem;
+    }
 }

@@ -1,4 +1,17 @@
 /* Base styles (light mode) and location */
+
+@font-face {
+  font-family: 'NotoSerif';
+  src: url('./fonts/NotoSerif-VariableFont_wdth\,wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+body {
+
+  font-family: 'NotoSerif', sans-serif;
+
+}
 .video-meeting-container {
   display: flex;
   flex-direction: column;

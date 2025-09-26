@@ -4,10 +4,23 @@
   /* Include padding and border in element's total width and height */
 }
 
+@font-face {
+  font-family: 'NotoSerif';
+  src: url('./fonts/NotoSerif-VariableFont_wdth\,wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+body {
+
+  font-family: 'NotoSerif', sans-serif;
+
+}
+
 /* Body & HTML - No fixed height */
 html,
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'NotoSerif', sans-serif;
   background-color: #f9f9f9;
   height: auto;
 }
