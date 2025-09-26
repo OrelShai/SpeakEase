@@ -7,38 +7,40 @@
   font-style: normal;
 }
 
-body {
 
-  font-family: 'NotoSerif', sans-serif;
-
-}
 
 body {
     font-family: 'NotoSerif', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
 }
 
 /* Main Container */
 .register-container {
-    display: flex;
-    width: 200%;
-    height: 100vh;
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 0;
+  display: flex;
+  justify-content: center;   
+  align-items: center;
+  gap: 4rem;
+  width: 130vw;
+  height: 90vh;
+  margin: 0 auto;
+  padding: 0 0 0 43rem; /* ריווח מהשוליים הימניים */
+  background: #f8f9fa;
+  box-sizing: border-box;
 }
 
 /* Register Box */
 .register-box {
-    flex: 1;
-    padding: 40px;
+background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0;
+  transition: box-shadow 0.3s;
+  align-items: center; /* כל רכיבי הטופס לימין */
 }
 
 /* Titles */
@@ -62,12 +64,17 @@ p {
 /* Input Groups */
 .input-group {
     margin-bottom: 20px;
+     max-width: 350px;
+    width: 100%;
+    margin: 0 auto 20px auto;
+      gap: 0.5rem;
+
 }
 
 label {
     display: block;
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    font-size: 2rem;
+    margin-bottom: 2px;
     color: #555;
 }
 
@@ -96,30 +103,36 @@ input[type="password"] {
 
 /* Register Button */
 .register-button {
-    width: 100%;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
+   width: 100%;
+  padding: 0.75rem 0;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+  transition: background 0.3s, box-shadow 0.3s;
+  text-align: center;
 }
 
 .register-button:hover {
     background-color: #333;
+    box-shadow: 0 0 16px 2px #3b82f6, 0 4px 15px rgba(59,130,246,0.3);
+    transition: box-shadow 0.3s, background 0.3s;
 }
 
 /* Login Link */
 .login-link {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 0.9rem;
     color: #555;
 }
 
 .login-link a {
-    color: black;
+    color: #60a5fa;
     text-decoration: none;
 }
 
@@ -133,10 +146,37 @@ input[type="password"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 2rem 0.5rem;
 }
 
 .illustration img {
     max-width: 100%;
     height: auto;
 }
+/* Dark Mode Styles */
+
+.dark-mode input:focus {
+  border-color: #60a5fa;
+}
+
+
+.dark-mode .register-button:hover {
+    box-shadow: 0 0 20px 4px #60a5fa, 0 4px 15px rgba(59,130,246,0.4);
+    background: linear-gradient(135deg, #1d4ed8, #1e3a8a) !important;
+    transition: box-shadow 0.3s, background 0.3s;
+}
+.dark-mode .illustration img {
+
+    background-color: #2b2b2c !important;
+}
+
+.dark-mode .register-container {
+    background-color: #2b2b2c !important;
+}
+
+.dark-mode .register-box {
+    background-color: #2b2b2c !important;
+    box-shadow: 0 2px 8px rgba(96,165,250,0.5);
+    color: #ddd;
+}
+

@@ -52,7 +52,6 @@ const RegisterPage = () => {
   return (
     <div className="register-container">
       <div className="register-box">
-        <h1>Welcome!</h1>
         <h2>Sign up to SpeakEase</h2>
         <p>Improve your performance</p>
 
