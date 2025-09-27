@@ -299,6 +299,8 @@ body {
   padding: 6px 12px;              /* smaller pills */
   font-size: 0.9rem;              /* smaller text */
   border-radius: 9999px;
+    font-family: 'NotoSerif', sans-serif;
+
 }
 
 /* End-call can be slightly wider for emphasis */
