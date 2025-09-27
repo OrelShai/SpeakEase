@@ -110,6 +110,8 @@ input:focus {
   box-shadow: 0 4px 15px rgba(59,130,246,0.3);
   transition: background 0.3s, box-shadow 0.3s;
   text-align: center;
+      font-family: 'NotoSerif', serif;
+
 }
 
 .login-button:hover {

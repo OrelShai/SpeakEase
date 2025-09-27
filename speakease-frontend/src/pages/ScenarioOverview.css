@@ -15,8 +15,12 @@ body {
 
 .scenario-content {
     overflow-y: auto; /* scroling bar */
-  }
+      font-family: 'NotoSerif', sans-serif;
 
+  }
+.tab-container .tab-button{
+  font-family: 'NotoSerif', sans-serif;
+}
 /* Header styling similar to VideoTraining */
 .page-header {
   background-color: #fff;
@@ -57,6 +61,12 @@ body {
   grid-template-columns: 1fr;
   gap: 2rem; /* Increase gap between columns */
   flex: 1;
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+.scenario-content {
+  font-family: 'NotoSerif', sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -71,6 +81,8 @@ body {
   flex-direction: column;
   gap: 1rem;
   position: relative;
+    font-family: 'NotoSerif', sans-serif;
+
 }
 
 /* Right column with chat */
@@ -224,6 +236,8 @@ body {
   display: flex;
   border-bottom: 1px solid #e5e7eb;
   margin-bottom: 1rem;
+  font-family: 'NotoSerif', sans-serif;
+
 }
 
 
@@ -233,6 +247,7 @@ body {
   border: none;
   color: #6b7280;
   cursor: pointer;
+  
   
 }
 
@@ -261,6 +276,8 @@ body {
   padding-bottom: 1rem;  /* Add padding at bottom */
   overflow-y: auto;      /* Allow scrolling if needed */
   max-height: 60vh;      /* Limit height to allow scrolling */
+    font-family: 'NotoSerif', sans-serif;
+
 }
 
 .metric-item {
@@ -1214,6 +1231,8 @@ body {
   height: 300px;       
   width: 100%;
   display: block;
+    font-family: 'NotoSerif', sans-serif;
+
 }
 
 .coach-questions-panel h3 {
@@ -1246,7 +1265,6 @@ body {
   font-weight: 500;
   cursor: pointer;
   height: auto;
-
   transition: background 0.2s, transform 0.2s;
   box-shadow: 0 1px 2px rgba(0,0,0,0.06);
   width: 100%;
@@ -1254,10 +1272,17 @@ body {
   min-height: 32px;
 }
 
+.coach-question-pill {
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
 .coach-question-btn:hover,
 .coach-question-btn:focus {
   background-color: #1d4ed8;
   transform: translateY(-1px);
+    font-family: 'NotoSerif', sans-serif;
+
 }
 
 .dark-mode .coach-questions-panel {

@@ -1,5 +1,7 @@
 // src/pages/QuestionPanel.jsx
 import React from "react";
+import "./QuestionPanel.css";
+
 
 /**
  * Small sticky question panel shown on the right side of the meeting screen.
