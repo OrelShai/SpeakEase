@@ -206,9 +206,10 @@ const getUserProfile = async () => {
   }
 };
 
-const updateUserProfile = async (username, userData) => {
+const updateUserProfile = async (userData) => {
   try {
-    const response = await apiRequest(`/users/${username}`, {
+    // Use /users/profile endpoint instead of parametrized route
+    const response = await apiRequest('/users/profile', {
       method: 'PUT',
       body: JSON.stringify(userData)
     });
@@ -231,6 +232,7 @@ const updateUserProfile = async (username, userData) => {
     return { success: false, error: "Network or server error" };
   }
 };
+
 
 // Scenario Management
 const createCustomScenario = async (scenarioData) => {
