@@ -1,0 +1,45 @@
+# === Fillers (hesitation sounds) ===
+um
+umm
+uh
+uhh
+er
+erm
+hmm
+
+# === Common discourse fillers (casual speech) ===
+like
+you know
+I mean
+well
+anyway
+okay so
+alright
+so yeah
+so like
+right?
+yeah so
+yeah like
+
+# === Hedges (softening / uncertainty) ===
+I guess
+I think
+I feel like
+sort of
+kinda
+maybe
+perhaps
+
+# === Weak emphasis / verbosity ===
+basically
+actually
+literally
+to be honest
+honestly
+
+# === Slang / vague terms ===
+whatever
+stuff
+things
+or something
+blah blah

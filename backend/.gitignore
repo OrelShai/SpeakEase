@@ -1,0 +1,22 @@
+node_modules/
+package-lock.json
+package.json
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# JetBrains / PyCharm
+.idea/
+
+# exclude virtual envirment 
+.venv/
+venv/
+.venv311/
+venv311/
+
+
+
+Video_Meeting_Controller/uploaded_videos
+!/uploads/.gitkeep

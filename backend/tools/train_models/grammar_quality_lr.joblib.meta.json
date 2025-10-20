@@ -1,0 +1,31 @@
+{
+  "language": "en-US",
+  "feature_keys": [
+    "word_count",
+    "char_count",
+    "type_token_ratio",
+    "avg_word_len",
+    "mean_sent_len",
+    "stdev_sent_len",
+    "error_rate",
+    "fillers_per_100w"
+  ],
+  "version": "1.0.1",
+  "train_csv": "/Users/avigailerez/SpeakEase-backend-6/tools/data/grammar_quality_labeled.csv",
+  "mode": "full",
+  "auc": 0.9222222222222222,
+  "confusion_matrix": [
+    [
+      9,
+      1
+    ],
+    [
+      1,
+      8
+    ]
+  ],
+  "report": "              precision    recall  f1-score   support\n\n           0      0.900     0.900     0.900        10\n           1      0.889     0.889     0.889         9\n\n    accuracy                          0.895        19\n   macro avg      0.894     0.894     0.894        19\nweighted avg      0.895     0.895     0.895        19\n",
+  "best_params": {
+    "lr__C": 2.0
+  }
+}

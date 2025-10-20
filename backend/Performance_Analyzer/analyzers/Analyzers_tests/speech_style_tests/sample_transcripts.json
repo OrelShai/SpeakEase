@@ -1,0 +1,20 @@
+{
+  "title": "Tell me about yourself - 1 minute answers",
+  "transcripts": [
+    {
+      "id": "clean_high",
+      "label_hint": "good",
+      "text": "Hi, I’m Alex. I’m a product-minded software engineer with five years of experience building customer-facing tools. I enjoy turning fuzzy requirements into clear, reliable features and measuring impact with data. Recently, I led a small team that shipped a workflow automation feature that reduced support tickets by thirty percent. I collaborate closely with design and support, and I’m comfortable presenting tradeoffs to non-technical stakeholders. Outside of work, I mentor junior developers and contribute to documentation, because clarity helps everyone move faster. I’m now looking for a role where I can own end-to-end delivery, mentor others, and keep learning from strong teammates."
+    },
+    {
+      "id": "casual_mid",
+      "label_hint": "casual",
+      "text": "Well, I mean, I’m kinda a full-stack developer, you know, and I like working on stuff that, like, actually helps people. So yeah, I started in support and, you know, I guess that made me focus on real problems. I’m basically the person who’s like, “okay so what’s the simplest way to ship this,” right? Anyway, I think I’m pretty collaborative, and I feel like I learn fast. Maybe I’m not the most formal speaker, but I literally care a lot about users. So yeah, over the last year I sort of took on a project that was, like, messy, and we got it working. Honestly, I’m just looking for a place where I can grow and contribute, you know?"
+    },
+    {
+      "id": "toxic_low",
+      "label_hint": "toxic",
+      "text": "I’m a backend engineer who likes owning hard problems. But I’ve also dealt with teammates who slow everything down with pointless drama. I don’t sugarcoat it: if someone ships broken code and blames others, that’s dumb and I’ll say it. I’ve had to clean up a lot of crap; at my last job I fixed a system that was a total mess. When people act like heroes and ignore tests, it’s bullshit. I’m results-driven, and I don’t have patience for losers who won’t learn. I push for clear standards, solid reviews, and real accountability so the work doesn’t turn into a shitshow. If you want someone who ships and doesn’t tolerate asshole behavior, that’s me."
+    }
+  ]
+}

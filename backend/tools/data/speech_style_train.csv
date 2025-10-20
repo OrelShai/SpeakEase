@@ -1,0 +1,21 @@
+text,label
+"Hello, how are you doing today?",polite
+"Good morning, I hope you’re having a nice day.",polite
+"Could you please help me with this?",polite
+"Thank you so much for your time.",polite
+"I really appreciate your effort.",polite
+"That was very kind of you.",polite
+"Excuse me, may I ask a question?",polite
+"I would be grateful if you could explain this.",polite
+"Your help means a lot to me.",polite
+"It’s a pleasure to meet you.",polite
+"Shut up and stop talking!",toxic
+"You’re so stupid, I can’t believe it.",toxic
+"That was the dumbest thing I’ve ever heard.",toxic
+"Get lost and don’t come back!",toxic
+"You are a complete failure.",toxic
+"Nobody wants to listen to your nonsense.",toxic
+"You’re such an idiot.",toxic
+"I don’t care about you, just go away.",toxic
+"You’re worthless.",toxic
+"This is garbage, and so are you.",toxic
