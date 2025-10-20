@@ -1,0 +1,721 @@
+/* Reset some basic elements */
+* {
+  box-sizing: border-box;
+  /* Include padding and border in element's total width and height */
+}
+
+@font-face {
+  font-family: 'NotoSerif';
+  src: url('./fonts/NotoSerif-VariableFont_wdth\,wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+body {
+
+  font-family: 'NotoSerif', sans-serif;
+
+}
+
+/* Body & HTML - No fixed height */
+html,
+body {
+  font-family: 'NotoSerif', sans-serif;
+  background-color: #f9f9f9;
+  height: auto;
+}
+
+/* Dark mode styles for Body & HTML */
+.dark-mode html,
+.dark-mode body {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.homepage {
+  width: 200%;
+}
+
+.dark-mode .homepage {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+/* ✅ עיצוב באנר קבלת פנים */
+.welcome-banner {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 12px 0;
+  margin: 10px auto;
+  width: 80%;
+  border-radius: 8px;
+  animation: fadeIn 4s ease-in-out;
+}
+
+/* ✅ אנימציה עדינה */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ========== HERO SECTION (the top picture and text ========== */
+.hero {
+  position: relative;
+  min-height: 60vh;
+  background: url("/public/images/woman_and_robot.png") center center / cover no-repeat;
+}
+
+.hero-content {
+
+  /* Put the lets prepare for the future text on the bottom left */
+  position: absolute;
+  bottom: 0px;
+  /* distance from bottom */
+  left: 20px;
+  /* distance from left */
+  text-align: left;
+  /* make sure text is aligned left */
+  z-index: 1;
+}
+
+.hero-content h1 {
+  /* Style the text */
+  font: 1rem 'NotoSerif', serif;
+  font-size: 3rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #f9f9f9;
+  }
+
+/* ========== SCENARIOS SECTION ========== */
+.scenarios {
+  background-color: #fff;
+  padding: 40px 20px;
+}
+
+/* Dark mode style for scenarios */
+.dark-mode .scenarios {
+  background-color: #333; /* Changed from #1e1e1e to #333 to match contact section */
+}
+
+.dark-mode .scenarios h2 {
+  color: #fff;
+}
+
+.scenario-grid {
+  
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.scenario-button {
+  
+  text-align: center;
+  background-color: #fafafa;
+  border-radius: 6px;
+  padding: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Add cursor pointer to indicate it's clickable */
+}
+
+.scenario-button img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.scenario-button p {
+  font: 1rem 'NotoSerif', serif;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+  font-size: large;
+}
+
+/* Add hover styles for scenario buttons */
+.scenario-button:hover {
+  background-color: #e0e0e0; /* Light gray background on hover for light mode */
+  transition: background-color 0.3s ease;
+}
+
+/* Ensure text remains visible on hover */
+.scenario-button:hover p {
+  color: #333; /* Keep text dark on hover in light mode */
+}
+
+/* Dark mode hover styles */
+.dark-mode .scenario-button:hover {
+  background-color: #444; /* Darker gray for dark mode hover */
+}
+
+.dark-mode .scenario-button:hover p {
+  color: #fff; /* Keep text white on hover in dark mode */
+}
+
+/* ========== DARK BAR ========== */
+.dark-bar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dark-mode .dark-bar {
+  background-color: #171a38;
+}
+
+.dark-bar p {
+  margin: 0;
+  margin-bottom: 5px;
+  flex: 1 1 auto;
+  color: #fff; /* Set text color to white */
+}
+
+.dark-bar p a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Anhover effect for better UX */
+.dark-bar p a:hover {
+  color: #cccccc;
+}
+
+.dark-bar-buttons {
+  flex-shrink: 0;
+  margin-left: auto; /* This will push the buttons to the right */
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.dark-bar-buttons .deny-btn,
+.dark-bar-buttons .accept-btn {
+  background: #555;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dark-bar-buttons .accept-btn {
+  background: #007BFF;
+}
+
+/* ========== GUIDANCE SECTION ========== */
+.guidance {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dark-mode .guidance {
+  background-color: #1e1e1e;
+}
+
+.guidance h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.dark-mode .guidance h2 {
+  color: #fff;
+}
+
+.trainers {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.trainer {
+  background-color: #fff;
+  padding: 20px;
+  width: 220px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.trainer img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.trainer-name {
+  font-weight: bold;
+  margin: 10px 0 5px 0;
+}
+
+.dark-mode .trainer-name {
+  color: #fff;
+}
+
+/* ========== TESTIMONIALS SECTION ========== */
+.testimonials {
+  padding: 40px 20px;
+  background-color: #f2f2f2;
+  text-align: center; /* Center all text in the testimonials section */
+}
+
+.dark-mode .testimonials {
+  background-color: #333; /* Changed from #1e1e1e to #333 to match contact section */
+}
+
+.testimonials h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.testimonial p {
+  margin-bottom: 15px;
+}
+
+.dark-mode .testimonials h2 {
+  color: #fff;
+}
+
+.dark-mode .testimonial p {
+  color: #fff;
+}
+
+.testimonial-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.testimonial {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.testimonial-author {
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* ========== ROBOT SECTION ========== */
+.robot-section {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #fff;
+}
+
+.robot-section img {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+}
+
+/* ========== FAQ SECTION ========== */
+.faq {
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.dark-mode .faq {
+  background-color: #1e1e1e;
+}
+
+.faq h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dark-mode .faq h2 {
+  color: #fff;
+}
+
+/* FAQ section styling */
+.faq-item {
+  max-width: 800px;
+  margin: 0 auto 10px auto;
+  background-color: #fff;
+  padding: 20px;  /* Increased padding for more space */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .faq-item {
+  background-color: #333;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.dark-mode .faq-icon {
+  color: #fff;
+}
+
+.faq-answer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  text-align: left;
+}
+
+.dark-mode .faq-answer {
+  border-top: 1px solid #444;
+}
+
+.faq-item.expanded {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .faq-item.expanded {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.faq-item p {
+  margin: 0;
+}
+
+/* Make the question text white in dark mode */
+.dark-mode .faq-question p {
+  color: #fff;
+}
+
+.faq-answer p {
+  line-height: 1.6;
+  color: #666;
+}
+
+.dark-mode .faq-answer p {
+  color: #ccc;
+}
+
+/* ========== CONTACT SECTION ========== */
+.contact {
+  background-color: #0056b3;
+  color: #fff;
+  padding: 40px 20px;
+}
+
+.dark-mode .contact {
+  background-color: #333; /* Changed from #1e1e1e to #333 for a gray color */
+}
+
+.contact-content {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.contact-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.contact-text h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  text-align: left; /* Align text to the left */
+}
+
+.contact-text p {
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: left; /* Align text to the left */
+}
+
+.contact-text form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align all form items to the left */
+}
+
+.contact-text input,
+.contact-text textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 90%;
+  max-width: 400px;
+}
+
+/* Dark mode form fields */
+.dark-mode .contact-text input,
+.dark-mode .contact-text textarea {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.dark-mode .contact-text input::placeholder,
+.dark-mode .contact-text textarea::placeholder {
+  color: #aaa;
+}
+
+.contact-text button {
+  background-color: #fff;
+  color: #0056b3;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-top: 10px;
+  width: 90%;           /* Match the width of textarea */
+  max-width: 400px;     /* Match the max-width of textarea */
+  font: 1rem 'NotoSerif', serif;
+
+}
+
+/* Update dark mode button styles to maintain the width */
+.dark-mode .contact-text button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  width: 90%;           /* Ensure it's also applied in dark mode */
+  max-width: 400px;     /* Ensure it's also applied in dark mode */
+}
+
+.contact-images {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.contact-images img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Make the form label text white in dark mode */
+.dark-mode .contact-text label {
+  color: #fff;
+}
+
+/* Style checkbox in dark mode */
+.dark-mode .contact-text input[type="checkbox"] {
+  accent-color: #444;
+  margin-right: 5px;
+}
+
+/* Ensure input placeholder text is visible in dark mode */
+.dark-mode .contact-text input::placeholder,
+.dark-mode .contact-text textarea::placeholder {
+  color: #aaa;
+}
+
+/* Style inputs and textarea in dark mode */
+.dark-mode .contact-text input,
+.dark-mode .contact-text textarea {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+/* Style submit button in dark mode */
+.dark-mode .contact-text button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.dark-mode .contact-text button:hover {
+  background-color: #444;
+}
+
+/* Make form label text white at all times */
+.contact-text label {
+  color: #fff;
+}
+
+/* Style the checkbox */
+.contact-text input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Style placeholder text to be visible on blue background */
+.contact-text input::placeholder,
+.contact-text textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Ensure text in inputs and textarea is white on blue background */
+.contact-text input,
+.contact-text textarea {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font: 1rem 'NotoSerif', serif;
+
+}
+
+/* Style for the checkbox text specifically */
+.contact-text label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #fff;
+  text-align: left;
+  width: 90%; /* Match the width of other inputs */
+  max-width: 400px;
+  white-space: nowrap; /* Prevents text from wrapping to a new line */
+  overflow: hidden; /* Prevents content from overflowing */
+  text-overflow: ellipsis; /* Shows ellipsis (...) for overflowing text */
+  padding-left: 0; /* Remove any left padding */
+  margin-left: 0; /* Remove any left margin */
+  justify-content: flex-start; /* Align content to the start (left) */
+  font: 1rem 'NotoSerif', serif;
+
+}
+
+.contact-text input[type="checkbox"] {
+  margin-right: 10px;
+  flex-shrink: 0;
+  margin-left: 0; /* Ensure no left margin */
+  font: 1rem 'NotoSerif', serif;
+
+}
+
+/* ========== FOOTER ========== */
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.dark-mode footer {
+  background-color: #1e1e1e;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-email {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.footer-links,
+.footer-policy {
+  margin: 5px 0;
+}
+
+.footer-links a,
+.footer-policy a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 3px;
+}
+
+.footer-links a:hover,
+.footer-policy a:hover {
+  text-decoration: underline;
+}
+
+/* Additional dark mode styles for nested elements */
+.dark-mode .scenario-button {
+  background-color: #333;
+}
+
+.dark-mode .scenario-button p {
+  color: #fff;
+}
+
+.dark-mode .testimonial {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode .faq-item {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode .trainer {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-mode .scenario-modal {
+  background: #222 !important;
+  color: #fff !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.7);
+  border: 1px solid #444;
+}
+
+.dark-mode .scenario-modal h2,
+.dark-mode .scenario-modal p {
+  color: #fff !important;
+}
+
+/* דוגמה ל-QuickSetupModal במצב כהה */
+.dark-mode .quick-setup-modal,
+.dark-mode .QuickSetupModal,
+.dark-mode .quick-setup-modal-content {
+  background: #23272f !important;
+  color: #fff !important;
+  border: 1px solid #444;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.7);
+}
+
+.dark-mode .quick-setup-modal h2,
+.dark-mode .quick-setup-modal label,
+.dark-mode .quick-setup-modal p,
+.dark-mode .quick-setup-modal input,
+.dark-mode .quick-setup-modal textarea {
+  color: #fff !important;
+  background: #23272f !important;
+}
+
+.dark-mode .quick-setup-modal button {
+  background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+  color: #fff;
+  border: none;
+}
+
+.dark-mode .quick-setup-modal button:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}

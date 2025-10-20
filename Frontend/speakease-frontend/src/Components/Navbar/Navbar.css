@@ -1,0 +1,184 @@
+/* Navbar styles */
+nav {
+  justify-content: space-between;
+  /* Aligns the items to the left and right */
+  background: var(--background-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  /* Ensures the navbar is always at the top of the page */
+  z-index: 10;
+  /* Ensures the navbar is always on top */
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  cursor: pointer;
+  /* Changes the cursor to a pointer */
+  width: 200px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+
+.navbar-left {
+  display: flex;
+  /* Flexbox layout for the left section */
+  align-items: center;
+  /* Center items vertically */
+}
+
+.navbar-right {
+  display: flex;
+  /* Flexbox layout for the right section */
+  align-items: center;
+  /* Center items vertically */
+}
+
+.navbar-right button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+.login-icon {
+  margin-left: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  /* Use your primary text color variable */
+}
+
+.dark-mode-icon {
+  color: #000000;
+  /* Sun icon color for light mode */
+  background-color: #ffffff;
+  
+}
+/* Hover state for dark-mode-icon */
+.dark-mode-icon:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.login-icon{
+  color: #000000;
+  /*log in icon color for light mode */
+  background-color: #ffffff;
+}
+
+/* ========== DARK MODE ========== */
+
+.dark-mode .navbar {
+  background-color: black;
+  color: white;
+  /* other dark mode styles */
+}
+
+.dark-mode .dark-mode-icon {
+  color: #ffffff;
+  /* Moon icon color for dark mode */
+  background-color: #000000;
+}
+
+.dark-mode .login-icon {
+  color: #ffffff;
+  /* Log in icon color for dark mode */
+  background-color: #000000;
+}
+
+.logout-button {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Dark mode */
+.dark-mode .logout-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.settings-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.profile-icon {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.profile-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .profile-icon {
+  color: #ffffff;
+}
+
+.dark-mode .profile-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-icon {
+  background: none;
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.history-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .history-icon {
+  color: #ffffff;
+}
+
+.dark-mode .history-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.logout-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 22px;
+  cursor: pointer;
+}
+

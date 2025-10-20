@@ -1,0 +1,32 @@
+/* Default light mode styles */
+body {
+  background-color: white;
+  color: black;
+  /* other styles */
+}
+
+.App {
+  text-align: center;
+}
+
+.main-content {
+  padding-top: 64px; /* Adjust the value as needed */
+}
+
+/*------------ Dark mode styles------------------- */
+.dark-mode body {
+  background-color: black;
+  color: white;
+  /* other dark mode styles */
+}
+
+.dark-mode .App-header {
+  background-color: #333;
+  color: white;
+}
+
+.dark-mode .main-content {
+  background-color: #444;
+  color: white;
+}
+

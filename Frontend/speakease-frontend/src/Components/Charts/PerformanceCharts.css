@@ -1,0 +1,130 @@
+/* Chart Component Styles */
+.chart-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.chart-container {
+  padding: 1.5rem;
+}
+
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #1f2937;
+  text-align: center;
+}
+
+.chart-content {
+  height: 350px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Pie chart specific styles */
+.pie-chart-grade {
+  font-size: 28px;
+  font-weight: bold;
+  fill: #1f2937;
+  transition: fill 0.3s ease;
+}
+
+.pie-chart-label {
+  font-size: 14px;
+  fill: #6b7280;
+  transition: fill 0.3s ease;
+}
+
+/* Recharts customization */
+.recharts-pie-label-text {
+  font-size: 12px;
+  font-weight: 500;
+  fill: #374151;
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 10;
+}
+
+/* Dark mode styles */
+.dark-mode .chart-card {
+  background-color: #1e293b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .chart-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .chart-title {
+  color: #f8fafc;
+}
+
+.dark-mode .pie-chart-grade {
+  fill: #f8fafc;
+}
+
+.dark-mode .pie-chart-label {
+  fill: #94a3b8;
+}
+
+.dark-mode .recharts-pie-label-text {
+  fill: #e2e8f0;
+  font-weight: 500;
+}
+
+.dark-mode .recharts-cartesian-grid-horizontal line,
+.dark-mode .recharts-cartesian-grid-vertical line {
+  stroke: #475569;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chart-content {
+    height: 280px;
+  }
+  
+  .chart-container {
+    padding: 1rem;
+  }
+  
+  .chart-title {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pie-chart-grade {
+    font-size: 24px;
+  }
+  
+  .pie-chart-label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-content {
+    height: 240px;
+  }
+  
+  .pie-chart-grade {
+    font-size: 20px;
+  }
+  
+  .recharts-pie-label-text {
+    font-size: 10px;
+  }
+}

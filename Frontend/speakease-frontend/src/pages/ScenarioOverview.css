@@ -1,0 +1,1305 @@
+/* ========== GENERAL STYLES ========== */
+
+@font-face {
+  font-family: 'NotoSerif';
+  src: url('./fonts/NotoSerif-VariableFont_wdth\,wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+body {
+
+  font-family: 'NotoSerif', sans-serif;
+
+}
+
+.scenario-content {
+    overflow-y: auto; /* scroling bar */
+      font-family: 'NotoSerif', sans-serif;
+
+  }
+.tab-container .tab-button{
+  font-family: 'NotoSerif', sans-serif;
+}
+/* Header styling similar to VideoTraining */
+.page-header {
+  background-color: #fff;
+  padding: 0.6rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .grid-layout {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.timer-display {
+    background-color: #f2f2f2; /* Light gray for timer in light mode */
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    color: #333; /* Dark text for light mode */
+    border: 1px solid #e0e0e0; /* Light border */
+    margin-left: auto
+  }
+
+/* Updated layout for 2 columns */
+.grid-layout-two-column {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem; /* Increase gap between columns */
+  flex: 1;
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+.scenario-content {
+  font-family: 'NotoSerif', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .grid-layout-two-column {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Left column with metrics and charts */
+.metrics-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+/* Right column with chat */
+.chat-column {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 150px); /* Use most of the viewport height */
+  position: relative;
+  gap: 1rem;
+}
+
+.card {
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* ========== THEME STYLES ========== */
+/* Light mode */
+.light-theme {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+/* Dark mode */
+.dark-mode .video-meeting-container {
+  background-color: #0f172a; /* Darker blue-gray background */
+  color: #e2e8f0;
+}
+
+.dark-mode .meeting-header {
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .scenario-title {
+  color: white;
+}
+
+/* Update other card and component styles */
+.dark-mode .card {
+  background-color: #1e293b; /* Slightly lighter than background */
+  border: 1px solid #334155; /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .tab-container {
+  border-bottom-color: #374151;
+}
+
+.dark-mode .tab-button {
+  color: #9ca3af;
+}
+
+.dark-mode .tab-button-active {
+  color: #60a5fa;
+  border-bottom-color: #60a5fa;
+}
+
+.dark-mode .metric-item {
+  background-color: #334155; /* Slightly lighter than card */
+  border: 1px solid #475569; /* Subtle border */
+}
+
+.dark-mode .metric-item:hover {
+  background-color: #475569;
+  transform: translateY(-1px);
+}
+
+.dark-mode .progress-bar-container {
+  background-color: #475569; /* Darker background for progress */
+}
+
+.dark-mode .chat-header {
+  background-color: #3b82f6; /* More vibrant blue */
+}
+
+.dark-mode .chat-input {
+  background-color: #1e293b; /* Darker background */
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.dark-mode .chat-input::placeholder {
+  color: #94a3b8; /* Lighter placeholder text */
+}
+
+.dark-mode .message-bubble-ai {
+  background-color: #334155; /* Match other elements */
+  border: 1px solid #475569;
+  color: #e2e8f0;
+}
+
+.dark-mode .message-bubble-user {
+  background-color: #3b82f6; /* Match header */
+  color: white;
+  border: none;
+}
+
+.dark-mode .coach-name {
+  color: #60a5fa;
+}
+
+.dark-mode .tip-container {
+  background-color: #3b82f6; /* Match other blues */
+  border: 1px solid #60a5fa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: #f8fafc; /* Very light gray/blue text for dark mode */
+}
+
+.dark-mode .tip-header p {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
+}
+
+.dark-mode .tip-title {
+  color: white;
+  font-weight: 700;
+}
+
+.dark-mode .next-tip-button {
+  background-color: white;
+  color: #3b82f6;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .next-tip-button:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.theme-toggle {
+  padding: 0.5rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
+  border: none;
+  cursor: pointer;
+}
+
+.dark-theme .theme-toggle {
+  background-color: #374151;
+  color: #fcd34d;
+}
+
+/* ========== TABS STYLES ========== */
+.tab-container {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+  font-family: 'NotoSerif', sans-serif;
+
+}
+
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  
+  
+}
+
+.tab-button-active {
+  color: #3b82f6;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.dark-theme .tab-container {
+  border-bottom-color: #4b5563;
+}
+
+.dark-theme .tab-button {
+  color: #9ca3af;
+}
+
+.dark-theme .tab-button-active {
+  color: #60a5fa;
+}
+
+/* ========== METRICS STYLES ========== */
+.metrics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 1rem;  /* Add padding at bottom */
+  overflow-y: auto;      /* Allow scrolling if needed */
+  max-height: 60vh;      /* Limit height to allow scrolling */
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+.metric-item {
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;   /* Add more space between items */
+  min-height: 80px;      /* Set minimum height to ensure space for progress bar */
+}
+
+.metric-item:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .metric-item {
+  background-color: #374151;
+}
+
+.dark-theme .metric-item:hover {
+  background-color: #4b5563;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;   /* Add more space before progress bar */
+}
+
+.metric-name {
+  font-weight: 500;
+}
+
+.metric-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-score {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.change-positive {
+  color: #10b981;
+}
+
+.change-negative {
+  color: #ef4444;
+}
+
+.change-neutral {
+  color: #6b7280;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  margin-top: 0.5rem;
+  position: relative;    /* Add positioning context */
+  display: block;        /* Force block display */
+  min-height: 0.5rem;    /* Ensure minimum height */
+  margin-bottom: 0.5rem; /* Add bottom margin for spacing */
+}
+
+.dark-theme .progress-bar-container {
+  background-color: #4b5563;
+}
+
+/* Fix the progress bar to display correctly */
+.progress-bar {
+  display: block;
+  height: 100%;
+  min-height: 0.5rem;    /* Ensure minimum height */
+  border-radius: 9999px;
+  transition: width 0.5s ease-in-out;
+  position: relative;    /* Use relative instead of absolute */
+}
+
+.progress-excellent {
+  background-color: #10b981;
+}
+
+.progress-good {
+  background-color: #3b82f6;
+}
+
+.progress-fair {
+  background-color: #f59e0b;
+}
+
+.progress-poor {
+  background-color: #ef4444;
+}
+
+/* ========== CHARTS STYLES ========== */
+.chart-container {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.chart-content {
+  height: 300px; /* Set explicit height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Make the pie chart labels more readable */
+.recharts-pie-label-text {
+  font-size: 12px;
+  font-weight: 500;
+  fill: #333333;
+}
+
+.pie-chart-grade {
+    font-size: 28px;
+    font-weight: bold;
+    fill: #333333;
+    transition: fill 0.3s ease;
+  }
+  
+  .pie-chart-label {
+    font-size: 14px;
+    fill: #666666;
+    transition: fill 0.3s ease;
+  }
+  
+  .dark-mode .pie-chart-grade {
+    fill: #e0e0e0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dark-mode .pie-chart-label {
+    fill: #a0a0a0;
+  }
+
+.dark-mode .recharts-pie-label-text {
+  fill: #f8fafc;
+  font-weight: 500;
+}
+
+.dark-mode .recharts-wrapper {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.pie-chart-card .chart-container {
+  padding: 1rem 1.5rem;
+}
+
+/* ========== CHAT STYLES ========== */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px); /* Use full viewport height minus header/margins */
+  min-height: 600px;
+  max-height: 800px;
+}
+
+/* New coach questions at bottom */
+.coach-questions-bottom {
+  margin-top: auto; /* Push to bottom */
+  padding: 0.75rem;
+  background: var(--card-background, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Don't shrink this section */
+}
+
+.quick-questions-header {
+  margin-bottom: 0.5rem;
+}
+
+.quick-questions-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.coach-questions-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.coach-question-pill {
+  padding: 0.4rem 0.8rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.coach-question-pill:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.coach-question-pill:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.coach-question-pill:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Dark mode styles for new coach questions */
+.dark-mode .coach-questions-bottom {
+  background: var(--card-background-dark, #1e293b);
+  border: 1px solid var(--border-dark, #334155);
+}
+
+.dark-mode .quick-questions-title {
+  color: var(--text-secondary-dark, #94a3b8);
+}
+
+/* Responsive styles for coach questions */
+@media (max-width: 768px) {
+  .coach-questions-horizontal {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .coach-question-pill {
+    width: 100%;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .chat-container {
+    height: calc(100vh - 250px);
+    min-height: 500px;
+  }
+  
+  .chat-messages {
+    min-height: 350px;
+    max-height: calc(100vh - 400px);
+  }
+
+  .chat-column {
+    height: calc(100vh - 200px);
+  }
+}
+
+@media (min-width: 769px) {
+  .coach-questions-horizontal {
+    justify-content: flex-start;
+  }
+  
+  .coach-question-pill {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Chat header with coach avatar styling */
+
+.chat-header {
+  padding: 1rem;
+  background-color: #1d4ed8;
+  color: white;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.chat-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.coach-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chat-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.chat-header-subtitle {
+  font-size: 0.875rem;
+  margin: 0;
+  opacity: 0.9;
+  color: #ffffff;
+}
+
+/* Dark mode adjustments */
+.dark-mode .coach-avatar {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.message-bubble-ai {
+  background-color: #f0f4ff; /* Light blue background */
+  border: 1px solid #dbeafe; /* Light blue border */
+}
+
+.message-bubble-user {
+  background-color: #f0f4ff;
+  color: #ffffff;
+}
+
+/* Coach name - better contrast */
+.coach-name {
+  color: #1d4ed8; /* Darker blue for better visibility */
+  font-weight: 600;
+}
+
+/* Input style improvements */
+.chat-input {
+  flex: 1;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
+  outline: none;
+  height: 38px;
+  font-size: 0.9375rem;
+  background-color: #f9fafb; /* Light gray background */
+}
+
+.chat-input:focus {
+  border-color: #2563eb; /* Darker blue for focus */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3); /* Match the darker blue */
+}
+
+/* Send button - match the darker blue */
+.send-button {
+  padding: 0.375rem 0.75rem;
+  background-color: #2563eb; /* Darker blue to match header */
+  color: white;
+  border: none;
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 100%;
+}
+
+.send-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(90deg); /* Rotate to point right instead of up */
+    transition: transform 0.2s ease;
+  }
+  
+  .send-button:hover .send-icon {
+    transform: rotate(90deg) translateX(1px); /* Slight movement on hover */
+  }
+
+.send-button:hover {
+  background-color: #1d4ed8; /* Even darker on hover */
+  transform: translateY(-1px);
+}
+
+/* Keep dark mode styles */
+.dark-mode .chat-header {
+  background-color: #2563eb; /* Keep the same blue in dark mode */
+}
+
+.dark-theme .chat-header {
+  background-color: #2563eb;
+}
+
+.chat-header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: white;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  min-height: 450px;
+  max-height: calc(100vh - 350px); /* Dynamic height based on viewport */
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.message-row {
+  display: flex;
+}
+
+.message-row-user {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: 90%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  word-break: break-word;
+}
+
+.dark-theme .message-bubble-ai {
+  background-color: #374151;
+}
+
+.dark-theme .message-bubble-user {
+  background-color: #2563eb;
+}
+
+.chat-input-container {
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dark-theme .chat-input-container {
+  border-top-color: #4b5563;
+}
+
+.chat-input-form {
+  display: flex;
+  align-items: stretch;   /* This ensures the button height matches the input */
+  height: 38px;           /* Explicitly set height */
+}
+
+.dark-theme .chat-input {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+/* Updated send button styles */
+.dark-mode .send-button {
+  background-color: #2563eb;
+}
+
+.dark-mode .send-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* ========== TIP SECTION STYLES ========== */
+.tip-container {
+  background-color: #3b82f6;
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 0; /* Remove top margin */
+  margin-bottom: 1rem; /* Add bottom margin */
+  width: 100%;
+  order: 4; /* Ensure it comes after the pie chart */
+}
+
+.tip-header {
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+/* Style the tip text specifically */
+.tip-header p {
+    color: #ffffff; /* Dark slate gray for better readability */
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 400;
+    max-width: 90%;
+  }
+
+.tip-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  font-size: 1.4rem;
+
+}
+
+/* Updated Next Tip button styles for better width control */
+
+.next-tip-button {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: #1e40af;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;      /* Prevent text wrapping */
+  width: auto;              /* Use auto width */
+  min-width: fit-content;   /* Ensure it fits content */
+  max-width: 120px;         /* Set maximum width */
+  font-size: 0.875rem;      /* Slightly smaller font */
+  font-weight: 500;         /* Medium weight */
+  display: inline-flex;     /* Use flexbox for better content alignment */
+  align-items: center;
+  justify-content: center;
+}
+
+.next-tip-button:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-1px); /* Add subtle lift effect on hover */
+}
+
+.next-tip-button:active {
+  transform: translateY(0);  /* Press effect */
+}
+
+/* Keep dark mode styles */
+.dark-mode .next-tip-button {
+  background-color: #f3f4f6;
+  color: #2563eb;
+}
+
+.dark-mode .next-tip-button:hover {
+  background-color: white;
+}
+
+/* Add a subtle icon to make it more compact if desired */
+.next-tip-button::after {
+  content: "→";              /* Add arrow icon */
+  margin-left: 0.25rem;      /* Small spacing */
+  font-size: 1rem;           /* Slightly larger arrow */
+}
+
+/* Responsive styles for even smaller button on mobile */
+@media (max-width: 480px) {
+  .next-tip-button {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    max-width: 100px;
+  }
+  
+  .tip-title {
+    font-size: 1rem;       /* Smaller title on mobile */
+  }
+}
+
+/* Full-width optimizations */
+@media (min-width: 1440px) {
+  .scenario-content {
+    padding: 1rem 3rem; /* More padding on very wide screens */
+  }
+  
+  .grid-layout-two-column {
+    grid-template-columns: 55% 45%; /* Give more space to metrics on wide screens */
+  }
+  
+  .metrics-column {
+    display: flex; /* Change from grid to flex */
+    flex-direction: column; /* Ensure vertical stacking */
+    gap: 1rem;
+  }
+}
+
+/* Add specific class names to ensure ordering */
+.practice-scores-card {
+  order: 1;
+  min-height: 400px;     /* Ensure minimum height */
+  overflow-y: auto;      /* Allow internal scrolling */
+}
+
+.progress-chart-card {
+  order: 2;
+}
+
+.pie-chart-card {
+  order: 3;
+  margin-bottom: 0; /* Remove bottom margin to place tip closer */
+}
+
+/* Enhance chart visibility on wider screens */
+.chart-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-container {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .scenario-content {
+    padding: 0.5rem;
+  }
+  
+  .grid-layout-two-column {
+    gap: 1rem;
+  }
+  
+  .chart-content {
+    height: 200px; 
+  }
+  
+  .chat-messages {
+    min-height: 300px;
+  }
+  
+  .tip-container {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-height: 800px) {
+  .chat-messages {
+    min-height: 250px; /* Smaller chat window on short screens */
+  }
+  
+  .chart-content {
+    height: 180px; /* Smaller charts on short screens */
+  }
+}
+
+/* Improved dark mode styles */
+
+/* Better background colors */
+.dark-mode .video-meeting-container {
+  background-color: #0f172a; /* Darker blue-gray background */
+  color: #e2e8f0;
+}
+
+/* Enhanced card styling */
+.dark-mode .card {
+  background-color: #1e293b; /* Slightly lighter than background */
+  border: 1px solid #334155; /* Subtle border */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Better header styling */
+.dark-mode .meeting-header {
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved text colors */
+.dark-mode .chart-title,
+.dark-mode .tab-button-active,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3 {
+  color: #f8fafc; /* Brighter white for headings */
+}
+
+/* Improve progress bar colors */
+.dark-mode .progress-excellent {
+  background-color: #10b981; /* Keep green */
+}
+
+.dark-mode .progress-good {
+  background-color: #3b82f6; /* Keep blue */
+}
+
+.dark-mode .progress-fair {
+  background-color: #f59e0b; /* Keep orange/amber */
+}
+
+.dark-mode .progress-poor {
+  background-color: #ef4444; /* Keep red */
+}
+
+/* Better metrics styling */
+.dark-mode .metric-item {
+  background-color: #334155; /* Slightly lighter than card */
+  border: 1px solid #475569; /* Subtle border */
+}
+
+.dark-mode .metric-item:hover {
+  background-color: #475569;
+  transform: translateY(-1px);
+}
+
+.dark-mode .progress-bar-container {
+  background-color: #475569; /* Darker background for progress */
+}
+
+/* Better chat styles */
+.dark-mode .chat-header {
+  background-color: #3b82f6; /* More vibrant blue */
+}
+
+.dark-mode .message-bubble-ai {
+  background-color: #334155; /* Match other elements */
+  border: 1px solid #475569;
+  color: #e2e8f0;
+}
+
+.dark-mode .message-bubble-user {
+  background-color: #3b82f6; /* Match header */
+  color: white;
+  border: none;
+}
+
+.dark-mode .chat-input {
+  background-color: #1e293b; /* Darker background */
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+.dark-mode .chat-input::placeholder {
+  color: #94a3b8; /* Lighter placeholder text */
+}
+
+.dark-mode .chat-input-container {
+  border-top-color: #334155;
+}
+
+/* Improved tip container */
+.dark-mode .tip-container {
+  background-color: #3b82f6; /* Match other blues */
+  border: 1px solid #60a5fa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .tip-header p {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for readability */
+}
+
+.dark-mode .tip-title {
+  color: white;
+  font-weight: 700;
+}
+
+.dark-mode .next-tip-button {
+  background-color: white;
+  color: #3b82f6;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .next-tip-button:hover {
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+/* Better recharts styling */
+.dark-mode .recharts-cartesian-grid-horizontal line,
+.dark-mode .recharts-cartesian-grid-vertical line {
+  stroke: #475569;
+}
+
+.dark-mode .recharts-pie-label-text {
+  fill: #f8fafc;
+  font-weight: 500;
+}
+
+.dark-mode .recharts-wrapper {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Add subtle transition for theme switching */
+.video-meeting-container,
+.card,
+.metric-item,
+.chat-input,
+.message-bubble {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Better scrollbar styling */
+.dark-mode *::-webkit-scrollbar {
+  width: 12px;
+}
+
+.dark-mode *::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark-mode *::-webkit-scrollbar-thumb {
+  background-color: #475569;
+  border-radius: 6px;
+  border: 3px solid #1e293b;
+}
+
+.dark-mode *::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
+}
+
+/* Add to your CustomizeScenario.css file */
+
+/* Error message styling */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  direction: rtl; /* For Hebrew text */
+}
+
+/* Voice selection container styling */
+.voice-selection-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.voice-select {
+  flex: 1;
+}
+
+.voice-sample-button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.voice-sample-button:hover {
+  background-color: #2563eb;
+}
+
+/* Textarea styling */
+.scenario-notes {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+/* Dark mode support */
+.dark-mode .error-message {
+  background-color: #4a0f0f;
+  color: #ffb4b4;
+  border: 1px solid #c62828;
+}
+
+.dark-mode .voice-sample-button {
+  background-color: #2563eb;
+}
+
+.dark-mode .voice-sample-button:hover {
+  background-color: #1d4ed8;
+}
+
+.dark-mode .scenario-notes {
+  background-color: #555;
+  color: #fff;
+  border-color: #666;
+}
+
+/* Popup styling */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+}
+
+.popup-message {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: #e53e3e;
+}
+
+.popup-close {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.popup-close:hover {
+  background-color: #2563eb;
+}
+
+.coach-questions-panel {
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  padding: 0.35rem 0.5rem;
+  margin-bottom: 1rem;  
+  max-width: 1000px;
+  font-size: 1rem;
+  min-height: unset;
+  height: 300px;       
+  width: 100%;
+  display: block;
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+.coach-questions-panel h3 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #2563eb;
+  letter-spacing: 0.01em;
+}
+
+.coach-questions-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: auto;
+  max-height: none;      /* גובה אוטומטי לפי כמות שאלות */
+  overflow-y: visible;   /* אין גלילה אם אין הרבה שאלות */
+}
+
+.coach-question-btn {
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  height: auto;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  width: 100%;
+  text-align: left;
+  min-height: 32px;
+}
+
+.coach-question-pill {
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+.coach-question-btn:hover,
+.coach-question-btn:focus {
+  background-color: #1d4ed8;
+  transform: translateY(-1px);
+    font-family: 'NotoSerif', sans-serif;
+
+}
+
+.dark-mode .coach-questions-panel {
+  background-color: #1e293b;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+}
+
+.dark-mode .coach-questions-panel h3 {
+  color: #60a5fa;
+}
+
+.dark-mode .coach-question-btn {
+  background-color: #3b82f6;
+  color: #f8fafc;
+}
+
+.dark-mode .coach-question-btn:hover,
+.dark-mode .coach-question-btn:focus {
+  background-color: #2563eb;
+}
